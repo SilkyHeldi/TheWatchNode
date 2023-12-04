@@ -3,4 +3,4 @@ layout: section
 title: Informatique
 ---
 
-[test1](/_posts/test)
+[Mon Premier Article](/_posts/test)
