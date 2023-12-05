@@ -93,6 +93,7 @@ DEPENDENCIES
   jekyll-asciidoc
   jekyll-gist
   jekyll-paginate
+  jekyll-sass-converter (= 3.0.0)
 
 BUNDLED WITH
    2.4.22
