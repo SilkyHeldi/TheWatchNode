@@ -1,0 +1,9 @@
+[submodule "git"]
+	path = git
+	url = https://github.com/Phlow/feeling-responsive.git
+[submodule "_themes/theme-jekyll"]
+	path = _themes/theme-jekyll
+	url = https://github.com/Phlow/feeling-responsive.git
+[submodule "_themes/feeling-responsive"]
+	path = _themes/feeling-responsive
+	url = https://github.com/Phlow/feeling-responsive.git
