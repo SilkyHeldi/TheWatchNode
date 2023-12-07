@@ -3,6 +3,11 @@ permalink: /about/
 title: "About"
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+Welcome to LittleSilkyFortress, where I share my firsthand IT security encounters and insights.
+As I navigate this intricate world, I will try my best to catalog and refine the various modules and CTFs (Capture the flag) I am going to practice.
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+Embarking on the journey of cybersecurity just under a year ago, my fascination ignited during a conference unraveling the aftermath of an attack on a renowned French corporation. Though much of it remained a puzzle, it was enough to awaken a sense of wonder within me.
+
+My initiation into the world of Capture The Flag (CTF) challenges commenced with HTBUniversity2022, where my team soared to an impressive 4th place globally, outshining 2500+ formidable competitor teams. This experience propelled me into the role of President at APT42, the 42Paris infosec association. Here, I delved into an array of activities – from immersive workshops to spirited CTF competitions, offering a glimpse into the expansive realm of cybersecurity.
+
+Yet, the exploration has just begun. As of November 2023, I successfully concluded my last common-core project at 42Paris, freeing me to delve deeper into the vast expanse of cybersecurity. With an unquenchable thirst for knowledge and a commitment to excellence, I am set to devote the majority of my time to intensive practice, striving to become a top-notch expert in this dynamic and ever-evolving field.
