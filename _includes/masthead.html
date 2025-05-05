@@ -7,9 +7,17 @@
         {% unless logo_path == empty %}
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
-        <a class="site-title" href="{{ '/' | relative_url }}">
+        <!-- <a class="site-title" href="{{ '/' | relative_url }}">
           {{ site.masthead_title | default: site.title }}
           {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
+        </a> -->
+        <a class="site-title glitch" href="{{ '/' | relative_url }}">
+          {% for i in (1..9) %}
+            <span class="line">{{ site.masthead_title | default: site.title }}</span>
+          {% endfor %}
+          {% if site.subtitle %}
+            <span class="site-subtitle">{{ site.subtitle }}</span>
+          {% endif %}
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
