@@ -5,8 +5,9 @@
 
 @import "minimal-mistakes/skins/neon";
 @import "minimal-mistakes/variables";
+@import "minimal-mistakes/mixins";
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
-
-// Importer ton CSS personnalisé
-@import "custom"; // Assure-toi que ce fichier est bien dans assets/css/custom.scss
+@import "minimal-mistakes/navigation";
+@import "custom"; // Custom styles and mixins

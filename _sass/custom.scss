@@ -1,13 +1,16 @@
 // custom.scss
 /* _sass/custom.scss */
 
+
+
+// NAVIGATION BAR*************************************************
 /* Cibler les liens dans la barre de navigation */
-.greedy-nav a {
-  display: block;
-  margin: 0 1rem;
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+// .greedy-nav a {
+//   display: block;
+//   margin: 0 1rem;
+//   text-decoration: none;
+//   transition: color 0.3s ease, transform 0.3s ease;
+// }
 
 /* Effet de hover sur les liens */
 // .greedy-nav a:hover {
@@ -15,10 +18,103 @@
 //   transform: scale(1.1);  /* Effet d'agrandissement */
 // }
 
-/* Si tu veux ajouter un effet de survol sous forme de surligne */
-.greedy-nav a:hover {
-  color: #1347f2;
-  // border-bottom: 2px solid #13f2ba; /* Bordure sous le lien au survol */
-  transform: scale(1.1); /* Agrandissement */
+// .greedy-nav a.glitch {
+//     position: relative;
+//     display: inline-block;
+//     font-size: 1.2em;
+//     color: #fff;
+//     text-decoration: none;
+  
+//     .line {
+//       &:not(:first-child) {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//       }
+  
+//       // Génère 8 lignes avec animations décalées
+//       @for $i from 1 through 8 {
+//         &:nth-child(#{$i}) {
+//           animation:
+//             clip 3000ms linear infinite,
+//             glitch#{$i} 500ms linear infinite;
+//         }
+//       }
+//     }
+//   }
+
+
+.glitch {
+  position: relative;
+  // color: #fff;
+  // font-size: 2rem;
+  display: inline-block;
+  line-height: 1.2; // Ajoute un peu d'espace vertical pour mieux rendre les lettres comme 'g'
+
+  .line {
+    opacity: 0;
+    &:not(:first-child) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    // Par défaut : pas d'animation
+    animation: none;
+  }
+
+  .line:first-child {
+    opacity: 1;
+    position: relative;
+  }
+
+  &:hover .line {
+    opacity: 1;
+  }
+
+  &:hover {
+    .line {
+      @for $i from 1 through 9 {
+        &:nth-child(#{$i}) {
+          animation:
+            clip 4000ms $i * -600ms linear infinite,
+            glitch#{$i} 1000ms random(2000) * -1ms linear infinite;
+        }
+
+        @keyframes glitch#{$i} {
+          0% {
+            transform: translateX(0);
+          }
+          80% {
+            transform: translateX(0);
+            color: #fff;
+          }
+          85% {
+            transform: translateX(random(10) - 5px);
+            color: #4E9A26;
+          }
+          90% {
+            transform: translateX(random(10) - 5px);
+            color: #AC1212;
+          }
+          95% {
+            transform: translateX(random(10) - 5px);
+            color: #fff;
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      }
+    }
+  }
 }
-                      
+
+@keyframes clip {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 120%, 0 120%);
+  }
+  100% {
+    clip-path: polygon(0 -20%, 100% -20%, 100% 0%, 0 0);
+  }
+}
