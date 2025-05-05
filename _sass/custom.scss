@@ -77,8 +77,8 @@
       @for $i from 1 through 9 {
         &:nth-child(#{$i}) {
           animation:
-            clip 4000ms $i * -600ms linear infinite,
-            glitch#{$i} 1000ms random(2000) * -1ms linear infinite;
+            clip 3000ms $i * -1000ms linear infinite,
+            glitch#{$i} 1000ms random(3000) * -1ms linear infinite;
         }
 
         @keyframes glitch#{$i} {
@@ -91,11 +91,11 @@
           }
           85% {
             transform: translateX(random(10) - 5px);
-            color: #4E9A26;
+            color: #43ca77;
           }
           90% {
             transform: translateX(random(10) - 5px);
-            color: #AC1212;
+            color: #dd2a7e;
           }
           95% {
             transform: translateX(random(10) - 5px);
