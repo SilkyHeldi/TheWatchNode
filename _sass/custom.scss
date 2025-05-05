@@ -77,7 +77,7 @@
       @for $i from 1 through 9 {
         &:nth-child(#{$i}) {
           animation:
-            clip 3000ms $i * -1000ms linear infinite,
+            clip 5000ms $i * -1000ms linear infinite,
             glitch#{$i} 1000ms random(3000) * -1ms linear infinite;
         }
 
