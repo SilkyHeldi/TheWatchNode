@@ -1,0 +1,128 @@
+---
+layout: archive
+---
+
+<!-- BOOT SCREEN START -->
+<style>
+  /* @keyframes pulseBackground {
+    0% {
+      background: radial-gradient(circle at center, #0b0f1a 0%, #000510 80%);
+    }
+    50% {
+      background: radial-gradient(circle at center, #10182a 0%, #000510 80%);
+    }
+    100% {
+      background: radial-gradient(circle at center, #0b0f1a 0%, #000510 80%);
+    }
+  } */
+
+  #boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* animation: pulseBackground 1.7s ease-in-out infinite; */
+    color: #00fff2;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;  /* L'élément est visible au début */
+    transition: opacity 1.7s ease-out, visibility 0s 1.7s;  /* Transition d'opacité, visibilité après 2s */
+  }
+
+  #boot-screen.hidden {
+    opacity: 0; /* Réduit l'opacité à 0 */
+    visibility: hidden; /* Cache l'élément après le fondu */
+  }
+
+  #boot-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(11, 15, 26, 0.8) 0%, rgba(0, 5, 16, 0.95) 80%),
+              url('/assets/images/dark-city.jpg') center center / cover no-repeat;
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+  z-index: -1;  /* Place the background behind the content */
+  }
+
+  #boot-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    z-index: 1;
+  }
+
+  .progress-bar-container {
+    width: 60%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00fff2;
+  }
+
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #00fff2, #007a99);
+    animation: loadBar 1.7s linear forwards;
+  }
+
+  @keyframes loadBar {
+    to { width: 100%; }
+  }
+
+</style>
+
+
+
+<div id="boot-screen">
+  <div id="boot-text">INITIALIZING NEURAL UPLINK...</div>
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+  <!-- <div id="boot-complete">Boot complete. Welcome, Netrunner.</div> -->
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('boot-screen').classList.add('hidden');
+  }, 1500); // l'ecran commence a disparaitre
+  // Ajouter un délai pour la transition avant de cacher complètement l'élément
+  setTimeout(() => {
+    document.getElementById('boot-screen').style.display = 'none'; // Cache l'écran après 3.2s, une fois le fondu terminé
+  }, 2000); // 3.2s pour laisser à l'animation d'opacité le temps de se faire
+});
+</script>
+<!-- BOOT SCREEN END -->
+
+
+{{ content }}
+
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+
+{% if paginator %}
+  {% assign posts = paginator.posts %}
+{% else %}
+  {% assign posts = site.posts %}
+{% endif %}
+
+{% assign entries_layout = page.entries_layout | default: 'list' %}
+<div class="entries-{{ entries_layout }}">
+  {% include documents-collection.html entries=posts type=entries_layout %}
+</div>
+
+{% include paginator.html %}
