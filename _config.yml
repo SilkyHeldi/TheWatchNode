@@ -46,6 +46,8 @@ include:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+baseurl: "/TheWatchNode"
+
 # Plugins (previously gems:)
 plugins:
   - jekyll-paginate

@@ -11,7 +11,7 @@
   animation-delay: 0.15s;
   z-index: 20;
 
-  background: url('/assets/images/neon-city.jpg') center center / cover no-repeat; /* Image de fond */
+  background: url('/TheWatchNode/assets/images/neon-city.jpg') center center / cover no-repeat; /* Image de fond */
   background-color: rgba(0, 0, 0, 0.5);  /* Optionnel : pour ajouter une teinte sombre si l'image est trop lumineuse */
 
   &__inner-wrap {
