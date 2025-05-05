@@ -56,16 +56,16 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "Heldi"
-  avatar : "/assets/images/bio-photo.jpg"
+  name   : "Sentry42"
+  avatar : "/assets/images/Sentry.png"
   bio    : "Infosec student at 42Paris school"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://"
+      url: "https://silkyheldi.github.io/TheWatchNode/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
+      url: "https://github.com/SilkyHeldi"
 
 footer:
   links:
@@ -74,10 +74,7 @@ footer:
       url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/SilkyHeldi"
 
 defaults:
   # _posts
