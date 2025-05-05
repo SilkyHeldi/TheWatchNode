@@ -1,0 +1,24 @@
+// custom.scss
+/* _sass/custom.scss */
+
+/* Cibler les liens dans la barre de navigation */
+.greedy-nav a {
+  display: block;
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Effet de hover sur les liens */
+// .greedy-nav a:hover {
+//   color: #f21368;  /* Change la couleur du texte */
+//   transform: scale(1.1);  /* Effet d'agrandissement */
+// }
+
+/* Si tu veux ajouter un effet de survol sous forme de surligne */
+.greedy-nav a:hover {
+  color: #1347f2;
+  // border-bottom: 2px solid #13f2ba; /* Bordure sous le lien au survol */
+  transform: scale(1.1); /* Agrandissement */
+}
+                      
