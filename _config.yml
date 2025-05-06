@@ -60,7 +60,7 @@ plugins:
 author:
   name   : "Sentry42"
   avatar : "/assets/images/Sentry.png"
-  bio    : "Infosec student at 42Paris school"
+  bio    : "Infosec student at 42Paris school. Focusing on blue teaming, taste for threat hunting and threat intelligence."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -110,3 +110,6 @@ sass:
   style: compressed
   load_paths:
     - _sass
+
+after_footer_scripts:
+     - /assets/js/cyberpunk-elements.js

@@ -33,7 +33,7 @@ layout: archive
     overflow: hidden;
     opacity: 1;
     visibility: visible;  /* L'élément est visible au début */
-    transition: opacity 1.7s ease-out, visibility 0s 1.7s;  /* Transition d'opacité, visibilité après 2s */
+    transition: opacity 1.7s ease-out, visibility 0s 1.7s;  /* Transition d'opacité, visibilité après 1.7s */
   }
 
   #boot-screen.hidden {
@@ -100,11 +100,11 @@ layout: archive
   window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     document.getElementById('boot-screen').classList.add('hidden');
-  }, 1500); // l'ecran commence a disparaitre
+  }, 1700); // l'ecran commence a disparaitre
   // Ajouter un délai pour la transition avant de cacher complètement l'élément
   setTimeout(() => {
     document.getElementById('boot-screen').style.display = 'none'; // Cache l'écran après 3.2s, une fois le fondu terminé
-  }, 2000); // 3.2s pour laisser à l'animation d'opacité le temps de se faire
+  }, 2200); // 2.1s pour laisser à l'animation d'opacité le temps de se faire
 });
 </script>
 <!-- BOOT SCREEN END -->

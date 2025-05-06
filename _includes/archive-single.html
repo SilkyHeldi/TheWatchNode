@@ -1,4 +1,4 @@
-{% if post.header.teaser %}
+<!-- {% if post.header.teaser %}
   {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
 {% else %}
   {% assign teaser = site.teaser %}
@@ -38,5 +38,75 @@
     </h2>
     {% include page__meta.html type=include.type %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
+  </article>
+</div> -->
+
+{% if post.header.teaser %}
+  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% else %}
+  {% assign teaser = site.teaser %}
+{% endif %}
+
+{% if post.id %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<!-- Main item container with class for cyberpunk folder styling -->
+<div class="{{ include.type | default: 'list' }}__item">
+  <article class="archive__item cyber-folder" itemscope itemtype="https://schema.org/CreativeWork"{% if post.locale %} lang="{{ post.locale }}"{% endif %}>
+    <!-- Folder tab elements are now handled by :before pseudo-element -->
+    <!-- <div class="shine-effect"></div> -->
+    <div class="security-indicator"></div>
+    <div class="folder-id">FILE_{{ forloop.index | prepend: '00' | slice: -3, 3 }}</div>
+    
+    <!-- Folder content -->
+    <div class="folder-content">
+      {% if include.type == "grid" and teaser %}
+        <div class="archive__item-teaser">
+          <img src="{{ teaser | relative_url }}" alt="">
+        </div>
+      {% endif %}
+      
+      <!-- Title with your existing glitch effect -->
+      <h2 class="archive__item-title no_toc glitch" itemprop="headline">
+        {% if post.link %}
+          <a href="{{ post.link }}">
+            {% for i in (1..9) %}
+              <span class="line">{{ post.title }}</span>
+            {% endfor %}
+          </a>
+          <a href="{{ post.url | relative_url }}" rel="permalink">
+            <i class="fas fa-link" aria-hidden="true" title="permalink"></i>
+            <span class="sr-only">Permalink</span>
+          </a>
+        {% else %}
+          <a href="{{ post.url | relative_url }}" rel="permalink">
+            {% for i in (1..9) %}
+              <span class="line">{{ post.title }}</span>
+            {% endfor %}
+          </a>
+        {% endif %}
+      </h2>
+      
+      {% include page__meta.html type=include.type %}
+      
+      {% if post.excerpt %}
+        <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      {% endif %}
+      
+      <!-- Folder footer with metadata and holographic icon -->
+      <div class="folder-footer">
+        <div class="folder-metadata">
+          ACCESS: {{ post.date | date: "%Y.%m.%d" }}
+        </div>
+        <div class="holographic-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
   </article>
 </div>

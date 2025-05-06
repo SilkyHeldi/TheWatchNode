@@ -120,3 +120,47 @@
     clip-path: polygon(0 -20%, 100% -20%, 100% 0%, 0 0);
   }
 }
+
+
+// AVATAR elements************************************************
+
+// .author__avatar img:hover {
+//   transform: scale(1.01);
+//   box-shadow: 0 0 12px #0268c7;
+// }
+
+
+
+.cyberpunk-avatar {
+  background-color: #0a0a0a;
+  color: #2de2e6;
+  border: 1px solid #ff0057;
+  padding: 1rem;
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 5px #2de2e6, 0 0 10px #ff0057;
+}
+
+//Turn social icons neon:
+.author__urls .fa {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+// Override h-card shadow effect
+.h-card {
+  filter: brightness(1.2) contrast(1.2) saturate(1.15);
+}
+
+//Make buttons feel more sci fi interactive
+button.btn {
+  background: linear-gradient(90deg, #ff00d4, #00ffff);
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  border: none;
+  box-shadow: 0 0 5px #00ffff;
+  transition: 0.3s;
+}
+button.btn:hover {
+  box-shadow: 0 0 10px #ff00d4, 0 0 20px #00ffff;
+  transform: scale(1.05);
+}
