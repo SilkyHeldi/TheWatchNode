@@ -61,7 +61,11 @@ author:
   name   : "Sentry42"
   avatar : "/assets/images/Sentry.png"
   bio    : "Infosec student at 42Paris school. Focusing on blue teaming, taste for threat hunting and threat intelligence."
+  location  : "France"
   links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:sentry42@proton.me"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://silkyheldi.github.io/TheWatchNode/"
