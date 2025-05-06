@@ -164,3 +164,260 @@ button.btn:hover {
   box-shadow: 0 0 10px #ff00d4, 0 0 20px #00ffff;
   transform: scale(1.05);
 }
+
+// FOLDERS  ****************************************************
+/* 
+ * Cyberpunk styling for Minimal Mistakes archive items
+ * Add this to your /assets/css/main.scss file after the imports
+ */
+
+// Cyberpunk color palette
+$cyber-black: #0d0d0d;
+$cyber-dark: #1a1a1a;
+$cyber-blue: #00b4d8;
+$cyber-pink: #ff2a6d;
+$cyber-yellow: #f9c80e;
+$cyber-green: #2de2e6;
+
+// Security level colors (based on categories)
+$security-critical: #ff2a6d; // red
+$security-high: #f9c80e;     // yellow
+$security-medium: #2de2e6;   // blue
+$security-low: #3bff6f;      // green
+
+/* Style for overall archive items */
+.archive__item.cyber-folder {
+  background-color: $cyber-dark;
+  border: 2px solid #333;
+  border-radius: 8px 8px 8px 8px;
+  overflow: visible; /* Changed from hidden to allow tab to overflow */
+  transition: all 0.3s ease;
+  position: relative;
+  margin-bottom: 1.5rem;
+  margin-top: 12px; /* Add space for the folder tab */
+  padding: 0;
+  
+  /* Folder tab at the top */
+  &:before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    width: 100px; /* Made wider to accommodate date */
+    height: 12px;
+    background-color: #333;
+    border: 2px solid #333;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  /* Horizontal line under the folder */
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  /* Shine effect */
+  .shine-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 65%, rgba($cyber-blue, 0.1) 75%, transparent 85%);
+    background-size: 200% 200%;
+    animation: shine 3s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Hover effects */
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba($cyber-blue, 0.5);
+    border-color: $cyber-blue;
+    
+    &:before {
+      background-color: $cyber-blue;
+      border-color: $cyber-blue;
+      box-shadow: 0 0 10px rgba($cyber-blue, 0.3);
+    }
+    
+    &:after {
+      background-color: $cyber-blue;
+    }
+    
+    .archive__item-title a .line {
+      color: $cyber-blue;
+    }
+  }
+  
+  /* Container for the folder content */
+  .folder-content {
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Security indicator dot on folder tab */
+  .security-indicator {
+    position: absolute;
+    top: -9px;
+    left: 90px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $security-medium;
+    box-shadow: 0 0 6px rgba($security-medium, 0.7);
+    z-index: 2;
+  }
+  
+  /* Folder ID on tab */
+  .folder-id {
+    position: absolute;
+    top: -14px;
+    left: 28px;
+    font-family: monospace;
+    color: #ddd;
+    font-size: 0.55rem;
+    z-index: 2;
+  }
+  
+  /* Date display on folder tab */
+  .folder-metadata {
+    font-family: monospace;
+    color: #777;
+    font-size: 0.75rem;
+  }
+  
+  /* Title styling */
+  .archive__item-title {
+    margin-top: 0.5rem;
+    font-family: monospace;
+    
+    a {
+      text-decoration: none;
+    }
+  }
+  
+  /* Style excerpt */
+  .archive__item-excerpt {
+    color: #ddd;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+  }
+  
+  /* Footer with holographic icons */
+  .folder-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    border-top: 1px dashed #444;
+    padding-top: 0.8rem;
+  }
+  
+  /* Folder metadata */
+  .folder-metadata {
+    font-family: monospace;
+    color: #777;
+    font-size: 0.75rem;
+  }
+  
+  /* Holographic icon */
+  .holographic-icon {
+    display: flex;
+    gap: 3px;
+    
+    span {
+      width: 3px;
+      height: 15px;
+      background-color: $cyber-blue;
+      opacity: 0.7;
+      
+      &:nth-child(1) {
+        animation: pulse 1.5s infinite;
+      }
+      
+      &:nth-child(2) {
+        animation: pulse 1.5s infinite 0.5s;
+      }
+      
+      &:nth-child(3) {
+        animation: pulse 1.5s infinite 1s;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes shine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; height: 10px; }
+  50% { opacity: 1; height: 15px; }
+}
+
+/* Preserve existing glitch effect if it exists */
+.glitch {
+  position: relative;
+}
+
+/* Optional: Dark background for archive section */
+.archive {
+  background-color: $cyber-black;
+  padding: 1.5rem;
+  
+  .archive__subtitle {
+    color: $cyber-blue;
+    font-family: monospace;
+    border-bottom: none;
+    
+    &:after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background-color: $cyber-blue;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+  .archive__item.cyber-folder {
+    margin-top: 10px;
+    
+    &:before {
+      top: -10px;
+      height: 10px;
+      width: 60px;
+    }
+    
+    .folder-id {
+      top: -8px;
+      font-size: 0.5rem;
+    }
+    
+    .security-indicator {
+      top: -6px;
+      width: 6px;
+      height: 6px;
+    }
+    
+    .folder-metadata {
+      font-size: 0.7rem;
+    }
+  }
+}
