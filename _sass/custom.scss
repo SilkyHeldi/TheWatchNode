@@ -228,7 +228,7 @@
     0 0 5px #00ffff,
     0 0 10px #00ffff,
     0 0 20px #ff00ff,
-    0 0 40px #ff00ff;
+    0 0 30px #8b0c8b;
   background-color: #111; /* Optional dark background */
   // border-radius: 10px; /* Slight rounding for a tech look */
   transition: transform 0.3s ease;
@@ -545,12 +545,12 @@ $security-low: #3bff6f;      // green
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), /* Dark overlay */
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), /* Dark overlay */
     url('/TheWatchNode/assets/images/girl.png');
   background-size: cover;         /* Ensures image covers the full container */
   background-repeat: no-repeat;   /* Prevents tiling */
   background-position: center;    /* Keeps the image centered */
   background-attachment: fixed;   /* Makes the background stay static when scrolling */
-  filter: blur(1px);
+  //filter: blur(1px);
   // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
 }
