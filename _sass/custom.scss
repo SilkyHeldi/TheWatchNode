@@ -365,6 +365,7 @@ $security-low: #3bff6f;      // green
   .folder-content {
     padding: 1rem;
     position: relative;
+    padding-bottom: 0.5rem;
     z-index: 2;
   }
   
@@ -397,12 +398,15 @@ $security-low: #3bff6f;      // green
     font-family: monospace;
     color: #777;
     font-size: 0.75rem;
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
   
   /* Title styling */
   .archive__item-title {
     margin-top: 0.5rem;
     font-family: monospace;
+    font-size: xx-large;
     
     a {
       text-decoration: none;
@@ -415,6 +419,7 @@ $security-low: #3bff6f;      // green
     font-size: 0.9rem;
     line-height: 1.4;
     margin-bottom: 2rem;
+    font-size: large;
   }
   
   /* Footer with holographic icons */
@@ -422,16 +427,9 @@ $security-low: #3bff6f;      // green
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     border-top: 1px dashed #444;
-    padding-top: 0.8rem;
-  }
-  
-  /* Folder metadata */
-  .folder-metadata {
-    font-family: monospace;
-    color: #777;
-    font-size: 0.75rem;
+    padding-top: 0.4rem;
   }
   
   /* Holographic icon */
@@ -518,10 +516,6 @@ $security-low: #3bff6f;      // green
       width: 6px;
       height: 6px;
     }
-    
-    .folder-metadata {
-      font-size: 0.7rem;
-    }
   }
 }
 
@@ -553,4 +547,63 @@ $security-low: #3bff6f;      // green
   background-attachment: fixed;   /* Makes the background stay static when scrolling */
   //filter: blur(1px);
   // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
+}
+
+//SINGLE POSTS ARCHIVE METADATA****************************************************************
+
+.small-style {
+  // font-family: 'Oblitron';
+  font-size: small;
+}
+
+.page__taxonomy-item-modif {
+  display: inline-block;
+  margin-inline-end: 5px;
+  margin-bottom: 4px;
+  padding: 2px 5px;
+  text-decoration: none;
+  border: 1px solid mix(#000, $border-color, 25%);
+  border-radius: $border-radius;
+
+  &:hover {
+    text-decoration: none;
+    color: $link-color-hover;
+  }
+}
+
+.archive__item-tags,
+.archive__item-categories{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  font-weight: 100;
+  // padding-top: 0 !important;
+  // padding-bottom: 0 !important;
+}
+
+.folder-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap; // optional for responsiveness
+
+  .folder-left {
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .folder-right {
+    flex: 0 0 240px;
+
+    img {
+      width: 240px;         // fixed width
+      height: 180px;        // fixed height
+      object-fit: cover;    // zoom/crop without distortion
+      object-position: center; // center the crop
+      border-radius: 0.5rem;
+      display: block;
+      margin-top: 10px;
+    }
+  }
 }

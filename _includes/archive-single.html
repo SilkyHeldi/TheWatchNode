@@ -69,36 +69,86 @@
         </div>
       {% endif %}
       
-      <!-- Title with your existing glitch effect -->
-      <h2 class="archive__item-title no_toc glitch" itemprop="headline">
-        {% if post.link %}
-          <a href="{{ post.link }}">
-            {% for i in (1..9) %}
-              <span class="line">{{ post.title }}</span>
-            {% endfor %}
-          </a>
-          <a href="{{ post.url | relative_url }}" rel="permalink">
-            <i class="fas fa-link" aria-hidden="true" title="permalink"></i>
-            <span class="sr-only">Permalink</span>
-          </a>
-        {% else %}
-          <a href="{{ post.url | relative_url }}" rel="permalink">
-            {% for i in (1..9) %}
-              <span class="line">{{ post.title }}</span>
-            {% endfor %}
-          </a>
-        {% endif %}
-      </h2>
+      <!-- Two-column wrapper -->
+      <div class="folder-columns">
+        <!-- Left column: stacked content -->
+        <div class="folder-left">
+          <!-- Title with your existing glitch effect -->
+          <h2 class="archive__item-title no_toc glitch" itemprop="headline">
+            {% if post.link %}
+              <a href="{{ post.link }}">
+                {% for i in (1..9) %}
+                  <span class="line">{{ post.title }}</span>
+                {% endfor %}
+              </a>
+              <a href="{{ post.url | relative_url }}" rel="permalink">
+                <i class="fas fa-link" aria-hidden="true" title="permalink"></i>
+                <span class="sr-only">Permalink</span>
+              </a>
+            {% else %}
+              <a href="{{ post.url | relative_url }}" rel="permalink">
+                {% for i in (1..9) %}
+                  <span class="line">{{ post.title }}</span>
+                {% endfor %}
+              </a>
+            {% endif %}
+          </h2>
+        
+          {% include page__meta.html type=include.type %}
       
-      {% include page__meta.html type=include.type %}
-      
-      {% if post.excerpt %}
-        <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
-      {% endif %}
-      
+
+          {% if post.excerpt %}
+            <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+          {% endif %}
+
+          <!-- Categories section -->
+          {% if site.category_archive.path and post.categories %}
+            {% assign categories_sorted = post.categories | sort_natural %}
+
+            <p class="archive__item-categories small-style">
+              <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].categories_label | default: "Categories:" }} </strong>
+              <span itemprop="keywords">
+              {% for category_word in categories_sorted %}
+                <a href="{{ category_word | slugify | prepend: path_type | prepend: site.category_archive.path | relative_url }}"
+                  class="page__taxonomy-item-modif p-category" rel="tag">{{ category_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+              {% endfor %}
+              </span>
+            </p>
+          {% endif %}
+          
+          <!-- Tags section -->
+          {% if site.tag_archive.path and post.tags %}
+            {% assign tags_sorted = post.tags | sort_natural %}
+          
+            <p class="archive__item-tags small-style">
+              <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags:</strong>
+              <span itemprop="keywords">
+                {% for tag_word in tags_sorted %}
+                  <a href="{{ tag_word | slugify | prepend: path_type | prepend: site.tag_archive.path | relative_url }}"
+                     class="page__taxonomy-item-modif p-category" rel="tag">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+                {% endfor %}
+              </span>
+            </p>
+          {% endif %}
+        </div>
+        <!-- Right column: the image -->
+        <div class="folder-right">
+          <!-- New image section -->
+          <!-- <div class="folder-image">
+            <img src="./assets/images/dark-city.jpg" alt="Preview image">
+          </div> -->
+
+          {% if post.image_preview %}
+            <div class="folder-image">
+              <img src="{{ post.image_preview | relative_url }}" alt="Preview image">
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
       <!-- Folder footer with metadata and holographic icon -->
       <div class="folder-footer">
-        <div class="folder-metadata">
+          <div class="folder-metadata", style="font-size: large;">
           ACCESS: {{ post.date | date: "%Y.%m.%d" }}
         </div>
         <div class="holographic-icon">
@@ -107,6 +157,8 @@
           <span></span>
         </div>
       </div>
+
+
     </div>
   </article>
 </div>
