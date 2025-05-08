@@ -146,10 +146,113 @@
   text-shadow: 0 0 5px #00ffff;
 }
 
+//h-card section********************************************************************
 // Override h-card shadow effect
+// .h-card {
+//   filter: brightness(1.2) contrast(1.2) saturate(1.15);
+// }
+
 .h-card {
-  filter: brightness(1.2) contrast(1.2) saturate(1.15);
+  position: relative;
+  padding: 20px;
+  background: linear-gradient(135deg, #272727, #0f0d0f); /* Neon gradient background */
+  //#ff0088, #ff6600
+  color: white;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3); /* Soft glow effect */
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
+
+.h-card::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(45deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+  background-size: 50px 50px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: -1;
+  // animation: moveBackground 5s linear infinite;
+}
+
+// /* Glitch effect for cyberpunk style */
+// @keyframes moveBackground {
+//   0% { background-position: 0 0; }
+//   50% { background-position: 100% 100%; }
+//   100% { background-position: 0 0; }
+// }
+
+/* Optional: add a neon border */
+.h-card {
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 5px 2px #00ffff, 0 0 15px #00ffff;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+}
+
+// .h-card .name {
+//   color: #00ffff;
+//   text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+//   font-size: 1.4rem;
+// }
+
+// TO ADD CIRCUIT EFFECT
+// .h-card::after {
+//   content: "";
+//   position: absolute;
+//   top: 0; left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-image:
+//     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Dark overlay */
+//     url('/TheWatchNode/assets/images/circuit.svg'); /* or use PNG */
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//   opacity: 0.08; /* subtle circuit layer */
+//   pointer-events: none;
+//   z-index: 0;
+// }
+
+
+.h-card .u-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #00ffff; /* Neon cyan border */
+  box-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #ff00ff,
+    0 0 40px #ff00ff;
+  background-color: #111; /* Optional dark background */
+  // border-radius: 10px; /* Slight rounding for a tech look */
+  transition: transform 0.3s ease;
+}
+
+/* Optional hover effect: image lifts and glows more */
+.h-card .u-photo:hover {
+  //transform: scale(1.05);
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 30px #ff00ff,
+    // 0 0 60px #ff00ff;
+}
+
+.photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* space below photo */
+}
+
+//********************************************************************
+
 
 //Make buttons feel more sci fi interactive
 button.btn {
@@ -422,6 +525,32 @@ $security-low: #3bff6f;      // green
   }
 }
 
+// For date colour at the end of a post
 .page__date {
   color : #bc46df;
+}
+
+// To make the background image fixed on a single post page
+// .layout--single {
+//   background-image: url('/TheWatchNode/assets/images/girl.png');
+//   background-size: cover;         /* Ensures image covers the full container */
+//   background-repeat: no-repeat;   /* Prevents tiling */
+//   background-position: center;    /* Keeps the image centered */
+//   background-attachment: fixed;   /* Makes the background stay static when scrolling */
+// }
+
+.layout--single::before {
+  flex: 1 0 auto;
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), /* Dark overlay */
+    url('/TheWatchNode/assets/images/girl.png');
+  background-size: cover;         /* Ensures image covers the full container */
+  background-repeat: no-repeat;   /* Prevents tiling */
+  background-position: center;    /* Keeps the image centered */
+  background-attachment: fixed;   /* Makes the background stay static when scrolling */
+  filter: blur(1px);
+  // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
 }

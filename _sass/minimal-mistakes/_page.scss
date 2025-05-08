@@ -28,7 +28,29 @@ body {
           flex-direction: column;
 }
 
-.initial-content,
+// .initial-content {
+//   background-image: url('/TheWatchNode/assets/images/neon-city.jpg');
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//   flex: 1 0 auto;
+// }
+
+.initial-content::before {
+  flex: 1 0 auto;
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), /* Dark overlay */
+    url('/TheWatchNode/assets/images/dark-city2.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px);
+  // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
+  z-index: -1;
+}
+
 .search-content {
   flex: 1 0 auto;
 }
@@ -44,6 +66,15 @@ body {
     width: calc(100% - #{$right-sidebar-width});
     padding-inline-end: $right-sidebar-width;
   }
+  // @include breakpoint($large) {
+  //   width: 100%;
+  //   padding-inline-end: 0;
+  // }
+
+  // @include breakpoint($x-large) {
+  //   width: 100%;
+  //   padding-inline-end: 0;
+  // }
 
   .page__inner-wrap {
     float: inline-start;
@@ -51,6 +82,10 @@ body {
     margin-inline: 0;
     width: 100%;
     clear: both;
+
+    background-color: rgba(24, 24, 24, 0.95); // white with 85% opacity
+    padding: 2rem;                               // optional: some spacing
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);      // optional: subtle shadow
 
     .page__content,
     .page__meta,
