@@ -510,7 +510,8 @@
 .toc {
   font-family: $sans-serif-narrow;
   color: $gray;
-  background-color: $background-color;
+  // background-color: $background-color;
+  background: linear-gradient(45deg, rgba(106, 68, 242, 0.274), rgba(0, 255, 255, 0.089));
   border: 1px solid $border-color;
   border-radius: $border-radius;
   -webkit-box-shadow: $box-shadow;
@@ -519,7 +520,8 @@
   .nav__title {
     color: #fff;
     font-size: $type-size-6;
-    background: $primary-color;
+    // background: $primary-color;
+    background: rgba(253, 48, 253, 0.171) !important;
     border-start-start-radius: $border-radius;
     border-start-end-radius: $border-radius;
   }
@@ -550,7 +552,8 @@
     border-bottom: 1px solid $border-color;
 
     &:hover {
-      color: $text-color;
+      // color: $text-color;
+      color : rgba(253, 48, 253, 0.171);
     }
   }
 

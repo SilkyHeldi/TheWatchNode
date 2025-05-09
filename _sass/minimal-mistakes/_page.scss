@@ -46,6 +46,8 @@ body {
     url('/TheWatchNode/assets/images/dark-city2.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;/* Prevents tiling */
+  background-attachment: fixed;   /* Makes the background stay static when scrolling */
   filter: blur(2px);
   // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
   z-index: -1;

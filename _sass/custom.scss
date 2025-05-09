@@ -539,7 +539,7 @@ $security-low: #3bff6f;      // green
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), /* Dark overlay */
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), /* Dark overlay */
     url('/TheWatchNode/assets/images/girl.png');
   background-size: cover;         /* Ensures image covers the full container */
   background-repeat: no-repeat;   /* Prevents tiling */
@@ -605,5 +605,54 @@ $security-low: #3bff6f;      // green
       display: block;
       margin-top: 10px;
     }
+  }
+}
+
+// HEADER IMAGE*************************************
+
+.page__hero--side-by-side {
+  position: relative;
+  margin-bottom: 1em;
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-inline: 1em;
+
+    @include breakpoint($x-large) {
+      max-width: $x-large;
+      margin: 0 auto;
+    }
+  }
+
+  .page__hero-text {
+    flex: 1 1 60%;
+    padding: 2em;
+  }
+
+  .page__hero-image-wrapper {
+    flex: 1 1 40%;
+    padding: 1em;
+    text-align: center;
+
+    img {
+      // max-width: 100%;
+      width: 100%;
+      max-height: 370px;
+      max-width: 650px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .page__hero-image-wrapper img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* On smaller screens, show full image */
   }
 }
