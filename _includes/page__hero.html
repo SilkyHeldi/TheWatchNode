@@ -4,9 +4,7 @@
 {% if page.header.overlay_image %}
   {% capture overlay_img_path %}{{ page.header.overlay_image | relative_url }}{% endcapture %}
 {% endif %}
-
-<p>Raw value: "{{ page.header.side_image }}"</p>
-
+<br><br>
 {% if page.header.overlay_filter contains "gradient" %}
   {% capture overlay_filter %}{{ page.header.overlay_filter }}{% endcapture %}
 {% elsif page.header.overlay_filter contains "rgba" %}
