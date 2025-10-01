@@ -82,9 +82,13 @@ The user-agent is pretty obvious in the access logs in the User-agent string at 
 
 > It appears the threat actor deployed a web shell after bypassing the WAF. What is the file name? (filename.ext)
 
-There, we hope for a kind of web shell detection, so I use ctrl-F in ```waf.log``` and find a very useful "WEBSHELL_DEPLOYEMENT" rule :
+There, we hope for a kind of web shell detection, so I use ctrl-F in ```waf.log``` and find a very useful "WEBSHELL_DEPLOYMENT" rule :
 
-![waf.log : WEBSHELL_DEPLOYEMENT rule](../../assets/images/HTB-Holmes-CTF-2025/The-card/waf-webshell-deployement-rule.png)
+![waf.log : WEBSHELL_DEPLOYMENT rule](../../assets/images/HTB-Holmes-CTF-2025/The-card/waf-webshell-deployment-rule.png)
+
+Notice the multiple unknown errors (from ```2025-05-15 11:23:45```) above provoked by command injections that allowed that deployment.
+
+![waf.log : WEBSHELL_DEPLOYMENT rule](../../assets/images/HTB-Holmes-CTF-2025/The-card/cmd-injection.png)
 
 The webshell that is deployed is ```temp_4A4D.php```
 
@@ -97,15 +101,15 @@ Reallistically, it would be better to search for a file compression with the dif
 
 ![application.log : data staging detection](../../assets/images/HTB-Holmes-CTF-2025/The-card/app-db-exfil.png)
 
-The exfiltrated database is database_dump_4A4D.sql
+The exfiltrated database is ```database_dump_4A4D.sql```
 
 ## Recurring string for threat actor attribution
 
 > During the attack, a seemingly meaningless string seems to be recurring. Which one is it? (string)
 
 Here, the string is very obvious. Threat actors tend to leave recurrent traces behind that allow investigators to attribute a malicious activity to a specific entity (a person, an organization, an entire nation...).
-For example, in a Mandiant report, a specific pattern had been found in email nicknames, that led to identify the person behind them.
-In another report, specific ways of creating functions in a malware helped investigators to recognize the APT (Advanced Persistent Threat) behind it.
+For example, in a [Mandiant][mandiant] report, a specific pattern had been found in email nicknames, that led to identify the person behind them.
+In another report, specific ways of creating functions in a malware helped investigators to recognize the [APT (Advanced Persistent Threat)][APT] behind it.
 
 Threat actors' habits and/or ego can betray their "footprints". Here, the reccurent string is ```4A4D``` which is the hexadecimal value for ```JM```.
 Since we are helping Sherlock Holmes, we suppose JM could be the initials of James Moriarty.
@@ -114,15 +118,17 @@ Since we are helping Sherlock Holmes, we suppose JM could be the initials of Jam
 
 > OmniYard-3 (formerly Scotland Yard) has granted you access to its CTI platform. Browse to the first IP:port address and count how many campaigns appear to be linked to the honeypot attack.
 
-Once on the CTI platform, we put ```4A4D``` in the filter section, since it is a reccuring artifact. We find an organization named ```JM```. It is linked to 5 campaigns on the platform.  
+Once on the CTI platform, we put ```4A4D``` in the filter section, since it is a reccuring artifact. We find an organization named ```JM```. It is linked to 5 campaigns on the platform, in bright red rounds.  
 
-![CTI platform : "4A4D" filter](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-4A4D.png)
+![CTI platform : "4A4D" filter](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-4A4D-campaigns.png)
 
 ## Size of the campaigns' arsenal
 
 > How many tools and malware in total are linked to the previously identified campaigns? (number)
 
 Zooming out with no filter gives us an entire overview of the artifacts that are linked to the JM organization. The red rounds with a virus icon are the malwares and the orange rounds with the wrench icon are the tools.
+
+![CTI platform : "4A4D" filter](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-arsenal2.png)
 
 We count 9 of them in total.
 
@@ -133,11 +139,13 @@ We count 9 of them in total.
 We can see that all of the campaigns used different names and show drastically different capabilities for the same malware (quite weird).
 <br>For example, we can see a private key stealer but also a biometric falsifier.
 
-![CTI platform : "4A4D" filter](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-stealer.png)
+![CTI platform : malware ex1](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-stealer.png)
 
-![CTI platform : "4A4D" filter](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-falsifier.png)
+![CTI platform : malware ex2](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-falsifier.png)
 
 We know it's the same since the sha-256 hash is the same everytime : ```SHA256 = '7477c4f5e6d7c8b9a0f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e0d17477'```
+
+![CTI platform : hash](../../assets/images/HTB-Holmes-CTF-2025/The-card/CTI-hash2.png)
 
 ## File hash inspection
 
@@ -146,7 +154,7 @@ We know it's the same since the sha-256 hash is the same everytime : ```SHA256 =
 Once we get a file hash in general, we want to inspect it to see if it has other linked information that has been reported. This platform makes me think about VirusTotal.
 <br>We easily find the linked IP and port, that seem to be where their Command and Control operates from : 74[.]77.74.77:443 
 
-![CTI hash inspection : C2 IP](../../assets/images/HTB-Holmes-CTF-2025/The-card/hash-C2.png)
+![CTI hash inspection : C2 IP](../../assets/images/HTB-Holmes-CTF-2025/The-card/hash-C2-IP.png)
 
 ## Persistence of malware
 
@@ -154,7 +162,7 @@ Once we get a file hash in general, we want to inspect it to see if it has other
 
 Here, the name of the files created by the malware is very explicit : ```/opt/lilnunc/implant/4a4d_persistence.sh```
 
-![CTI hash inspection : persistence](../../assets/images/HTB-Holmes-CTF-2025/The-card/hash-persistence.png)
+![CTI hash inspection : persistence](../../assets/images/HTB-Holmes-CTF-2025/The-card/hash-persistence2.png)
 
 ## IP address inspection
 
@@ -176,7 +184,7 @@ This IP belongs to ```SenseShield MSP```
 
 We can suppose that this MSP, providing its services to the company, has been compromised.
 
-![CTI IP inspection : organization](../../assets/images/HTB-Holmes-CTF-2025/The-card/IP-organization.png)
+![CTI IP inspection : organization](../../assets/images/HTB-Holmes-CTF-2025/The-card/IP-organization2.png)
 
 ## Inspecting the exposed services
 
@@ -189,6 +197,22 @@ In the service section, we can notice an unusual string : ```"He's a ghost I car
 
 ## Conclusion
 
+- **DEFENCE - Preparation** : Nicole Vale, Senior security analyst, set up a honey pot in the Cogwork-1 network.
 
+- **Exploitation** : The threat actor found a way to inject commands in the ```/api/v2/debug/exec``` path, which might have been deliberately left there by N. Vale.
+
+- **Installation + Persistence** : The attacker deployed a php web shell that apparently installed a backdoor thanks to SSH key generation and a cron job installation.
+
+- **Exfiltration** : They exfiltrated an SQL database after compressing it.
+
+- **DEFENCE - Threat Intelligence** : They left a recurrent string inside the file names they chose, ```4A4D``` (hexadecimal for ```JM```), that allowed us to identify the campaigns, tools, malwares, IP addresses, C2 file path and other [IOCs][ioc] thanks to our provided Threat Intelligence platforms.
+<br>The IP address that was used by the attacker belongs to ```SenseShield MSP``` and has 11 open ports. This might indicate that an MSP could have been compromised.
+<br>
+This honeypot allowed us to know more about the Threat Actor, ```JM```, that is actively targetting Cogwork.
+
+**GG**
 
 [MSP]: https://www.sap.com/products/hcm/workforce-management/what-is-a-msp.html
+[APT]: https://www.crowdstrike.com/en-us/cybersecurity-101/threat-intelligence/advanced-persistent-threat-apt/
+[mandiant]: https://www.mandiant.com/
+[ioc]: https://www.crowdstrike.com/en-us/cybersecurity-101/threat-intelligence/indicators-of-compromise-ioc/
