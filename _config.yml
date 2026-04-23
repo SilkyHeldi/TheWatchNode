@@ -13,12 +13,14 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+url: "https://thewatchnode.com"
+baseurl: ""
 title: TheWatchNode
-email:
+email: sentry42@proton.me
 description: >- # this means to ignore newlines until "baseurl:"
   TheWatchNode serves as a platform where I catalog and refine my IT security experiences.
 twitter_username: username
-github_username: username
+github_username: SilkyHeldi
 minimal_mistakes_skin: neon
 search: true
 
@@ -46,8 +48,6 @@ include:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-baseurl: "/TheWatchNode"
-
 # Plugins (previously gems:)
 plugins:
   - jekyll-paginate
@@ -68,7 +68,7 @@ author:
       url: "mailto:sentry42@proton.me"
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://silkyheldi.github.io/TheWatchNode/"
+      url: "https://thewatchnode.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/SilkyHeldi"
