@@ -81,6 +81,8 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/SilkyHeldi"
+    - label: "Privacy Policy"
+      url: "/privacy-policy/"
 
 defaults:
   # _posts
