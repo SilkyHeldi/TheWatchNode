@@ -11,7 +11,7 @@
   animation-delay: 0.15s;
   z-index: 20;
 
-  background: url('/TheWatchNode/assets/images/neon-city.jpg') center center / cover no-repeat; /* Image de fond */
+  background: url('/assets/images/neon-city.jpg') center center / cover no-repeat; /* Image de fond */
   background-color: rgba(0, 0, 0, 0.5);  /* Optionnel : pour ajouter une teinte sombre si l'image est trop lumineuse */
 
   &__inner-wrap {
@@ -83,13 +83,52 @@
   }
 }
 
-.masthead__menu-item {
-  display: block;
-  list-style-type: none;
-  white-space: nowrap;
+// COMMENTING FOR CONTENT BELOW
+// .masthead__menu-item {
+//   display: block;
+//   list-style-type: none;
+//   white-space: nowrap;
 
-  &--lg {
-    padding-inline-end: 2em;
-    font-weight: 700;
+//   &--lg {
+//     padding-inline-end: 2em;
+//     font-weight: 700;
+//   }
+// }
+
+.masthead__menu-item {
+  position: relative;
+  
+  &:hover .masthead__submenu {
+    display: block;
+  }
+}
+
+.masthead__submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  z-index: 99;
+  list-style: none;
+  padding: 0.5em 0;
+  border-radius: 4px;
+
+  li {
+    display: block;
+    width: 100%;
+    
+    a {
+      padding: 0.5em 1em;
+      font-size: 0.9em;
+      color: $text-color;
+      display: block;
+      
+      &:hover {
+        background-color: $lighter-gray;
+      }
+    }
   }
 }

@@ -138,13 +138,6 @@
   // animation: moveBackground 5s linear infinite;
 }
 
-// /* Glitch effect for cyberpunk style */
-// @keyframes moveBackground {
-//   0% { background-position: 0 0; }
-//   50% { background-position: 100% 100%; }
-//   100% { background-position: 0 0; }
-// }
-
 /* Optional: add a neon border */
 .h-card {
   border: 3px solid transparent;
@@ -154,30 +147,6 @@
   flex-direction: column;
   // align-items: center;
 }
-
-// .h-card .name {
-//   color: #00ffff;
-//   text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
-//   font-size: 1.4rem;
-// }
-
-// TO ADD CIRCUIT EFFECT
-// .h-card::after {
-//   content: "";
-//   position: absolute;
-//   top: 0; left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-image:
-//     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Dark overlay */
-//     url('/TheWatchNode/assets/images/circuit.svg'); /* or use PNG */
-//   background-repeat: no-repeat;
-//   background-size: cover;
-//   background-position: center;
-//   opacity: 0.08; /* subtle circuit layer */
-//   pointer-events: none;
-//   z-index: 0;
-// }
 
 
 .h-card .u-photo {
@@ -494,7 +463,7 @@ $security-low: #3bff6f;      // green
   top: 0; left: 0; right: 0; bottom: 0;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), /* Dark overlay */
-    url('/TheWatchNode/assets/images/girl.png');
+    url('/assets/images/girl.png');
   background-size: cover;         /* Ensures image covers the full container */
   background-repeat: no-repeat;   /* Prevents tiling */
   background-position: center;    /* Keeps the image centered */
@@ -534,34 +503,6 @@ $security-low: #3bff6f;      // green
   // padding-bottom: 0 !important;
 }
 
-// .folder-columns {
-//   display: flex;
-//   align-items: flex-start;
-//   gap: 1rem;
-//   flex-wrap: wrap; // optional for responsiveness
-
-//   .folder-left {
-//     flex: 1 1 60%;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0.1rem;
-//   }
-
-//   .folder-right {
-//     flex: 0 0 240px;
-
-//     img {
-//       max-width: 240px;
-//       width: 240px;         // fixed width
-//       height: 180px;        // fixed height
-//       object-fit: cover;    // zoom/crop without distortion
-//       object-position: center; // center the crop
-//       border-radius: 0.5rem;
-//       display: block;
-//       margin-top: 10px;
-//     }
-//   }
-// }
 
 .folder-columns {
   display: flex;
@@ -661,3 +602,4 @@ $security-low: #3bff6f;      // green
     border-radius: $border-radius;
   }
 }
+

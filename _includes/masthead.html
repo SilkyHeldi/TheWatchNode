@@ -7,10 +7,7 @@
         {% unless logo_path == empty %}
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
-        <!-- <a class="site-title" href="{{ '/' | relative_url }}">
-          {{ site.masthead_title | default: site.title }}
-          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
-        </a> -->
+
         <a class="site-title glitch" href="{{ '/' | relative_url }}">
           {% for i in (1..9) %}
             <span class="line">{{ site.masthead_title | default: site.title }}</span>
@@ -19,23 +16,31 @@
             <span class="site-subtitle">{{ site.subtitle }}</span>
           {% endif %}
         </a>
-        <ul class="visible-links">
-          {%- for link in site.data.navigation.main -%}
-            <li class="masthead__menu-item">
-              <!-- <a
-                href="{{ link.url | relative_url }}"
-                {% if link.description %} title="{{ link.description }}"{% endif %}
-                {% if link.target %} target="{{ link.target }}"{% endif %}
-              >{{ link.title }}</a> -->
-              <a class="glitch" href="{{ link.url | relative_url }}">
-                {% for i in (1..9) %}
-                  <span class="line">{{ link.title }}</span>
-                {% endfor %}
-              </a>
 
+        <ul class="visible-links">
+          {% for link in site.data.navigation.main %}
+            <li class="masthead__menu-item-custom">
+              <span class="glitch-wrapper">
+                <a class="glitch" href="{{ link.url | relative_url }}">
+                  {% for i in (1..9) %}
+                    <span class="line">{{ link.title }}</span>
+                  {% endfor %}
+                </a>
+              </span>
+            
+              {% if link.children %}
+                <ul class="nav-dropdown">
+                  {% for child in link.children %}
+                    <li class="nav-dropdown-item">
+                      <a href="{{ child.url | relative_url }}">{{ child.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </li>
-          {%- endfor -%}
+          {% endfor %}
         </ul>
+
         {% if site.search == true %}
         <button class="search__toggle" type="button">
           <span class="visually-hidden">{{ site.data.ui-text[site.locale].search_label | default: "Toggle search" }}</span>

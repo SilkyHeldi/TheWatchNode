@@ -1,11 +1,18 @@
 main:
-  - title: "Posts"
-    url: /posts/
-  - title: "Categories"
-    url: /categories/
+  - title: "Home"
+    url: /categories
+  - title: "Topics"
+    url: "#"
+    children:
+      - title: "tech"
+        url: /categories/#Blog
+      - title: "Forensics"
+        url: /categories/#ctf
+      - title: "Tout voir"
+        url: /topics/
   - title: "Tags"
     url: /tags/
-  - title: "About"
+  - title: "whoami"
     url: /about/
 footer:
   - title: "Legal"

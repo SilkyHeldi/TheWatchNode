@@ -17,3 +17,119 @@
 @import "minimal-mistakes/page";
 // @import "cyberpunk-folders";
 @import "custom"; // Custom styles and mixins
+
+.feature__item {
+  margin-bottom: 2em;
+  .archive__item-teaser {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+
+/* --- FIX FINAL DE LA BARRE ET DU MENU --- */
+
+.masthead__menu-item-custom {
+  position: relative !important;
+  display: inline-flex !important; /* Aide à l'alignement vertical */
+  align-items: center;
+  height: 60px; /* Force une hauteur pour que la zone de survol soit stable */
+  margin-right: 25px;
+
+  // On crée un pont invisible pour que le menu ne disparaisse pas
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+  }
+
+  &:hover .nav-dropdown {
+    display: block !important;
+  }
+}
+
+.glitch-wrapper {
+  display: block;
+  min-width: 80px; /* Empêche le titre de s'effondrer */
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute !important;
+  
+  top: 55px !important; /* Ajuste pour descendre sous la barre bleue */
+  left: 0 !important;
+  width: 150px !important;
+  
+  // LE FOND : On force le noir opaque pour cacher la ville néon derrière
+  background-color: $cyber-black !important; 
+  //border: 1px solid #00f3ff !important;
+  border-top: none !important; // On enlève la bordure du haut pour l'effet de fusion
+  //box-shadow: 0 10px 20px rgba(0, 243, 255, 0.3);
+  /* --- MODIFICATION DE L'OMBRE --- */
+  /* On règle le décalage vertical (Y) sur 10px et on limite la diffusion */
+  /* Syntaxe : x-offset y-offset blur spread color */
+  box-shadow: 0px 10px 15px -2px rgba(0, 243, 255, 0.4);
+  
+  padding: 5px !important;
+  margin: 0 !important;
+  z-index: 999999 !important;
+  list-style: none !important;
+
+  .nav-dropdown-item {
+    display: block !important;
+    //margin-bottom: 12px !important;
+    //text-align: center; // On centre le texte pour l'uniformité
+
+    a {
+      font-family: 'Orbitron', sans-serif !important;
+      color: #00f3ff !important;
+      text-transform: uppercase;
+      font-size: 0.7rem !important;
+      letter-spacing: 2px; // Espacement Cyberpunk
+      text-decoration: none !important;
+      display: block !important;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: rgba(0, 243, 255, 0.15); // Effet de survol discret
+        color: #ff0057 !important;
+        transform: translateX(5px);
+      }
+    }
+  }
+}
+
+// On cache la barre bleue parasite si elle vient de l'ombre du glitch
+.glitch {
+  text-shadow: none !important; /* On laisse les spans gérer le glitch */
+}
+
+/* --- LIBÉRATION DES VISIBLE LINKS --- */
+
+// 1. On lève la barrière de l'overflow sur TOUTE la hiérarchie de la navigation
+.masthead, 
+.masthead__inner-wrap, 
+.masthead__menu, 
+.greedy-nav, 
+.visible-links {
+  overflow: visible !important; /* Force l'affichage de ce qui dépasse */
+}
+
+// 2. On s'assure que .visible-links ne crée pas son propre blocage
+.visible-links {
+  display: flex !important;
+  position: relative !important;
+}
+
+// 3. On force le parent direct du menu à être le point de référence
+.masthead__menu-item-custom {
+  position: relative !important;
+}
