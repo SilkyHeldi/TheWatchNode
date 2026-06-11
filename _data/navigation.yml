@@ -1,6 +1,6 @@
 main:
   - title: "Home"
-    url: /categories
+    url: /
   - title: "Topics"
     url: "#"
     children:

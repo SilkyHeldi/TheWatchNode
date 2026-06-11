@@ -65,8 +65,8 @@
   position: absolute !important;
   
   top: 55px !important; /* Ajuste pour descendre sous la barre bleue */
-  left: 0 !important;
-  width: 150px !important;
+  left: -10px !important;
+  width: 160px !important;
   
   // LE FOND : On force le noir opaque pour cacher la ville néon derrière
   background-color: $cyber-black !important; 
@@ -74,7 +74,9 @@
   border-top: none !important; // On enlève la bordure du haut pour l'effet de fusion
   box-shadow: 0px 10px 15px -2px rgba(0, 243, 255, 0.4);
   
-  padding: 5px !important;
+  //padding: 5px !important;
+  /* IMPORTANT : On reset le padding de la liste dropdown elle-même */
+  padding: 5px 0 !important; // 5px en haut/bas, 0 sur les côtés
   margin: 0 !important;
   z-index: 999999 !important;
   list-style: none !important;
@@ -82,7 +84,7 @@
   .nav-dropdown-item {
     display: block !important;
     //margin-bottom: 12px !important;
-    //text-align: center; // On centre le texte pour l'uniformité
+    //padding: 0 !important;
 
     a {
       font-family: 'Orbitron', sans-serif !important;
@@ -93,10 +95,17 @@
       text-decoration: none !important;
       display: block !important;
       transition: all 0.2s ease;
+
+      width: 100% !important; // On force le lien à prendre toute la largeur
+      
+      /* C'est ici qu'on gère l'alignement thermique de gauche */
+      padding: 8px 12px !important; // Ajuste les 12px de gauche selon tes goûts
+      margin: 0 !important;
+      text-align: left !important;
       
       &:hover {
         background: rgba(0, 243, 255, 0.15); // Effet de survol discret
-        color: #ff0057 !important;
+        color: #e945f8 !important;
         transform: translateX(5px);
       }
     }

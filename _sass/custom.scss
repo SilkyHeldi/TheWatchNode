@@ -121,14 +121,14 @@
 
 
 
-.cyberpunk-avatar {
-  background-color: #0a0a0a;
-  color: #2de2e6;
-  border: 1px solid #ff0057;
-  padding: 1rem;
-  font-family: 'Orbitron', monospace;
-  text-shadow: 0 0 5px #2de2e6, 0 0 10px #ff0057;
-}
+// .cyberpunk-avatar {
+//   background-color: #0a0a0a;
+//   color: #2de2e6;
+//   border: 1px solid #ff0057;
+//   padding: 1rem;
+//   font-family: 'Orbitron', monospace;
+//   text-shadow: 0 0 5px #2de2e6, 0 0 10px #ff0057;
+// }
 
 //Turn social icons neon:
 .author__urls .fa {
@@ -169,9 +169,9 @@
 
 /* Optional: add a neon border */
 .h-card {
-  border: 3px solid transparent;
+  //border: 3px solid transparent;
   background-clip: padding-box;
-  box-shadow: 0 0 5px 2px #ae00ff, 0 0 15px #ae00ff;
+  //box-shadow: 0 0 5px 2px #ae00ff, 0 0 15px #ae00ff;
   display: flex;
   flex-direction: column;
   // align-items: center;
@@ -182,12 +182,12 @@
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border: 3px solid #00ffff; /* Neon cyan border */
-  box-shadow:
-    0 0 5px #00ffff,
-    0 0 10px #00ffff,
-    0 0 20px #ae00ff,
-    0 0 30px #7600ad;
+  //border: 3px solid #00ffff; /* Neon cyan border */
+  // box-shadow:
+  //   0 0 5px #00ffff,
+  //   0 0 10px #00ffff,
+  //   0 0 20px #ae00ff,
+  //   0 0 30px #7600ad;
   background-color: #111; /* Optional dark background */
   // border-radius: 10px; /* Slight rounding for a tech look */
   transition: transform 0.3s ease;
@@ -210,6 +210,105 @@
   margin-bottom: 20px; /* space below photo */
 }
 
+/* --- CORRECTIF MOBILE SIDEBAR (.h-card) --- */
+/* --- SIDEBAR RESPONSIVE : ACCÈS BADGE TRANSPARENT (MOBILE) --- */
+/* --- STYLISATION UNIFIÉE SIDEBAR MOBILE --- */
+@media (max-width: 48em) {
+  /* 1. Fond uniforme transparent pour TOUTE la carte (on supprime les losanges) */
+  html body .sidebar .h-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    justify-content: flex-start !important;
+    text-align: center !important;
+    width: 100% !important;
+    padding: 25px 20px !important;
+    
+    /* Couleur unie sombre à 85% d'opacité */
+    background: rgba(20, 20, 22, 0.85) !important; 
+    //backdrop-filter: blur(4px);
+  }
+
+  /* On force la sous-section à être transparente pour éviter la coupure noire */
+  html body .sidebar .author__content {
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 2. LE PSEUDO (Order 1) */
+  html body .author__content-title,
+  html body .author__content .p-name {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 auto 6px auto !important;
+    order: 1 !important; 
+    font-size: 1.6em !important;
+  }
+
+  /* 3. LE TEXTE / DESCRIPTION (Order 2) */
+  html body .author__content-description,
+  html body .author__content .p-note {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 auto 10px auto !important;
+    padding: 0 10px !important;
+    order: 2 !important; 
+    font-size: 0.95em !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 4. L'IMAGE CARRÉE CENTRÉE (Order 3) */
+  html body .author__avatar,
+  html body .photo-wrapper {
+    display: flex !important;       /* Changé en flex pour assurer le centrage */
+    justify-content: center !important;
+    align-items: center !important;
+    float: none !important;
+    position: relative !important;
+    margin: 0 auto !important;      /* Centrage horizontal parfait */
+    order: 3 !important; 
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  html body .h-card .u-photo {
+    width: 140px !important;
+    height: 140px !important;
+    border-radius: 0px !important; 
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 auto !important;      /* Centre l'image dans son wrapper */
+  }
+
+  /* 5. LE BOUTON FOLLOW AVEC MARGE (Order 4) */
+  html body .author__urls-wrapper,
+  html body .sidebar .btn {
+    display: inline-block !important;
+    order: 4 !important; 
+    margin: 5px auto 0 auto !important;
+    font-size: 0.75em !important;
+    padding: 6px 20px !important;
+    font-family: 'Courier New', monospace !important;
+    border-radius: 0px !important;
+    background: transparent !important;
+    color: #00ffff !important;
+    box-shadow: none !important;
+    text-transform: uppercase !important;
+  }
+
+  html body .sidebar .btn {
+    border: 1px solid #348080 !important; /* Bouton outline cyan beaucoup plus pro */
+    &:hover {
+      background: #a7fcfc17 !important;
+      //color: #edf3f5 !important;
+    }
+  }
+}
 //********************************************************************
 
 
@@ -623,3 +722,57 @@ $security-low: #3bff6f;      // green
   }
 }
 
+//Feature articles clickable
+
+/* On cible le conteneur global de la carte */
+html body .feature__item {
+  position: relative !important;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
+  padding: 15px;
+  border-radius: 4px;
+  //background: rgba(255, 255, 255, 0.01);
+
+  /* Évite que le texte déporté crée un débordement bizarre */
+  overflow: hidden; 
+
+  /* Désactive le confinement du paragraphe pour étaler le lien */
+  p {
+    position: static !important; 
+  }
+
+  /* LE LIEN INVISIBLE (Prend toute la place) */
+  a {
+    text-decoration: none !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 999 !important; 
+    cursor: pointer !important;
+    
+    /* CASSE LE TEXTE : Rend le "Learn More" invisible textuellement */
+    color: transparent !important; 
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+
+  .archive__item-title {
+    padding-top: 4px;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  /* LE HOVER CYBERPUNK */
+  &:hover {
+    transform: translateY(-5px);
+    // background: rgba(176, 38, 255, 0.03);
+    // border-color: #00ffff !important;
+    // box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 
+    //             inset 0 0 10px rgba(176, 38, 255, 0.1);
+
+    .archive__item-title {
+      color: $primary-color !important;
+    }
+  }
+}
