@@ -72,10 +72,6 @@
   background-color: $cyber-black !important; 
   //border: 1px solid #00f3ff !important;
   border-top: none !important; // On enlève la bordure du haut pour l'effet de fusion
-  //box-shadow: 0 10px 20px rgba(0, 243, 255, 0.3);
-  /* --- MODIFICATION DE L'OMBRE --- */
-  /* On règle le décalage vertical (Y) sur 10px et on limite la diffusion */
-  /* Syntaxe : x-offset y-offset blur spread color */
   box-shadow: 0px 10px 15px -2px rgba(0, 243, 255, 0.4);
   
   padding: 5px !important;

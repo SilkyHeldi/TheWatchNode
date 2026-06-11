@@ -19,7 +19,8 @@ $security-low: #3bff6f;      // green
 
 /* Style for overall archive items */
 .archive__item.cyber-folder {
-  background-color: $cyber-dark;
+  //background-color: $cyber-dark;
+  background-color: #0eac9e60;
   border: 2px solid #333;
   border-radius: 8px 8px 8px 8px;
   overflow: visible; /* Changed from hidden to allow tab to overflow */
@@ -37,7 +38,7 @@ $security-low: #3bff6f;      // green
     left: 20px;
     width: 100px; /* Made wider to accommodate date */
     height: 12px;
-    background-color: #333;
+    background-color: #33333388;
     border: 2px solid #333;
     border-bottom: none;
     border-radius: 5px 5px 0 0;
@@ -92,9 +93,20 @@ $security-low: #3bff6f;      // green
   
   /* Container for the folder content */
   .folder-content {
-    padding: 1rem;
+    padding: 30px;
     position: relative;
     z-index: 2;
+
+    padding-bottom: 0.5rem;
+
+    width: 100% !important; /* Force le contenu à faire 100% de la carte, pas plus */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+
+    // Espace de sécurité entre le bloc du milieu et le footer
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
   }
   
   /* Security indicator dot on folder tab */
@@ -122,11 +134,11 @@ $security-low: #3bff6f;      // green
   }
   
   /* Date display on folder tab */
-  .folder-metadata {
-    font-family: monospace;
-    color: #777;
-    font-size: 0.75rem;
-  }
+  // .folder-metadata {
+  //   font-family: monospace;
+  //   color: #777;
+  //   font-size: 0.75rem;
+  // }
   
   /* Title styling */
   .archive__item-title {
@@ -157,11 +169,11 @@ $security-low: #3bff6f;      // green
   }
   
   /* Folder metadata */
-  .folder-metadata {
-    font-family: monospace;
-    color: #777;
-    font-size: 0.75rem;
-  }
+  // .folder-metadata {
+  //   font-family: monospace;
+  //   color: #777;
+  //   font-size: 0.75rem;
+  // }
   
   /* Holographic icon */
   .holographic-icon {
@@ -248,8 +260,8 @@ $security-low: #3bff6f;      // green
       height: 6px;
     }
     
-    .folder-metadata {
-      font-size: 0.7rem;
-    }
+    // .folder-metadata {
+    //   font-size: 0.7rem;
+    // }
   }
 }

@@ -5,7 +5,10 @@
 
 // GLITCH TEXT EFFECT*************************************************
 
+// GLITCH TEXT EFFECT - VERSION RESTAURÉE + FIX MOBILE CIBLÉ
+
 .glitch {
+  // --- RETOUR AU CODE D'ORIGINE ---
   position: relative;
   // color: #fff;
   // font-size: 2rem;
@@ -16,10 +19,14 @@
 
   .line {
     opacity: 0;
+    
     &:not(:first-child) {
       position: absolute;
       top: 0;
       left: 0;
+      // Ajout de sécurité : s'assurer que les clones ne sont pas plus larges
+      // mais on ne les force pas en block ni en 100% pour garder l'effet d'origine.
+      width: 100%; 
     }
 
     // Par défaut : pas d'animation
@@ -30,6 +37,7 @@
     opacity: 1;
     position: relative;
   }
+  // --------------------------------
 
   &:hover .line {
     opacity: 1;
@@ -69,6 +77,27 @@
           }
         }
       }
+    }
+  }
+}
+
+// LE SEUL CORRECTIF CIBLÉ POUR L'OVERLAY MOBILE DE MINIMAL MISTAKES
+// Cela règle l'alignement sans toucher au CSS interne du glitch.
+.masthead__menu-item-custom {
+  // Force le li en flex pour aligner son contenu au centre proprement
+  // au lieu de text-align: center qui casse le positionnement relatif/absolu.
+  display: flex !important;
+  justify-content: center !important;
+  
+  // Élimine les décalages internes de Minimal Mistakes
+  a.glitch {
+    display: inline-block !important; // S'assurer qu'il reste inline-block
+    padding: 0 !important;             // Supprime le padding mobile par défaut
+    margin: 0 !important;              // Supprime les marges mobile par défaut
+    
+    // S'assurer que le premier span n'est pas décalé
+    .line:first-child {
+      display: inline-block !important;
     }
   }
 }
@@ -291,14 +320,6 @@ $security-low: #3bff6f;      // green
     }
   }
   
-  /* Container for the folder content */
-  .folder-content {
-    padding: 1rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-    z-index: 2;
-  }
-  
   /* Security indicator dot on folder tab */
   .security-indicator {
     position: absolute;
@@ -324,13 +345,13 @@ $security-low: #3bff6f;      // green
   }
   
   /* Date display on folder tab */
-  .folder-metadata {
-    font-family: monospace;
-    color: #777;
-    font-size: 0.75rem;
-    margin-top: 2px;
-    margin-bottom: 2px;
-  }
+  // .folder-metadata {
+  //   font-family: monospace;
+  //   color: #777;
+  //   font-size: 0.75rem;
+  //   margin-top: 2px;
+  //   margin-bottom: 2px;
+  // }
   
   /* Title styling */
   .archive__item-title {
@@ -499,16 +520,15 @@ $security-low: #3bff6f;      // green
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   font-weight: 100;
-  // padding-top: 0 !important;
-  // padding-bottom: 0 !important;
 }
 
 
 .folder-columns {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.2rem;
   flex-wrap: wrap;
+  padding : 10px;
 
   .folder-left {
     flex: 1 1 60%;

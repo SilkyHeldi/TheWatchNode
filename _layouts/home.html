@@ -109,8 +109,11 @@ layout: archive
 </script>
 <!-- BOOT SCREEN END -->
 
-
 {{ content }}
+
+{% if page.feature_row %}
+  {% include feature_row %}
+{% endif %}
 
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
@@ -120,17 +123,13 @@ layout: archive
   {% assign posts = site.posts %}
 {% endif %}
 
-{% if page.feature_row %}
-  {% include feature_row %}
-{% endif %}
-
 {% comment %} On force le layout en 'grid' au lieu de 'list' {% endcomment %}
 {% assign entries_layout = 'grid' %}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
-
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html entries=posts type=entries_layout %}
+<div class="grid__wrapper">
+  {% for post in posts %}
+    {% include archive-single.html type=entries_layout %}
+  {% endfor %}
 </div>
 
 {% include paginator.html %}

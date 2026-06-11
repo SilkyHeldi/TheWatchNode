@@ -10,8 +10,10 @@ main:
         url: /categories/#ctf
       - title: "Tout voir"
         url: /topics/
-  - title: "Tags"
-    url: /tags/
+  - title: "Explore"
+    url: /about/
+  # - title: "Tags"
+  #   url: /tags/
   - title: "whoami"
     url: /about/
 footer:
