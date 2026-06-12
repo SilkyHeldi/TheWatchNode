@@ -3,7 +3,7 @@ layout: archive
 ---
 
 <!-- BOOT SCREEN START -->
-<style>
+<!-- <style>
   /* @keyframes pulseBackground {
     0% {
       background: radial-gradient(circle at center, #0b0f1a 0%, #000510 80%);
@@ -29,7 +29,8 @@ layout: archive
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    /*z-index: 9999;*/
+    z-index: 2147483647;
     overflow: hidden;
     opacity: 1;
     visibility: visible;  /* L'élément est visible au début */
@@ -84,16 +85,15 @@ layout: archive
     to { width: 100%; }
   }
 
-</style>
+</style> -->
 
 
 
-<div id="boot-screen">
+<!-- <div id="boot-screen">
   <div id="boot-text">INITIALIZING NEURAL UPLINK...</div>
   <div class="progress-bar-container">
     <div class="progress-bar"></div>
   </div>
-  <!-- <div id="boot-complete">Boot complete. Welcome, Netrunner.</div> -->
 </div>
 
 <script>
@@ -106,7 +106,7 @@ layout: archive
     document.getElementById('boot-screen').style.display = 'none'; // Cache l'écran après 3.2s, une fois le fondu terminé
   }, 2200); // 2.1s pour laisser à l'animation d'opacité le temps de se faire
 });
-</script>
+</script> -->
 <!-- BOOT SCREEN END -->
 
 {{ content }}
