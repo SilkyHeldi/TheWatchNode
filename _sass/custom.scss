@@ -114,22 +114,6 @@
 
 // AVATAR elements************************************************
 
-// .author__avatar img:hover {
-//   transform: scale(1.01);
-//   box-shadow: 0 0 12px #0268c7;
-// }
-
-
-
-// .cyberpunk-avatar {
-//   background-color: #0a0a0a;
-//   color: #2de2e6;
-//   border: 1px solid #ff0057;
-//   padding: 1rem;
-//   font-family: 'Orbitron', monospace;
-//   text-shadow: 0 0 5px #2de2e6, 0 0 10px #ff0057;
-// }
-
 //Turn social icons neon:
 .author__urls .fa {
   color: #00ffff;
@@ -363,23 +347,13 @@ $security-low: #3bff6f;      // green
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important; /* Pousse naturellement le contenu vers le bas */
-  /////////
-  // background-color: $cyber-dark;
-  // border: 2px solid #333;
-  // border-radius: 8px 8px 8px 8px;
-  // overflow: visible; /* Changed from hidden to allow tab to overflow */
-  // transition: all 0.3s ease;
-  // position: relative;
-  // margin-bottom: 1.5rem;
-  // margin-top: 12px; /* Add space for the folder tab */
-  // padding: 0;
   
   /* Folder tab at the top */
   &:before {
     content: "";
     position: absolute;
     top: -12px;
-    left: 20px;
+    left: 20px !important;
     width: 100px; /* Made wider to accommodate date */
     height: 12px;
     background-color: #333;
@@ -573,35 +547,17 @@ $security-low: #3bff6f;      // green
   }
 }
 
-// /* Media queries for responsiveness */
-// @media screen and (max-width: 768px) {
-//   .archive__item.cyber-folder {
-//     margin-top: 10px;
-    
-//     &:before {
-//       top: -10px;
-//       height: 10px;
-//       width: 60px;
-//     }
-    
-//     .folder-id {
-//       top: -8px;
-//       font-size: 0.5rem;
-//     }
-    
-//     .security-indicator {
-//       top: -6px;
-//       width: 6px;
-//       height: 6px;
-//     }
-//   }
-// }
 /* --- SÉCURISATION DU POSITIONNEMENT DE LA PAGINATION AU ZOOM --- */
 
 /* 1. On applique un clearfix strict sur le conteneur des dossiers */
 html body .grid__wrapper {
-  display: flex !important;
-  /* Conserve le comportement en ligne natif mais empêche les débordements */
+  // display: flex !important;
+  // /* Conserve le comportement en ligne natif mais empêche les débordements */
+  // box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 1.5rem !important;
+  align-items: stretch !important; // Toutes les cartes d'une ligne ont la même hauteur
   box-sizing: border-box !important;
 }
 
@@ -659,32 +615,27 @@ html body .pagination {
     max-width: 100% !important;
     float: none !important;
   }
+}
 
-  .folder-content,
-  .folder-columns {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    flex-wrap: wrap !important;
-    padding: 8px !important;
-    margin: 0 !important;
-  }
+html body .grid__item,
+html body .grid__wrapper,
+html body .archive {
+  overflow: visible !important;
+}
 
-  .folder-left {
-    flex: 1 1 100% !important; // Prend toute la largeur sur mobile
-    margin-right: 0 !important; // Supprime le margin-right fixe
-  }
+html body .grid__item {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important; // Pour que .cyber-folder à l'intérieur puisse stretch
+  //padding-left: 4px !important; // Marge de sécurité pour le tab
 
-  .folder-right {
-    flex: 1 1 100% !important; // Prend toute la largeur aussi
-    max-width: 100% !important;
-    margin-right: 0 !important;
-    
-    img {
-      max-width: 100% !important;
-      width: 100% !important;
-    }
-  }
+  margin-inline-start: 0 !important;
+  clear: none !important;
+  float: none !important;
+}
+
+html body .grid__item:nth-child(n) {
+  margin-inline-start: 0 !important;
 }
 
 // For date colour at the end of a post
@@ -745,75 +696,61 @@ html body .pagination {
 .folder-content {
   display: flex !important;
   flex-direction: column !important;
-  height: 100% !important;
-  min-height: 280px; /* Aligné sur la hauteur de l'image de droite pour éviter les sauts au zoom */
+  //height: 100% !important;
+  //min-height: 280px; /* Aligné sur la hauteur de l'image de droite pour éviter les sauts au zoom */
+  min-height: unset !important; // Supprime la hauteur minimale forcée
+  box-sizing: border-box !important;
+  flex: 1 1 auto !important; // S'adapte au contenu mais peut grandir si besoin
 
-  // Ligne 1 (optionnelle) : .archive__item-teaser
-  
-  // Ligne 2 : Les colonnes (Texte à gauche, Image à droite)
-  .folder-columns {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.2rem;
-    flex-wrap: wrap;
-    padding: 10px;
-    flex-grow: 1 !important; /* PREND TOUT L'ESPACE DISPONIBLE POUR REPOUSSER LE FOOTER */
-
-    .folder-left {
-      flex: 1 1 60%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-      margin-right: 30px;
-    }
-
-    .folder-right {
-      flex: 0 0 270px;
-      max-width: 100%;
-      margin-right: 20px;
-
-      img {
-        width: 100%;
-        max-width: 270px;
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 0.5rem;
-        display: block;
-        margin-top: 10px;
-      }
-    }
-  }
+  width: 100% !important;
+  align-self: stretch !important;
 }
 
 .folder-columns {
   display: flex;
-  align-items: flex-start;
-  gap: 0.2rem;
-  flex-wrap: wrap;
+  flex-direction: column !important;
+  //align-items: flex-start;
+  padding: 10px;
+  gap: 0.5rem;
+  //flex-wrap: wrap;
+  flex-wrap: nowrap !important; // Empêche le retour à la ligne
   padding: 10px;
   box-sizing: border-box !important;
-  max-width: 100% !important;
-  flex-grow: 1 !important; /* Permet aux colonnes de prendre l'espace au besoin avant le footer */
+  width: 100% !important;
+  flex-grow: 0 !important; // collé en haut
+
+  overflow: hidden !important;
 
   .folder-left {
-    flex: 1 1 60%;
-    margin-right: 30px;
+    flex: 1 1 auto !important; // Prend l'espace restant
+    //min-width: 0 !important;
+    //max-width: 55% !important;
+    width: 100% !important;
   }
 
   .folder-right {
-    flex: 0 0 270px;
-    max-width: 100%;
-    margin-right: 20px;
+    // flex: 0 0 50% !important; // Taille fixe en % du conteneur, ne grandit pas, ne rétrécit pas
+    // min-width: 0 !important;
+    // min-height: 160px !important; // Hauteur minimum garantie pour l'image
+    // box-sizing: border-box !important;
+    // align-items: flex-end !important; // Image collée en bas DANS sa colonne
+    // display: flex !important;
+
+    width: 100% !important;
+    flex: 0 0 auto !important;
 
     img {
       width: 100%;
-      max-width: 270px;
+      // max-width: 270px;*
+      max-width: 100% !important;
+      //height: auto !important;
+      height: 100% !important;
+
       aspect-ratio: 4 / 3;
-      object-fit: cover;
+      object-fit: cover !important;
       object-position: center;
       border-radius: 0.5rem;
-      display: block;
+      display: block !important;
       margin-top: 10px;
     }
   }
@@ -826,49 +763,71 @@ html body .pagination {
 
 
 // FIX du footer de carte d'article qui dépasse horizontalement
-@media (min-width: 925px) {
-  html body .archive__item.cyber-folder {
-    container-type: inline-size;
-  }
+html body .archive__item.cyber-folder {
+  overflow: visible !important;
+  height: 100% !important; // Remplit son grid__item
+  width: 100% !important;
+}
 
-  html body .archive__item.cyber-folder .folder-footer {
-    flex-shrink: 0 !important;
-    position: relative !important;
+.folder-content {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.folder-columns {
+  display: flex !important;
+  flex-direction: column !important; // texte en haut, image en dessous
+  gap: 0.5rem !important;
+  padding: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  flex-grow: 0 !important;
+  overflow: hidden !important;
+
+  .folder-left {
     width: 100% !important;
-    box-sizing: border-box !important;
-    margin-top: auto !important;
-    overflow: hidden !important;
-     padding: 12px 8px !important; // Réduit le padding pour gagner de la place
+    min-width: 0 !important;
+  }
 
-    .folder-metadata {
-      flex: 1 1 auto !important;
-      min-width: 0 !important;
-      font-size: clamp(0.5rem, 3.5cqw, 0.75rem) !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: clip !important;
+  .folder-right {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    img {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+      aspect-ratio: 16 / 9 !important;
+      object-fit: cover !important;
+      object-position: center;
+      border-radius: 0.5rem;
+      display: block !important;
     }
   }
 }
 
-// Zoom intermédiaire : forcer overflow hidden sur la carte SAUF le pseudo-element
-@media (min-width: 925px) {
-  html body .archive__item.cyber-folder {
+.folder-footer {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  padding: 12px 8px !important;
+
+  .folder-metadata {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    font-size: clamp(0.5rem, 3.5vw, 0.75rem) !important;
+    white-space: nowrap !important;
     overflow: hidden !important;
-    
-    // Mais on remet visible sur le before pour l'onglet
-    &::before {
-      overflow: visible !important;
-    }
+    text-overflow: clip !important;
   }
 }
 
-// @media (min-width: 769px) {
-//   html body .archive__item.cyber-folder {
-//     container-type: inline-size;
-//   }
-// }
-
+html, body {
+  overflow-x: hidden !important;
+}
 
 
 // HEADER SIDE IMAGE*************************************
