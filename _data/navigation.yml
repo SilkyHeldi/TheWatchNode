@@ -4,11 +4,15 @@ main:
   - title: "Topics"
     url: "#"
     children:
-      - title: "tech"
-        url: /categories/#Blog
       - title: "Forensics"
+        url: /categories/#forensics
+      - title: "CTI"
+        url: /categories/#cti
+      - title: "Incident Response"
+        url: /categories/#ir
+      - title: "CTF"
         url: /categories/#ctf
-      - title: "Tout voir"
+      - title: "See all"
         url: /topics/
   - title: "Explore"
     url: /about/

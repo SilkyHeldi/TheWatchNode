@@ -1,0 +1,49 @@
+---
+layout: default
+---
+
+{% if page.header.overlay_color or page.header.overlay_image or page.header.video.id %}
+  {% include page__header.html %}
+{% elsif page.header.image %}
+  <div class="page__hero">
+    <img src="{{ page.header.image | relative_url }}" alt="{{ page.title }}" class="page__hero-image">
+  </div>
+{% endif %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="archive">
+    {% unless page.header %}
+      <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+    {% endunless %}
+
+    {{ content }}
+
+    {% if page.feature_row %}
+      <div class="grid__wrapper" style="margin-top: 2rem;">
+        {% for f in page.feature_row %}
+          <div class="grid__item">
+            <div class="feature__item">
+              
+              {% if f.image_path %}
+                <div class="feature-image-container">
+                  <img src="{{ f.image_path | relative_url }}" alt="{{ f.title }}">
+                </div>
+              {% endif %}
+              
+              <h2 class="archive__item-title" itemprop="headline">
+                {{ f.title }}
+              </h2>
+              
+              {% if f.excerpt %}
+                <p>{{ f.excerpt }}</p>
+              {% endif %}
+              <a href="{{ f.url | relative_url }}">{{ f.title }}</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>

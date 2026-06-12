@@ -952,3 +952,120 @@ html body .feature__item {
     }
   }
 }
+
+
+/******************POUR LE MENU TOPICS*******************/
+/* --- CONFIGURATION DES CARTES DE THÉMATIQUES (TOPICS) --- */
+
+/* --- CORRECTION FINALE GRILLE TOPICS --- */
+
+/* --- CONFIGURATION DES CARTES DE THÉMATIQUES (TOPICS) RESPONSIVE --- */
+
+.layout--topics {
+  /* Le conteneur de la grille s'adapte */
+  .grid__wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important; 
+  }
+
+  /* PAR DÉFAUT : Mobile et petits écrans (1 seule thématique par ligne) */
+  .grid__item {
+    flex: 1 1 100% !important; /* Prend toute la largeur disponible */
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+
+  /* GRANDS ÉCRANS : Tablettes et Ordinateurs (Dès que l'écran fait plus de 600px) */
+  @media (min-width: 600px) {
+    .grid__item {
+      flex: 1 1 calc(50% - 20px) !important; /* Rebascule à 2 thématiques par ligne */
+      max-width: calc(50% - 10px) !important;
+    }
+  }
+
+  /* Le grand panneau reste translucide pour voir le fond, mais avec des angles plus nets */
+  .archive {
+    background: rgba(10, 10, 15, 0.75) !important; 
+    backdrop-filter: blur(12px) !important;       
+    -webkit-backdrop-filter: blur(12px) !important;
+    padding: 30px !important;
+    border-radius: 4px !important; /* Alignement sur ton style d'accueil */
+    border: 1px solid rgba(255, 255, 255, 0.02);  
+  }
+
+  /* La carte en verre devient monolithique et tranchante */
+  .feature__item {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 25px !important;
+    position: relative;
+    overflow: hidden;
+
+    /* Base en verre fumé très sombre */
+    background: rgba(20, 24, 35, 0.3) !important; 
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    
+    /* Angles vifs typiques de ton accueil */
+    border-radius: 2px !important; 
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+
+  /* EFFET AU SURVOL : On réveille la couleur sans faire "Fallout" */
+  .feature__item:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.03) !important;
+    
+    /* Au survol, la carte hérite subtilement de la couleur de ton titre néon */
+    border-color: rgba(0, 255, 242, 0.3) !important; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 
+                0 0 15px rgba(0, 255, 242, 0.05) !important;
+
+    /* Si c'sont les titres spécifiques, le biseau s'adapte (optionnel) */
+    .archive__item-title {
+      // Un léger halo textuel propre
+      text-shadow: 0 0 10px rgba(0, 255, 242, 0.2);
+    }
+  }
+
+  /* Ajustement de la zone image pour coller aux fiches de l'accueil */
+  .feature-image-container {
+    width: 100% !important;
+    height: 150px !important;
+    overflow: hidden !important;
+    border-radius: 2px !important; /* Angles nets */
+    margin-bottom: 20px !important;
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      filter: grayscale(20%) brightness(0.85); /* Plus brut, moins saturé par défaut */
+      transition: all 0.4s ease-in-out;
+    }
+  }
+
+  .feature__item:hover .feature-image-container img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.02);
+  }
+
+  /* RECONNEXION TYPOGRAPHIQUE */
+  .archive__item-title {
+    font-family: 'Orbitron', sans-serif !important; /* Retour de ta police fétiche */
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 0;
+    font-size: 1.3rem;
+    text-transform: uppercase; /* Donne ce look "fichiers système / logs" */
+  }
+}
