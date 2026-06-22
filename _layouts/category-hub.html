@@ -5,86 +5,182 @@ layout: default
 <div id="main" role="main">
   {% include sidebar.html %}
 
-  <div class="archive">
+  <div class="archive" style="max-width: 100% !important; width: 100% !important;">
     
-    <header class="archive__header" style="margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem;">
-      <h1 class="page__title" style="font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin-bottom: 5px; color: #fff; font-size: 2.2rem;">
+    <header class="archive__header" style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem;">
+      <h1 class="page__title" style="font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin-bottom: 5px; color: #fff;">
         {{ page.title }}
       </h1>
       {% if page.description %}
-        <p class="page__lead" style="font-size: 0.95rem; opacity: 0.8; margin: 5px 0 0 0;">
-          <br>
-          {{ page.description }}
+        <p class="page__lead" style="font-family: 'Courier New', monospace; font-size: 0.95rem; color: #00ffff; opacity: 0.8; margin: 0;">
+          // {{ page.description }}
         </p>
       {% endif %}
     </header>
 
-    {% assign category_posts = site.categories[page.category] %}
-    
-    {% if category_posts.size > 0 %}
-      <div class="cyber-stream-container">
+    <section style="margin-bottom: 4rem; display: block; width: 100%;">
+      <div class="cyber-label" style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: rgba(0, 255, 255, 0.6); letter-spacing: 2px; margin-bottom: 1.5rem;">
+        // TACTICAL_MATRIX_TRAJECTORY
+      </div>
+
+      <div class="cyber-map-extended-container" style="max-width: 1100px; margin: 0 auto; width: 100%; position: relative;">
         
-        {% assign featured_post = category_posts.first %}
-        <section style="margin-bottom: 3.5rem; display: block; width: 100%;">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: auto; background: transparent; overflow: visible !important;">
           
-          <div style="display: flex !important; flex-direction: row !important; gap: 30px !important; align-items: center !important; background: rgba(10, 12, 18, 0.4) !important; backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important; border: none !important; border-left: 4px solid #00ffff !important; padding: 25px !important; border-radius: 0 4px 4px 0 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; min-height: 200px !important;">
-            <div style="flex: 1.4 !important; display: flex !important; flex-direction: column !important; gap: 12px !important; background: transparent !important; padding: 0 !important; border: none !important;">
-              <h2 class="archive__item-title no_toc glitch" itemprop="headline" style="margin: 0 !important; font-family: 'Orbitron', sans-serif; font-size: 1.6rem !important; line-height: 1.2 !important; text-transform: uppercase;">
-                <a href="{{ featured_post.url | relative_url }}" class="featured-glitch-link" style="color: #ca52ee !important; text-decoration: none !important;">
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                  <span class="line">{{ featured_post.title }}</span>
-                </a>
-              </h2>
-              {% if featured_post.excerpt %}
-                <p style="margin: 0 !important; font-size: 0.95rem !important; line-height: 1.6 !important; opacity: 0.75 !important; color: #e0e0e0 !important; background: transparent !important;">
-                  {{ featured_post.excerpt | strip_html | truncatewords: 40 }}
-                </p>
-              {% endif %}
-              <a href="{{ featured_post.url | relative_url }}" style="font-family: 'Courier New', monospace; font-size: 0.85rem; color: #00ffff !important; text-decoration: none !important; margin-top: 5px; font-weight: bold;">
-                Featured article
-              </a>
-            </div>
+          <defs>
+            <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"></feGaussianBlur>
+              <feMerge>
+                <feMergeNode in="blur"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+              </feMerge>
+            </filter>
+            <filter id="purple-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"></feGaussianBlur>
+              <feMerge>
+                <feMergeNode in="blur"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+              </feMerge>
+            </filter>
+          </defs>
 
-            <div style="flex: 1 !important; height: 200px !important; overflow: hidden !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 2px !important; display: block !important;">
-              <a href="{{ featured_post.url | relative_url }}" style="display: block !important; width: 100% !important; height: 100% !important;">
-                {% if featured_post.image_preview %}
-                  <img src="{{ featured_post.image_preview | relative_url }}" alt="{{ featured_post.title }}" style="width: 100% !important; height: 100% !important; object-fit: cover !important; filter: grayscale(20%) brightness(0.8) !important; display: block !important;">
-                {% else %}
-                  <div style="width: 100% !important; height: 100% !important; background: linear-gradient(135deg, #0f1219 0%, #1a1f2c 100%) !important; display: flex !important; align-items: center !important; justify-content: center !important; color: rgba(0, 255, 255, 0.2) !important; font-family: 'Orbitron', sans-serif; font-size: 0.8rem;">
-                    [ NO_PREVIEW_DEFINED ]
-                  </div>
-                {% endif %}
-              </a>
-            </div>
-
-          </div>
-        </section>
-
-        {% if category_posts.size > 1 %}
-          <section class="cyber-grid-section">
-            <div class="cyber-label" style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ffff; letter-spacing: 2px; margin-bottom: 1.5rem;">
-              // LATEST DROPS
-            </div>
+          <g class="mesh-plexus-bg">
+            <polyline points="50,40 180,30 320,50 480,25 640,45 790,30 950,50"></polyline>
+            <polyline points="30,120 150,140 290,110 440,135 600,115 750,130 910,120"></polyline>
+            <polyline points="70,220 210,205 340,230 500,210 660,235 810,215 940,240"></polyline>
+            <polyline points="40,320 170,340 310,315 470,335 620,320 770,345 920,325"></polyline>
+            <polyline points="90,420 230,400 380,425 540,410 690,430 840,415 970,435"></polyline>
             
-            <div class="grid__wrapper">
-              {% for post in category_posts offset: 1 %}
-                {% include archive-single.html type="grid" %}
-              {% endfor %}
+            <line x1="180" y1="30" x2="150" y2="140"></line><line x1="320" y1="50" x2="290" y2="110"></line>
+            <line x1="480" y1="25" x2="440" y2="135"></line><line x1="640" y1="45" x2="600" y2="115"></line>
+            <line x1="150" y1="140" x2="210" y2="205"></line><line x1="290" y1="110" x2="340" y2="230"></line>
+            <line x1="440" y1="135" x2="500" y2="210"></line><line x1="600" y1="115" x2="660" y2="235"></line>
+            <line x1="210" y1="205" x2="170" y2="340"></line><line x1="340" y1="230" x2="310" y2="315"></line>
+            <line x1="500" y1="210" x2="470" y2="335"></line><line x1="660" y1="235" x2="620" y2="320"></line>
+            <line x1="170" y1="340" x2="230" y2="400"></line><line x1="310" y1="315" x2="380" y2="425"></line>
+            <line x1="470" y1="335" x2="540" y2="410"></line><line x1="620" y1="320" x2="690" y2="430"></line>
+
+            <circle cx="180" cy="30" r="1.5"></circle><circle cx="320" cy="50" r="1.5"></circle><circle cx="480" cy="25" r="1.5"></circle>
+            <circle cx="150" cy="140" r="2"></circle><circle cx="290" cy="110" r="1.5"></circle><circle cx="440" cy="135" r="2"></circle>
+            <circle cx="210" cy="205" r="1.5"></circle><circle cx="340" cy="230" r="2"></circle><circle cx="500" cy="210" r="1.5"></circle>
+            <circle cx="170" cy="340" r="2"></circle><circle cx="310" cy="315" r="1.5"></circle><circle cx="470" cy="335" r="2"></circle>
+          </g>
+
+          <g class="map-interactive-node" data-node="1">
+            <line x1="200" y1="350" x2="200" y2="40" class="vertical-projector-line"></line>
+            <path d="M 200,350 L 420,240" class="path-segment seg-near"></path>
+            <a xlink:href="{{ '/categories/ctf/' | relative_url }}">
+              <polygon points="200,334 214,342 214,358 200,366 186,358 186,342" class="node-hex"></polygon>
+              <text x="200" y="354" text-anchor="middle" class="node-number">01</text>
+              <text x="200" y="385" text-anchor="middle" class="node-permanent-title">Capture The Flag</text>
+            </a>
+          </g>
+
+          <g class="map-interactive-node" data-node="2">
+            <line x1="420" y1="240" x2="420" y2="40" class="vertical-projector-line"></line>
+            <path d="M 420,240 L 600,320" class="path-segment seg-mid-near"></path>
+            <a xlink:href="{{ '/categories/dfir/' | relative_url }}">
+              <polygon points="420,224 434,232 434,248 420,256 406,248 406,232" class="node-hex"></polygon>
+              <text x="420" y="244" text-anchor="middle" class="node-number">02</text>
+              <text x="420" y="275" text-anchor="middle" class="node-permanent-title">Digital Forensics</text>
+            </a>
+          </g>
+
+          <g class="map-interactive-node" data-node="3">
+            <line x1="600" y1="320" x2="600" y2="40" class="vertical-projector-line"></line>
+            <path d="M 600,320 L 800,180" class="path-segment seg-mid-far"></path>
+            <a xlink:href="{{ '/categories/cti/' | relative_url }}">
+              <polygon points="600,304 614,312 614,328 600,336 586,328 586,312" class="node-hex"></polygon>
+              <text x="600" y="324" text-anchor="middle" class="node-number">03</text>
+              <text x="600" y="355" text-anchor="middle" class="node-permanent-title">Threat Intel</text>
+            </a>
+          </g>
+
+          <g class="map-interactive-node" data-node="4">
+            <line x1="800" y1="180" x2="800" y2="40" class="vertical-projector-line"></line>
+            <a xlink:href="{{ '/categories/ai/' | relative_url }}">
+              <polygon points="800,164 814,172 814,188 800,196 786,188 786,172" class="node-hex"></polygon>
+              <text x="800" y="184" text-anchor="middle" class="node-number">04</text>
+              <text x="800" y="215" text-anchor="middle" class="node-permanent-title">Artificial Intelligence</text>
+            </a>
+          </g>
+
+        </svg>
+
+        <div class="html-preview-box" id="preview-node-1" style="left: 20%; top: 40px;">
+          <div class="cyber-preview-card">
+            <div class="preview-img-holder" style="background-image: url('{{ "/assets/images/frontend/ctf.jpg" | relative_url }}');"></div>
+            <div class="preview-text-holder">
+              <h4>Capture The Flag</h4>
+              <p>Gamified cyber exercises to build fast muscle memory and dynamic defense instincts.</p>
             </div>
-          </section>
-        {% endif %}
+          </div>
+        </div>
+
+        <div class="html-preview-box" id="preview-node-2" style="left: 42%; top: 40px;">
+          <div class="cyber-preview-card">
+            <div class="preview-img-holder" style="background-image: url('{{ "/assets/images/frontend/Forensics-2.jpg" | relative_url }}');"></div>
+            <div class="preview-text-holder">
+              <h4>Digital Forensics</h4>
+              <p>Deep host artifact analysis and network payload parsing to map intruder movement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="html-preview-box" id="preview-node-3" style="left: 60%; top: 40px;">
+          <div class="cyber-preview-card">
+            <div class="preview-img-holder" style="background-image: url('{{ "/assets/images/frontend/CTI-2.jpg" | relative_url }}');"></div>
+            <div class="preview-text-holder">
+              <h4>Threat Intelligence</h4>
+              <p>Tracking active adversary campaigns, campaign correlation, and structural attribution.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="html-preview-box" id="preview-node-4" style="left: 80%; top: 40px;">
+          <div class="cyber-preview-card">
+            <div class="preview-img-holder" style="background-image: url('{{ "/assets/images/frontend/AI-4.jpg" | relative_url }}');"></div>
+            <div class="preview-text-holder">
+              <h4>Artificial Intelligence</h4>
+              <p>Securing deep learning architectures and examining modern prompt injection surfaces.</p>
+            </div>
+          </div>
+        </div>
 
       </div>
-    {% else %}
-      <p style="font-family: 'Courier New', monospace; opacity: 0.5;">// ERR_NO_POSTS_FOUND_IN_DATABASE</p>
-    {% endif %}
+    </section>
+
+    <section style="display: block; width: 100%;">
+      <div class="cyber-label" style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: rgba(0, 255, 255, 0.6); letter-spacing: 2px; margin-bottom: 2rem;">
+        // FILTER_BY_KEYWORDS
+      </div>
+      <div class="cyber-tag-cloud">
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+          {% assign tag_name = tag[0] %}
+          {% assign tag_posts = tag[1] %}
+          <a href="{{ '/tags/' | relative_url }}#{{ tag_name | slugify }}" class="cyber-tag-item">
+            <span class="tag-hash">#</span>{{ tag_name }} <span class="tag-count">[{{ tag_posts.size }}]</span>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
 
   </div>
 </div>
+
+<script>
+  // Script d'activation ultra-léger pour lier le Node à sa popup correspondante
+  document.querySelectorAll('.map-interactive-node').forEach(node => {
+    const nodeId = node.getAttribute('data-node');
+    const targetPreview = document.getElementById(`preview-node-${nodeId}`);
+    
+    node.addEventListener('mouseenter', () => {
+      if(targetPreview) targetPreview.classList.add('is-active');
+    });
+    
+    node.addEventListener('mouseleave', () => {
+      if(targetPreview) targetPreview.classList.remove('is-active');
+    });
+  });
+</script>
