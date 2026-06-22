@@ -2,16 +2,16 @@ main:
   - title: "Home"
     url: /
   - title: "Topics"
-    url: "#"
+    url: /topics/
     children:
-      - title: "Forensics"
-        url: /categories/#forensics
+      - title: "DFIR"
+        url: /categories/dfir
       - title: "CTI"
-        url: /categories/#cti
-      - title: "Incident Response"
-        url: /categories/#ir
+        url: /categories/cti
       - title: "CTF"
-        url: /categories/#ctf
+        url: /categories/ctf
+      - title: "AI"
+        url: /categories/ai
       - title: "See all"
         url: /topics/
   - title: "Explore"

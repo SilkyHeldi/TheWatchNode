@@ -1,0 +1,90 @@
+---
+layout: default
+---
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="archive">
+    
+    <header class="archive__header" style="margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem;">
+      <h1 class="page__title" style="font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin-bottom: 5px; color: #fff; font-size: 2.2rem;">
+        {{ page.title }}
+      </h1>
+      {% if page.description %}
+        <p class="page__lead" style="font-size: 0.95rem; opacity: 0.8; margin: 5px 0 0 0;">
+          <br>
+          {{ page.description }}
+        </p>
+      {% endif %}
+    </header>
+
+    {% assign category_posts = site.categories[page.category] %}
+    
+    {% if category_posts.size > 0 %}
+      <div class="cyber-stream-container">
+        
+        {% assign featured_post = category_posts.first %}
+        <section style="margin-bottom: 3.5rem; display: block; width: 100%;">
+          
+          <div style="display: flex !important; flex-direction: row !important; gap: 30px !important; align-items: center !important; background: rgba(10, 12, 18, 0.4) !important; backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important; border: none !important; border-left: 4px solid #00ffff !important; padding: 25px !important; border-radius: 0 4px 4px 0 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; min-height: 200px !important;">
+            <div style="flex: 1.4 !important; display: flex !important; flex-direction: column !important; gap: 12px !important; background: transparent !important; padding: 0 !important; border: none !important;">
+              <h2 class="archive__item-title no_toc glitch" itemprop="headline" style="margin: 0 !important; font-family: 'Orbitron', sans-serif; font-size: 1.6rem !important; line-height: 1.2 !important; text-transform: uppercase;">
+                <a href="{{ featured_post.url | relative_url }}" class="featured-glitch-link" style="color: #ca52ee !important; text-decoration: none !important;">
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                  <span class="line">{{ featured_post.title }}</span>
+                </a>
+              </h2>
+              {% if featured_post.excerpt %}
+                <p style="margin: 0 !important; font-size: 0.95rem !important; line-height: 1.6 !important; opacity: 0.75 !important; color: #e0e0e0 !important; background: transparent !important;">
+                  {{ featured_post.excerpt | strip_html | truncatewords: 40 }}
+                </p>
+              {% endif %}
+              <a href="{{ featured_post.url | relative_url }}" style="font-family: 'Courier New', monospace; font-size: 0.85rem; color: #00ffff !important; text-decoration: none !important; margin-top: 5px; font-weight: bold;">
+                Featured article
+              </a>
+            </div>
+
+            <div style="flex: 1 !important; height: 200px !important; overflow: hidden !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 2px !important; display: block !important;">
+              <a href="{{ featured_post.url | relative_url }}" style="display: block !important; width: 100% !important; height: 100% !important;">
+                {% if featured_post.image_preview %}
+                  <img src="{{ featured_post.image_preview | relative_url }}" alt="{{ featured_post.title }}" style="width: 100% !important; height: 100% !important; object-fit: cover !important; filter: grayscale(20%) brightness(0.8) !important; display: block !important;">
+                {% else %}
+                  <div style="width: 100% !important; height: 100% !important; background: linear-gradient(135deg, #0f1219 0%, #1a1f2c 100%) !important; display: flex !important; align-items: center !important; justify-content: center !important; color: rgba(0, 255, 255, 0.2) !important; font-family: 'Orbitron', sans-serif; font-size: 0.8rem;">
+                    [ NO_PREVIEW_DEFINED ]
+                  </div>
+                {% endif %}
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        {% if category_posts.size > 1 %}
+          <section class="cyber-grid-section">
+            <div class="cyber-label" style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ffff; letter-spacing: 2px; margin-bottom: 1.5rem;">
+              // LATEST DROPS
+            </div>
+            
+            <div class="grid__wrapper">
+              {% for post in category_posts offset: 1 %}
+                {% include archive-single.html type="grid" %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+      </div>
+    {% else %}
+      <p style="font-family: 'Courier New', monospace; opacity: 0.5;">// ERR_NO_POSTS_FOUND_IN_DATABASE</p>
+    {% endif %}
+
+  </div>
+</div>
