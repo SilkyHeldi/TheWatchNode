@@ -59,7 +59,7 @@ plugins:
 
 author:
   name   : "Sentry42"
-  avatar : "/assets/images/Sentry.png"
+  avatar : "/assets/images/Gemini-pic-3.png"
   bio    : "Infosec student at 42Paris school. Focusing on blue teaming, taste for threat hunting and threat intelligence."
   location  : "France"
   links:
