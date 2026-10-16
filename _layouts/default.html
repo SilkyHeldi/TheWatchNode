@@ -75,7 +75,7 @@
           width: 0%;
           height: 100%;
           background: linear-gradient(to right, #00fff2, #007a99);
-          animation: loadBar 1.7s linear forwards;
+          animation: loadBar 1.1s linear forwards;
         }
       
         @keyframes loadBar {
@@ -93,11 +93,11 @@
         window.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             document.getElementById('boot-screen').classList.add('hidden');
-          }, 1700); // l'ecran commence a disparaitre
+          }, 900); // l'ecran commence a disparaitre
           // Ajouter un délai pour la transition avant de cacher complètement l'élément
           setTimeout(() => {
             document.getElementById('boot-screen').style.display = 'none'; // Cache l'écran après 3.2s, une fois le fondu terminé
-          }, 2200); // 2.1s pour laisser à l'animation d'opacité le temps de se faire
+          }, 1200); // 2.1s pour laisser à l'animation d'opacité le temps de se faire
       });
       </script>
     {% endif %}

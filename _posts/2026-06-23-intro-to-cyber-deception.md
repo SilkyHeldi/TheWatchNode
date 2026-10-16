@@ -147,7 +147,7 @@ In general, we have to make sure to have a **solid legal footing** and to mainta
 # Conclusion
 
 **Thank you** for reading my introduction to Cyber Deception. I hope you understand what Cyber Deception is, how it impacts attackers, its value and how it can be done while respecting the law.
-This article has greatly been based on the free 16-hour webinar *Active Defence & Cyber Deception* by **John Strand**, huge credits to him ! (available on the official channel linked below). I advise you to attend his course if you can, it is a very different experience from reading a blog.
+This article has greatly been based on the free 16-hour webinar *Active Defence & Cyber Deception* by **John Strand**, huge credits to him ! (available on the official channel linked below). It was inspired from the [MITRE ENGAGE framework][Engage], that provides support to lure, deny and detect enemies. I advise you to attend his course if you can, it is a very different experience from reading a blog.
 The **next article** about this subject will talk about **concrete solutions** that exist to annoy and slow the attacker.
 
 This article is my interpretation of the different sources I found, I could make mistakes, this is just a node among others in the vast world of Internet. As I am still learning, feel free to reach me by email if you want to discuss further or if you want to suggest any correction supported by a reliable source.
@@ -167,3 +167,4 @@ This article is my interpretation of the different sources I found, I could make
 [Blue]: https://www.sentinelone.com/cybersecurity-101/cybersecurity/what-is-a-blue-team/
 [MTTD]: https://www.splunk.com/en_us/blog/learn/mean-time-to-detect-mttd.html
 [BAB]: https://www.blackhillsinfosec.com/tools/backdoorsandbreaches/
+[Engage]: https://engage.mitre.org/matrix/

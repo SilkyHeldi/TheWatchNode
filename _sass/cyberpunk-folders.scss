@@ -73,13 +73,13 @@ $security-low: #3bff6f;      // green
   /* Hover effects */
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 0 15px rgba($cyber-blue, 0.5);
+    box-shadow: 0 0 2px rgba($cyber-blue, 0.5);
     border-color: $cyber-blue;
     
     &:before {
       background-color: $cyber-blue;
       border-color: $cyber-blue;
-      box-shadow: 0 0 10px rgba($cyber-blue, 0.3);
+      box-shadow: 0 0 2px rgba($cyber-blue, 0.3);
     }
     
     &:after {

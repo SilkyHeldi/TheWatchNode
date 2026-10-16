@@ -15,8 +15,15 @@
 @import "minimal-mistakes/sidebar";
 @import "minimal-mistakes/print";
 @import "minimal-mistakes/page";
+ @import "twn-refresh";
 // @import "cyberpunk-folders";
 @import "custom"; // Custom styles and mixins
+
+.page__content h1,
+.page__content h2,
+.page__content h3 {
+  color: #bc46df;
+}
 
 .feature__item {
   margin-bottom: 2em;
