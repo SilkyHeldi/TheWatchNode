@@ -21,6 +21,8 @@
         {% endfor %}
       </a>
     </h3>
+    {% comment %} TWN: small terminal-style line under the name — set "handle" in _config.yml (author) {% endcomment %}
+    <p class="author__handle">{{ author.handle | default: "// blue team · 42 Paris" }}</p>
     {% if author.bio %}
       <div class="author__bio p-note" itemprop="description">
         {{ author.bio | markdownify }}
