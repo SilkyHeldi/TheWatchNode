@@ -13,10 +13,9 @@
 <!-- Main item container with class for cyberpunk folder styling -->
 <div class="{{ include.type | default: 'list' }}__item">
   <article class="archive__item cyber-folder" itemscope itemtype="https://schema.org/CreativeWork"{% if post.locale %} lang="{{ post.locale }}"{% endif %}>
-    <!-- Folder tab elements are now handled by :before pseudo-element -->
-    <!-- <div class="shine-effect"></div> -->
-    <div class="security-indicator"></div>
-    <div class="folder-id">FILE_{{ forloop.index | prepend: '00' | slice: -3, 3 }}</div>
+    <!-- The folder tab itself is drawn by .cyber-folder::before -->
+    <div class="security-indicator" aria-hidden="true"></div>
+    <div class="folder-id" aria-hidden="true">FILE_{{ forloop.index | prepend: '00' | slice: -3, 3 }}</div>
     
     <!-- Folder content -->
     <div class="folder-content">
@@ -90,14 +89,9 @@
         </div>
         <!-- Right column: the image -->
         <div class="folder-right">
-          <!-- New image section -->
-          <!-- <div class="folder-image">
-            <img src="./assets/images/dark-city.jpg" alt="Preview image">
-          </div> -->
-
           {% if post.image_preview %}
             <div class="folder-image">
-              <img src="{{ post.image_preview | relative_url }}" alt="Preview image">
+              <img src="{{ post.image_preview | relative_url }}" alt="" loading="lazy">
             </div>
           {% endif %}
         </div>
@@ -105,17 +99,15 @@
 
       <!-- Folder footer with metadata and holographic icon -->
       <div class="folder-footer">
-          <div class="folder-metadata", style="font-size: large;">
-          ACCESS: {{ post.date | date: "%Y.%m.%d" }}
+        <div class="folder-metadata">
+          ACCESS: <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
         </div>
-        <div class="holographic-icon">
+        <div class="holographic-icon" aria-hidden="true">
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
-
-
     </div>
   </article>
 </div>

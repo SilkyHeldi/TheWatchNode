@@ -28,13 +28,6 @@ body {
           flex-direction: column;
 }
 
-// .initial-content {
-//   background-image: url('/TheWatchNode/assets/images/neon-city.jpg');
-//   background-repeat: no-repeat;
-//   background-size: cover;
-//   background-position: center;
-//   flex: 1 0 auto;
-// }
 
 .initial-content::before {
   flex: 1 0 auto;
@@ -49,12 +42,12 @@ body {
   background-repeat: no-repeat;/* Prevents tiling */
   background-attachment: fixed;   /* Makes the background stay static when scrolling */
   filter: blur(2px);
-  // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
   z-index: -1;
 }
 
+.initial-content,
 .search-content {
-  flex: 1 0 auto;
+  flex: 1 0 auto;            // keeps the footer at the bottom of short pages
 }
 
 .page {
@@ -68,15 +61,7 @@ body {
     width: calc(100% - #{$right-sidebar-width});
     padding-inline-end: $right-sidebar-width;
   }
-  // @include breakpoint($large) {
-  //   width: 100%;
-  //   padding-inline-end: 0;
-  // }
 
-  // @include breakpoint($x-large) {
-  //   width: 100%;
-  //   padding-inline-end: 0;
-  // }
 
   .page__inner-wrap {
     float: inline-start;
@@ -206,6 +191,12 @@ body {
   blockquote + .small {
     margin-top: -1.5em;
     padding-inline-start: 1.25rem;
+  }
+
+  /* vertical alignment for first content */
+  > :first-child,
+  > aside + :nth-child(2) {
+    margin-top: 0em;
   }
 }
 
@@ -376,7 +367,7 @@ body {
   margin-bottom: 8px;
   padding: 5px 10px;
   text-decoration: none;
-  // border: 1px solid mix(#000, $border-color, 25%);
+  border: 1px solid mix(#000, $border-color, 25%);
   border-radius: $border-radius;
 
   &:hover {

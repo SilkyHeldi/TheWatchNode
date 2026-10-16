@@ -3,192 +3,49 @@
 
 @charset "utf-8";
 
-@import "minimal-mistakes/skins/neon";
+/* ==========================================================================
+   TheWatchNode — stylesheet entry point
+   Minimal Mistakes is imported piece by piece (instead of @import "minimal-mistakes")
+   so that each partial is compiled only once. The partials overridden in
+   _sass/minimal-mistakes/ come last, in the same order as before.
+   ========================================================================== */
+
+/* Skin + site-wide overrides of theme variables (theme values are !default) */
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+$x-large: 1800px;
+$instagram-color: #517fa4;
+
+/* Theme foundations */
+@import "minimal-mistakes/copyright";
 @import "minimal-mistakes/variables";
+@import "minimal-mistakes/vendor/breakpoint/breakpoint";
+@include breakpoint-set("to ems", true);
+@import "minimal-mistakes/vendor/magnific-popup/magnific-popup";
+@import "minimal-mistakes/vendor/susy/susy";
 @import "minimal-mistakes/mixins";
 
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
-@import "minimal-mistakes"; // main partials
+/* Theme partials used as-is */
+@import "minimal-mistakes/reset";
+@import "minimal-mistakes/base";
+@import "minimal-mistakes/forms";
+@import "minimal-mistakes/tables";
+@import "minimal-mistakes/animations";
+@import "minimal-mistakes/buttons";
+@import "minimal-mistakes/notices";
+@import "minimal-mistakes/footer";
+@import "minimal-mistakes/search";
+@import "minimal-mistakes/syntax";
+@import "minimal-mistakes/utilities";
+@import "minimal-mistakes/print";
+
+/* Theme partials customised in _sass/minimal-mistakes/ */
 @import "minimal-mistakes/masthead";
 @import "minimal-mistakes/navigation";
 @import "minimal-mistakes/archive";
 @import "minimal-mistakes/sidebar";
-@import "minimal-mistakes/print";
 @import "minimal-mistakes/page";
-// @import "cyberpunk-folders";
-@import "custom"; // Custom styles and mixins
 
-.page__content h1,
-.page__content h2,
-.page__content h3 {
-  color: #bc46df;
-}
-
-.feature__item {
-  margin-bottom: 2em;
-  .archive__item-teaser {
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-}
-
-
-/* --- FIX FINAL DE LA BARRE ET DU MENU --- */
-
-.masthead__menu-item-custom {
-  position: relative !important;
-  display: inline-flex !important; /* Aide à l'alignement vertical */
-  align-items: center;
-  height: 60px; /* Force une hauteur pour que la zone de survol soit stable */
-  margin-right: 25px;
-
-  // On crée un pont invisible pour que le menu ne disparaisse pas
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 10px;
-  }
-
-  &:hover .nav-dropdown {
-    display: block !important;
-  }
-}
-
-.glitch-wrapper {
-  display: block;
-  min-width: 80px; /* Empêche le titre de s'effondrer */
-}
-
-.nav-dropdown {
-  display: none;
-  position: absolute !important;
-  
-  top: 55px !important; /* Ajuste pour descendre sous la barre bleue */
-  left: -10px !important;
-  width: 160px !important;
-  
-  // LE FOND : On force le noir opaque pour cacher la ville néon derrière
-  background-color: $cyber-black !important; 
-  //border: 1px solid #00f3ff !important;
-  border-top: none !important; // On enlève la bordure du haut pour l'effet de fusion
-  box-shadow: 0px 10px 15px -2px rgba(0, 243, 255, 0.4);
-  
-  //padding: 5px !important;
-  /* IMPORTANT : On reset le padding de la liste dropdown elle-même */
-  padding: 5px 0 !important; // 5px en haut/bas, 0 sur les côtés
-  margin: 0 !important;
-  z-index: 999999 !important;
-  list-style: none !important;
-
-  .nav-dropdown-item {
-    display: block !important;
-    //margin-bottom: 12px !important;
-    //padding: 0 !important;
-
-    a {
-      font-family: 'Orbitron', sans-serif !important;
-      color: #00f3ff !important;
-      text-transform: uppercase;
-      font-size: 0.7rem !important;
-      letter-spacing: 2px; // Espacement Cyberpunk
-      text-decoration: none !important;
-      display: block !important;
-      transition: all 0.2s ease;
-
-      width: 100% !important; // On force le lien à prendre toute la largeur
-      
-      /* C'est ici qu'on gère l'alignement thermique de gauche */
-      padding: 8px 12px !important; // Ajuste les 12px de gauche selon tes goûts
-      margin: 0 !important;
-      text-align: left !important;
-      
-      &:hover {
-        background: rgba(0, 243, 255, 0.15); // Effet de survol discret
-        color: #e945f8 !important;
-        transform: translateX(5px);
-      }
-    }
-  }
-}
-
-// On cache la barre bleue parasite si elle vient de l'ombre du glitch
-.glitch {
-  text-shadow: none !important; /* On laisse les spans gérer le glitch */
-}
-
-/* --- LIBÉRATION DES VISIBLE LINKS --- */
-
-// 1. On lève la barrière de l'overflow sur TOUTE la hiérarchie de la navigation
-.masthead, 
-.masthead__inner-wrap, 
-.masthead__menu, 
-.greedy-nav, 
-.visible-links {
-  overflow: visible !important; /* Force l'affichage de ce qui dépasse */
-}
-
-.masthead__inner-wrap {
-  //overflow-x: hidden !important;
-  box-sizing: border-box !important;
-}
-
-// 2. On s'assure que .visible-links ne crée pas son propre blocage
-.visible-links {
-  display: flex !important;
-  position: relative !important;
-}
-
-// 3. On force le parent direct du menu à être le point de référence
-.masthead__menu-item-custom {
-  position: relative !important;
-}
-
-
-.greedy-nav__toggle.hidden {
-  position: absolute !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-@media screen and (max-width: 600px) {
-  .greedy-nav .hidden-links {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
-
-  .greedy-nav .hidden-links .masthead__menu-item-custom {
-    margin-right: 0 !important; // annule le décalage de 25px
-  }
-}
-
-#site-nav.greedy-nav .search__toggle {
-  flex-shrink: 0 !important;
-}
-
-#site-nav.greedy-nav .search__toggle {
-  transform: translateX(-10px) !important;
-}
-
-#site-nav.greedy-nav {
-  padding-right: 15px !important;
-}
-
-#site-nav.greedy-nav .greedy-nav__toggle {
-  transform: translateX(-10px) !important;
-}
-// TWN refresh (navbar, hero, cards) — remove this line to roll back
-@import "twn-refresh";
+/* Site styles */
+@import "custom";
+@import "nav-fixes";
+@import "twn-refresh";   // navbar, hero, cards — remove to roll the redesign back

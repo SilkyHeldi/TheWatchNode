@@ -436,20 +436,14 @@
    ALIGNEMENT DE LA GRILLE : CONTENEURS SÉCURISÉS ET FLUX VERTICAL CLEAN
    ========================================================================== */
 
+// Grid layout itself (columns, gap): see custom.scss + _twn-refresh.scss
 @include breakpoint($medium) {
   .grid__wrapper {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 12px !important; 
     margin-inline: 0 !important;
   }
 
   .grid__item {
-    float: none !important; 
-    clear: none !important;
-    width: calc(25% - 15px) !important; 
     margin: 0 !important;
-    display: flex !important;
   }
 }
 
@@ -459,22 +453,18 @@
   display: flex !important;
   flex-direction: column !important;
   width: 100% !important;
-  height: 590px !important; /* Hauteur totale verrouillée */
   box-sizing: border-box !important;
   position: relative !important;
-  padding: 35px 15px 15px 15px !important; /* Marge pour FILE_00X */
+  // height + padding: see custom.scss / _twn-refresh.scss
 
 
   .folder-columns {
-    // display: flex !important;
     // flex-direction: column !important; /* Force un alignement vertical des colonnes internes */
     width: 100% !important;
     max-width: 100% !important;
   }
 
   .folder-left {
-    // display: flex !important;
-    // flex-direction: column !important;
     width: 100% !important;      /* Aligne la div sur la largeur stricte du dossier */
     max-width: 100% !important;  /* Empêche les 632px constatés sur l'inspecteur */
     box-sizing: border-box !important;
@@ -533,29 +523,13 @@
   // .archive__item-categories,
   .archive__item-tags {
     // flex: 0 0 54px !important;    /* Hauteur stricte pour tenir sur deux lignes */
-    // max-height: 28px !important;
-    // margin-top: 2px !important;
-    // margin-bottom: 2px !important;
     // overflow: hidden !important;   /* Coupe net si trop de tags */
     // //white-space: nowrap !important; /* Interdit formellement le retour à la ligne */
-    // text-overflow: ellipsis !important;
-    // display: block !important;
 
 
     // // Gestion des conteneurs internes (strong, span, etc.) visibles sur ton inspecteur
-    // strong, span {
-    //   display: inline-block !important;
-    //   vertical-align: middle !important;
-    // }
 
     // // Force tous les liens de tags à rester alignés horizontalement
-    // a {
-    //   display: inline-block !important;
-    //   vertical-align: middle !important;
-    //   flex-shrink: 0 !important;
-    //   margin-right: 5px !important;
-    //   margin-bottom: 0 !important;
-    // }
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;

@@ -239,24 +239,10 @@
       &:before {
         content : none;
         // OLD way that provokes undesired animation
-        // content: "";
-        // position: absolute;
-        // inset-inline-start: 0;
-        // bottom: 0;
-        // height: 4px;
-        // background: $primary-color;
-        // width: 100%;
-        // -webkit-transition: $global-transition;
-        // transition: $global-transition;
-        // -webkit-transform: scaleX(0) translate3d(0, 0, 0);
         // transform: scaleX(0) translate3d(0, 0, 0); // hide
       }
 
-      // &:hover:before {
-      //   -webkit-transform: scaleX(1);
-      //   -ms-transform: scaleX(1);
       //   transform: scaleX(1); // reveal
-      // }
       &:hover {
         // Supprimer l'effet de transform qui cause le décalage
         transform: none;
@@ -510,7 +496,6 @@
 .toc {
   font-family: $sans-serif-narrow;
   color: $gray;
-  // background-color: $background-color;
   background: linear-gradient(45deg, rgba(106, 68, 242, 0.274), rgba(0, 255, 255, 0.089));
   border: 1px solid $border-color;
   border-radius: $border-radius;
@@ -520,7 +505,6 @@
   .nav__title {
     color: #fff;
     font-size: $type-size-6;
-    // background: $primary-color;
     background: rgba(253, 48, 253, 0.171) !important;
     border-start-start-radius: $border-radius;
     border-start-end-radius: $border-radius;
@@ -552,7 +536,6 @@
     border-bottom: 1px solid $border-color;
 
     &:hover {
-      // color: $text-color;
       color : rgba(253, 48, 253, 0.171);
     }
   }

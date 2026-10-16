@@ -12,7 +12,6 @@
   z-index: 20;
 
   background: url('/assets/images/neon-city.jpg') center center / cover no-repeat; 
-  //background: url('/assets/images/neon-city.jpg') center 80% / cover no-repeat;
   /* Image de fond */
   background-color: rgba(0, 0, 0, 0.5);  /* Optionnel : pour ajouter une teinte sombre si l'image est trop lumineuse */
 
@@ -48,14 +47,12 @@
 }
 
 .site-title {
-  //font-family: 'Quantico';
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: center;
   align-self: center;
   font-weight: bold;
-  // z-index: 20;
 }
 
 .site-subtitle {
@@ -86,16 +83,7 @@
 }
 
 // COMMENTING FOR CONTENT BELOW
-// .masthead__menu-item {
-//   display: block;
-//   list-style-type: none;
-//   white-space: nowrap;
 
-//   &--lg {
-//     padding-inline-end: 2em;
-//     font-weight: 700;
-//   }
-// }
 
 .masthead__menu-item {
   position: relative;

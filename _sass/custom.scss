@@ -10,8 +10,6 @@
 .glitch {
   // --- RETOUR AU CODE D'ORIGINE ---
   position: relative;
-  // color: #fff;
-  // font-size: 2rem;
   font-family: 'Orbitron', sans-serif;
   font-weight: 600;
   display: inline-block;
@@ -84,9 +82,7 @@
 // LE SEUL CORRECTIF CIBLÉ POUR L'OVERLAY MOBILE DE MINIMAL MISTAKES
 // Cela règle l'alignement sans toucher au CSS interne du glitch.
 .masthead__menu-item-custom {
-  // Force le li en flex pour aligner son contenu au centre proprement
-  // au lieu de text-align: center qui casse le positionnement relatif/absolu.
-  display: flex !important;
+  // Centre le contenu du li (son display est défini dans _nav-fixes.scss)
   justify-content: center !important;
   
   // Élimine les décalages internes de Minimal Mistakes
@@ -122,19 +118,18 @@
 
 //h-card section********************************************************************
 // Override h-card shadow effect
-// .h-card {
-//   filter: brightness(1.2) contrast(1.2) saturate(1.15);
-// }
 
 .h-card {
   position: relative;
   padding: 20px;
   background: linear-gradient(135deg, #272727, #0f0d0f); /* Neon gradient background */
-  //#ff0088, #ff6600
   color: white;
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.3); /* Soft glow effect */
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
+  background-clip: padding-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .h-card::before {
@@ -148,43 +143,22 @@
   background-size: 50px 50px;
   transform: translate(-50%, -50%) rotate(45deg);
   z-index: -1;
-  // animation: moveBackground 5s linear infinite;
 }
-
-/* Optional: add a neon border */
-.h-card {
-  //border: 3px solid transparent;
-  background-clip: padding-box;
-  //box-shadow: 0 0 5px 2px #ae00ff, 0 0 15px #ae00ff;
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-}
-
 
 .h-card .u-photo {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  //border: 3px solid #00ffff; /* Neon cyan border */
-  // box-shadow:
-  //   0 0 5px #00ffff,
-  //   0 0 10px #00ffff,
-  //   0 0 20px #ae00ff,
-  //   0 0 30px #7600ad;
   background-color: #111; /* Optional dark background */
-  // border-radius: 10px; /* Slight rounding for a tech look */
   transition: transform 0.3s ease;
 }
 
-/* Optional hover effect: image lifts and glows more */
+/* Avatar hover glow */
 .h-card .u-photo:hover {
-  //transform: scale(1.05);
   box-shadow:
     0 0 10px #00ffff,
     0 0 20px #00ffff,
-    0 0 30px #ae00ff,
-    // 0 0 60px #ff00ff;
+    0 0 30px #ae00ff;
 }
 
 .photo-wrapper {
@@ -209,7 +183,6 @@
     
     /* Couleur unie sombre à 85% d'opacité */
     background: rgba(20, 20, 22, 0.85) !important; 
-    //backdrop-filter: blur(4px);
   }
 
   /* On force la sous-section à être transparente pour éviter la coupure noire */
@@ -290,7 +263,6 @@
     &:hover {
       background: #a7fcfc17 !important;
       transform: none !important;
-      //color: #edf3f5 !important;
     }
   }
 }
@@ -434,13 +406,6 @@ $security-low: #3bff6f;      // green
   }
   
   /* Date display on folder tab */
-  // .folder-metadata {
-  //   font-family: monospace;
-  //   color: #777;
-  //   font-size: 0.75rem;
-  //   margin-top: 2px;
-  //   margin-bottom: 2px;
-  // }
   
   /* Title styling */
   .archive__item-title {
@@ -475,7 +440,6 @@ $security-low: #3bff6f;      // green
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    //padding: 12px 15px 12px 15px !important; /* Aligne proprement ACCESS et l'icône */
     padding: 12px 8px 12px 8px !important; // Réduit de 15px à 8px
     margin-top: auto !important; /* Sécurité ultime pour forcer le collage en bas */
     height: auto !important;
@@ -521,11 +485,6 @@ $security-low: #3bff6f;      // green
   50% { opacity: 1; height: 15px; }
 }
 
-/* Preserve existing glitch effect if it exists */
-.glitch {
-  position: relative;
-}
-
 /* Optional: Dark background for archive section */
 .archive {
   background-color: $cyber-black;
@@ -551,9 +510,6 @@ $security-low: #3bff6f;      // green
 
 /* 1. On applique un clearfix strict sur le conteneur des dossiers */
 html body .grid__wrapper {
-  // display: flex !important;
-  // /* Conserve le comportement en ligne natif mais empêche les débordements */
-  // box-sizing: border-box !important;
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
   gap: 1.5rem !important;
@@ -574,13 +530,11 @@ html body .pagination {
 @media screen and (max-width: 925px) {
   .archive__item.cyber-folder {
     container-type: normal !important; // Désactive explicitement le container query
-    overflow: hidden !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     
     margin-top: 10px;
-    overflow: hidden !important; // Coupe les débordements sur mobile
     
     &:before {
       top: -10px;
@@ -602,7 +556,6 @@ html body .pagination {
 
   html body .grid__item,
   html body .grid__wrapper {
-    overflow: hidden !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -627,7 +580,6 @@ html body .grid__item {
   width: 100% !important;
   height: 100% !important;
   display: flex !important; // Pour que .cyber-folder à l'intérieur puisse stretch
-  //padding-left: 4px !important; // Marge de sécurité pour le tab
 
   margin-inline-start: 0 !important;
   clear: none !important;
@@ -657,8 +609,6 @@ html body .grid__item:nth-child(n) {
   background-repeat: no-repeat;   /* Prevents tiling */
   background-position: center;    /* Keeps the image centered */
   background-attachment: fixed;   /* Makes the background stay static when scrolling */
-  //filter: blur(1px);
-  // filter: blur(4px), hue-rotate(-20deg) saturate(120%) brightness(90%);
 }
 
 
@@ -666,7 +616,6 @@ html body .grid__item:nth-child(n) {
 //SINGLE POSTS ARCHIVE METADATA****************************************************************
 
 .small-style {
-  // font-family: 'Oblitron';
   font-size: small;
 }
 
@@ -692,71 +641,6 @@ html body .grid__item:nth-child(n) {
   font-weight: 100;
 }
 
-// --- UNALIGNED FIX : FLEXBOX 3 LIGNES DIRECTE ---
-.folder-content {
-  display: flex !important;
-  flex-direction: column !important;
-  //height: 100% !important;
-  //min-height: 280px; /* Aligné sur la hauteur de l'image de droite pour éviter les sauts au zoom */
-  min-height: unset !important; // Supprime la hauteur minimale forcée
-  box-sizing: border-box !important;
-  flex: 1 1 auto !important; // S'adapte au contenu mais peut grandir si besoin
-
-  width: 100% !important;
-  align-self: stretch !important;
-}
-
-.folder-columns {
-  display: flex;
-  flex-direction: column !important;
-  //align-items: flex-start;
-  padding: 10px;
-  gap: 0.5rem;
-  //flex-wrap: wrap;
-  flex-wrap: nowrap !important; // Empêche le retour à la ligne
-  padding: 10px;
-  box-sizing: border-box !important;
-  width: 100% !important;
-  flex-grow: 0 !important; // collé en haut
-
-  overflow: hidden !important;
-
-  .folder-left {
-    flex: 1 1 auto !important; // Prend l'espace restant
-    //min-width: 0 !important;
-    //max-width: 55% !important;
-    width: 100% !important;
-  }
-
-  .folder-right {
-    // flex: 0 0 50% !important; // Taille fixe en % du conteneur, ne grandit pas, ne rétrécit pas
-    // min-width: 0 !important;
-    // min-height: 160px !important; // Hauteur minimum garantie pour l'image
-    // box-sizing: border-box !important;
-    // align-items: flex-end !important; // Image collée en bas DANS sa colonne
-    // display: flex !important;
-
-    width: 100% !important;
-    flex: 0 0 auto !important;
-
-    img {
-      width: 100%;
-      // max-width: 270px;*
-      max-width: 100% !important;
-      //height: auto !important;
-      height: 100% !important;
-
-      aspect-ratio: 4 / 3;
-      object-fit: cover !important;
-      object-position: center;
-      border-radius: 0.5rem;
-      display: block !important;
-      margin-top: 10px;
-    }
-  }
-}
-
-////
  /* ==========================================================================
    FIX DÉFINITIF DÉBORDEMENT DES CARTES CYBER-FOLDER & FOOTER
    ========================================================================== */
@@ -772,6 +656,9 @@ html body .archive__item.cyber-folder {
 .folder-content {
   display: flex !important;
   flex-direction: column !important;
+  flex: 1 1 auto !important;      // fills the card, grows if needed
+  align-self: stretch !important;
+  min-height: unset !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
@@ -779,6 +666,7 @@ html body .archive__item.cyber-folder {
 .folder-columns {
   display: flex !important;
   flex-direction: column !important; // texte en haut, image en dessous
+  flex-wrap: nowrap !important;
   gap: 0.5rem !important;
   padding: 10px !important;
   width: 100% !important;
@@ -787,11 +675,13 @@ html body .archive__item.cyber-folder {
   overflow: hidden !important;
 
   .folder-left {
+    flex: 1 1 auto !important;
     width: 100% !important;
     min-width: 0 !important;
   }
 
   .folder-right {
+    flex: 0 0 auto !important;
     width: 100% !important;
     min-width: 0 !important;
 
@@ -804,6 +694,7 @@ html body .archive__item.cyber-folder {
       object-position: center;
       border-radius: 0.5rem;
       display: block !important;
+      margin-top: 10px;
     }
   }
 }
@@ -859,7 +750,6 @@ html, body {
     text-align: center;
 
     img {
-      // max-width: 100%;
       width: 100%;
       max-height: 370px;
       max-width: 650px;
@@ -907,7 +797,6 @@ html body .feature__item {
   border: 1px solid transparent;
   padding: 15px;
   border-radius: 4px;
-  //background: rgba(255, 255, 255, 0.01);
 
   /* Évite que le texte déporté crée un débordement bizarre */
   overflow: hidden; 
@@ -942,10 +831,6 @@ html body .feature__item {
   /* LE HOVER CYBERPUNK */
   &:hover {
     transform: translateY(-5px);
-    // background: rgba(176, 38, 255, 0.03);
-    // border-color: #00ffff !important;
-    // box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 
-    //             inset 0 0 10px rgba(176, 38, 255, 0.1);
 
     .archive__item-title {
       color: $primary-color !important;
@@ -1094,436 +979,6 @@ html body .feature__item {
     font-family: 'Courier New', monospace;
   }
 }
-
-/* La carte à la une sans fond bloquant, agencée en Row */
-// .cyber-featured-card {
-//   display: flex;
-//   gap: 30px;
-//   align-items: center;
-//   background: rgba(15, 18, 25, 0.4) !important; /* Fond très léger, pas opaque */
-//   border-left: 4px solid #00ffff; /* Ligne de focus néon à gauche */
-//   border-top: none !important;
-//   border-right: none !important;
-//   border-bottom: none !important;
-//   padding: 25px;
-//   border-radius: 0 4px 4px 0;
-//   backdrop-filter: blur(5px);
-//   -webkit-backdrop-filter: blur(5px);
-//   transition: all 0.3s ease-in-out;
-
-//   &:hover {
-//     background: rgba(15, 18, 25, 0.6) !important;
-//     border-left-color: #b026ff; /* Switch de couleur néon au survol */
-    
-//     .featured-title a {
-//       color: #b026ff !important;
-//     }
-//     .featured-image-side img {
-//       filter: grayscale(0%) brightness(1);
-//       transform: scale(1.02);
-//     }
-//   }
-// }
-
-/* Côté gauche : Texte */
-.featured-text-side {
-  flex: 1.4;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  .featured-title {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.6rem;
-    line-height: 1.3;
-    
-    a {
-      color: #fff !important;
-      text-decoration: none !important;
-      transition: color 0.3s ease;
-    }
-  }
-
-  .featured-excerpt {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    opacity: 0.75;
-    color: #e0e0e0;
-  }
-
-  .cyber-btn {
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    color: #00ffff !important;
-    text-decoration: none !important;
-    margin-top: 5px;
-    font-weight: bold;
-    width: fit-content;
-    
-    &:hover {
-      color: #b026ff !important;
-    }
-  }
-}
-
-/* Côté droit : Image Teaser */
-.featured-image-side {
-  flex: 1;
-  max-height: 200px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 2px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(30%) brightness(0.8);
-    transition: all 0.4s ease-in-out;
-  }
-}
-
-/* RESPONSIVE : Si l'écran est trop petit, on empile l'image sous le texte */
-@media (max-width: 850px) {
-  .cyber-featured-card {
-    flex-direction: column-reverse; /* Met l'image au-dessus ou le texte d'abord */
-    gap: 20px;
-    padding: 20px;
-  }
-  .featured-image-side {
-    width: 100%;
-    max-height: 180px;
-  }
-}
-
-
-/* ==========================================================================
-   PAGE EXPLORE - SYSTEM PATH & TAG CLOUD
-   ========================================================================== */
-
-/* --- 1. DESIGN DU TRAJET / ROADMAP --- */
-.roadmap-timeline {
-  position: relative;
-  padding-left: 45px;
-  margin: 2rem 0;
-
-  /* La ligne de trajet en pointillés */
-  &::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 5px;
-    bottom: 5px;
-    width: 2px;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(0, 255, 255, 0.3) 0,
-      rgba(0, 255, 255, 0.3) 8px,
-      transparent 8px,
-      transparent 16px
-    );
-  }
-}
-
-.roadmap-step {
-  position: relative;
-  margin-bottom: 3.5rem;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-/* Les marqueurs de nœuds (les ronds) */
-.roadmap-marker {
-  position: absolute;
-  left: -45px; /* Aligne le marqueur sur la ligne */
-  top: 0;
-  width: 32px;
-  height: 32px;
-  background: #0f1219;
-  border: 2px solid #00ffff;
-  border-radius: 50%;
-  color: #00ffff;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.75rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0, 255, 242, 0.2);
-  z-index: 2;
-  transition: all 0.3s ease;
-}
-
-/* Conteneur de texte de l'étape (Effet Verre Fumé) */
-.roadmap-content {
-  background: rgba(20, 24, 35, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-left: 3px solid rgba(0, 255, 255, 0.4);
-  padding: 20px;
-  border-radius: 0 4px 4px 0;
-  transition: all 0.3s ease-in-out;
-
-  h3 {
-    margin: 0 0 8px 0;
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  p {
-    margin: 0 0 15px 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    line-height: 1.5;
-  }
-}
-
-.roadmap-link {
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-  color: #00ffff !important;
-  text-decoration: none !important;
-  font-weight: bold;
-  
-  &:hover {
-    color: #b026ff !important;
-  }
-}
-
-/* EFFET HOVER SUR LES ÉTAPES DU CHEMIN */
-.roadmap-step:hover {
-  .roadmap-marker {
-    background: #b026ff;
-    border-color: #b026ff;
-    color: #fff;
-    box-shadow: 0 0 15px rgba(176, 38, 255, 0.6);
-    transform: scale(1.1);
-  }
-
-  .roadmap-content {
-    background: rgba(20, 24, 35, 0.6);
-    border-left-color: #b026ff;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    
-    h3 {
-      color: #b026ff;
-    }
-  }
-}
-
-/* --- 2. DESIGN DU NUAGE DE TAGS --- */
-.cyber-tag-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 10px 0;
-}
-
-.cyber-tag-item {
-  font-family: 'Courier New', monospace;
-  font-size: 0.9rem;
-  background: rgba(20, 24, 35, 0.5) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #e0e0e0 !important;
-  padding: 6px 14px !important;
-  border-radius: 3px !important;
-  text-decoration: none !important;
-  transition: all 0.2s ease-in-out !important;
-  display: flex;
-  align-items: center;
-
-  .tag-hash {
-    color: #00ffff;
-    margin-right: 2px;
-    font-weight: bold;
-  }
-
-  .tag-count {
-    font-size: 0.75rem;
-    opacity: 0.4;
-    margin-left: 6px;
-  }
-
-  /* Hover Lumineux Violet */
-  &:hover {
-    background: rgba(176, 38, 255, 0.1) !important;
-    border-color: #b026ff !important;
-    color: #fff !important;
-    box-shadow: 0 0 10px rgba(176, 38, 255, 0.3);
-    transform: translateY(-2px);
-
-    .tag-hash {
-      color: #b026ff;
-    }
-    .tag-count {
-      opacity: 0.8;
-      color: #b026ff;
-    }
-  }
-}
-
-// NAVIGATION
-
-/* --- PAGE EXPLORE - CARTE EN PERSPECTIVE --- */
-
-.cyber-map-container {
-  /* On applique la perspective au conteneur parent */
-  perspective: 1000px;
-  
-  svg {
-    /* On force une rotation sur l'axe X pour amplifier la perspective */
-    transform: rotateX(15deg);
-    transition: transform 0.5s ease-out;
-  }
-}
-
-/* EFFET HOVER SUR LES NODES (LE POINT) */
-.path-nodes a {
-  cursor: pointer;
-  
-  circle {
-    transition: all 0.2s ease-in-out;
-  }
-  text {
-    transition: all 0.2s ease-in-out;
-  }
-
-  &:hover {
-    circle {
-      r: 22; /* Agrandit le point */
-      fill: #b026ff !important; /* Change la couleur de fond en violet */
-      stroke: #fff !important; /* Change le néon en blanc */
-      filter: url(#neon-glow) !important;
-    }
-    text {
-      font-size: 14px;
-      fill: #fff !important;
-    }
-  }
-}
-
-/* EFFET HOVER SUR LE PLAN DE LA CARTE */
-.cyber-map-container:hover svg {
-  transform: rotateX(10deg) translateY(-5px); /* Relève légèrement la carte */
-}
-
-/* ==========================================================================
-   MATRIX MAP ENHANCEMENTS & INTERACTIVE POPUPS
-   ========================================================================== */
-
-/* Titres statiques sous les nœuds */
-.node-permanent-title {
-  font-family: 'Courier New', monospace;
-  font-size: 11px;
-  fill: rgba(255, 255, 255, 0.7);
-  font-weight: bold;
-  letter-spacing: 1px;
-  pointer-events: none; /* Évite de bloquer le survol du cercle */
-  text-transform: uppercase;
-}
-
-/* Masquer la box d'aperçu par défaut */
-.node-preview-box {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
-  pointer-events: none;
-  z-index: 100;
-}
-
-/* --- LOGIQUE DE HOVER POUR CHAQUE COMPOSANT DE NODE --- */
-.map-interactive-node {
-  &:hover {
-    /* Élargit et illumine le cercle en Violet Cyber */
-    circle {
-      r: 22 !important;
-      fill: #141823 !important;
-      stroke: #b026ff !important;
-      filter: url(#purple-glow) !important;
-    }
-    
-    /* Change la couleur du numéro interne */
-    text {
-      fill: #fff !important;
-    }
-
-    /* Change la couleur du titre sous le point */
-    .node-permanent-title {
-      fill: #b026ff !important;
-    }
-
-    /* Déclenche l'affichage de la carte d'aperçu */
-    .node-preview-box {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-  }
-}
-
-/* --- STRUCTURE INTERNE DE LA FICHE D'APERÇU (GLASS COMPONENT) --- */
-.cyber-preview-card {
-  background: rgba(10, 12, 18, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid #00ffff;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
-  border-radius: 4px;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-
-  /* Image Preview */
-  .preview-img-holder {
-    width: 100%;
-    height: 60px;
-    background-size: cover;
-    background-position: center;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-    filter: brightness(0.8) contrast(1.1);
-  }
-
-  /* Zone Textes */
-  .preview-text-holder {
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    h4 {
-      margin: 0;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    p {
-      margin: 0;
-      color: #cccccc;
-      font-family: 'Courier New', monospace;
-      font-size: 9.5px;
-      line-height: 1.3;
-    }
-  }
-}
-
-/* ==========================================================================
-   CYBER SYSTEM ROADMAP - REAL HOLOGRAPHIC PROJECTION
-   ========================================================================== */
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // EXPLORE HUB — add to your _sass/custom.scss (or @import this file)

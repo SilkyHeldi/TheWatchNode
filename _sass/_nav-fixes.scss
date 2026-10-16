@@ -1,0 +1,158 @@
+/* ==========================================================================
+   NAVBAR & LAYOUT FIXES (moved out of assets/css/main.scss)
+   ========================================================================== */
+
+.page__content h1,
+.page__content h2,
+.page__content h3 {
+  color: #bc46df;
+}
+
+.feature__item {
+  margin-bottom: 2em;
+
+  .archive__item-teaser {
+    transition: transform 0.3s ease;   // shape + hover: see _twn-refresh.scss
+  }
+}
+
+
+/* --- FIX FINAL DE LA BARRE ET DU MENU --- */
+
+.masthead__menu-item-custom {
+  position: relative !important;
+  display: inline-flex !important; /* Aide à l'alignement vertical */
+  align-items: center;
+  height: 60px; /* Force une hauteur pour que la zone de survol soit stable */
+  margin-right: 25px;
+
+  // On crée un pont invisible pour que le menu ne disparaisse pas
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+  }
+
+  &:hover .nav-dropdown {
+    display: block !important;
+  }
+}
+
+.glitch-wrapper {
+  display: block;
+  min-width: 80px; /* Empêche le titre de s'effondrer */
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute !important;
+  
+  top: 55px !important; /* Ajuste pour descendre sous la barre bleue */
+  left: -10px !important;
+  width: 160px !important;
+  
+  // LE FOND : On force le noir opaque pour cacher la ville néon derrière
+  background-color: $cyber-black !important; 
+  border-top: none !important; // On enlève la bordure du haut pour l'effet de fusion
+  box-shadow: 0px 10px 15px -2px rgba(0, 243, 255, 0.4);
+  
+  /* IMPORTANT : On reset le padding de la liste dropdown elle-même */
+  padding: 5px 0 !important; // 5px en haut/bas, 0 sur les côtés
+  margin: 0 !important;
+  z-index: 999999 !important;
+  list-style: none !important;
+
+  .nav-dropdown-item {
+    display: block !important;
+
+    a {
+      font-family: 'Orbitron', sans-serif !important;
+      color: #00f3ff !important;
+      text-transform: uppercase;
+      font-size: 0.7rem !important;
+      letter-spacing: 2px; // Espacement Cyberpunk
+      text-decoration: none !important;
+      display: block !important;
+      transition: all 0.2s ease;
+
+      width: 100% !important; // On force le lien à prendre toute la largeur
+      
+      /* C'est ici qu'on gère l'alignement thermique de gauche */
+      padding: 8px 12px !important; // Ajuste les 12px de gauche selon tes goûts
+      margin: 0 !important;
+      text-align: left !important;
+      
+      &:hover {
+        background: rgba(0, 243, 255, 0.15); // Effet de survol discret
+        color: #e945f8 !important;
+        transform: translateX(5px);
+      }
+    }
+  }
+}
+
+// On cache la barre bleue parasite si elle vient de l'ombre du glitch
+.glitch {
+  text-shadow: none !important; /* On laisse les spans gérer le glitch */
+}
+
+/* --- LIBÉRATION DES VISIBLE LINKS --- */
+
+// 1. On lève la barrière de l'overflow sur TOUTE la hiérarchie de la navigation
+.masthead, 
+.masthead__inner-wrap, 
+.masthead__menu, 
+.greedy-nav, 
+.visible-links {
+  overflow: visible !important; /* Force l'affichage de ce qui dépasse */
+}
+
+.masthead__inner-wrap {
+  box-sizing: border-box !important;
+}
+
+// 2. On s'assure que .visible-links ne crée pas son propre blocage
+.visible-links {
+  display: flex !important;
+  position: relative !important;
+}
+
+.greedy-nav__toggle.hidden {
+  position: absolute !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .greedy-nav .hidden-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  .greedy-nav .hidden-links .masthead__menu-item-custom {
+    margin-right: 0 !important; // annule le décalage de 25px
+  }
+}
+
+#site-nav.greedy-nav {
+  padding-right: 15px !important;
+
+  .search__toggle {
+    flex-shrink: 0 !important;
+    transform: translateX(-10px) !important;
+  }
+
+  .greedy-nav__toggle {
+    transform: translateX(-10px) !important;
+  }
+}
