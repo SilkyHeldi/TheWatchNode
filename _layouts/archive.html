@@ -14,6 +14,13 @@ layout: default
   {% endunless %}
 {% endif %}
 
+{% comment %} TWN: hero banner, homepage only (first page of the pagination) {% endcomment %}
+{% if page.layout == "home" %}
+  {% unless paginator and paginator.page > 1 %}
+    {% include home-hero.html %}
+  {% endunless %}
+{% endif %}
+
 <div id="main" role="main">
   {% include sidebar.html %}
 

@@ -103,7 +103,8 @@
     {% endif %}
 
     {% include_cached skip-links.html locale=locale %}
-    {% include_cached masthead.html locale=locale %}
+    {% comment %} TWN: not cached anymore, so the navbar can underline the current page {% endcomment %}
+    {% include masthead.html locale=locale %}
 
     <div class="initial-content">
       {{ content }}

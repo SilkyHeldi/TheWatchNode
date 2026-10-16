@@ -1,0 +1,15 @@
+{% comment %}
+  TWN home hero — shown above the sidebar + content on the homepage only.
+  Edit the three texts below freely.
+{% endcomment %}
+{% assign hero_tagline = "THE DEFENDER'S LOGBOOK" %}
+{% assign hero_title = "BLUE TEAM<br>FIELD NOTES" %}
+{% assign hero_text = "Detection, threat hunting and threat intelligence: what I learn, written down." %}
+
+<section class="twn-hero" aria-labelledby="twn-hero-title">
+  <div class="twn-hero__inner">
+    <p class="twn-hero__tagline"><span class="twn-hero__dash" aria-hidden="true"></span>{{ hero_tagline }}</p>
+    <h1 id="twn-hero-title" class="twn-hero__title">{{ hero_title }}</h1>
+    <p class="twn-hero__text">{{ hero_text }}</p>
+  </div>
+</section>

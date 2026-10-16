@@ -15,7 +15,6 @@
 @import "minimal-mistakes/sidebar";
 @import "minimal-mistakes/print";
 @import "minimal-mistakes/page";
- @import "twn-refresh";
 // @import "cyberpunk-folders";
 @import "custom"; // Custom styles and mixins
 
@@ -191,3 +190,5 @@
 #site-nav.greedy-nav .greedy-nav__toggle {
   transform: translateX(-10px) !important;
 }
+// TWN refresh (navbar, hero, cards) — remove this line to roll back
+@import "twn-refresh";

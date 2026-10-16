@@ -8,26 +8,36 @@
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
 
-        <a class="site-title glitch" href="{{ '/' | relative_url }}">
-          {% for i in (1..9) %}
-            <span class="line">{{ site.masthead_title | default: site.title }}</span>
-          {% endfor %}
-          {% if site.subtitle %}
-            <span class="site-subtitle">{{ site.subtitle }}</span>
-          {% endif %}
+        {% comment %} TWN: logo block — THE[WATCH]NODE, glitch effect kept {% endcomment %}
+        <a class="site-title glitch twn-logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}">
+          <span class="twn-logo__mark" aria-hidden="true"></span>
+          <span class="twn-logo__text">
+            {% for i in (1..9) %}
+              <span class="line">THE<span class="twn-logo__accent">WATCH</span>NODE</span>
+            {% endfor %}
+          </span>
         </a>
 
         <ul class="visible-links">
           {% for link in site.data.navigation.main %}
-            <li class="masthead__menu-item-custom">
+            {% comment %} TWN: mark the current page (Home only matches "/" exactly) {% endcomment %}
+            {% assign link_url = link.url | relative_url %}
+            {% assign is_active = false %}
+            {% if link.url == "/" %}
+              {% if page.layout == "home" %}{% assign is_active = true %}{% endif %}
+            {% elsif page.url contains link.url %}
+              {% assign is_active = true %}
+            {% endif %}
+
+            <li class="masthead__menu-item-custom{% if is_active %} is-active{% endif %}">
               <span class="glitch-wrapper">
-                <a class="glitch" href="{{ link.url | relative_url }}">
+                <a class="glitch" href="{{ link_url }}"{% if is_active %} aria-current="page"{% endif %}>
                   {% for i in (1..9) %}
                     <span class="line">{{ link.title }}</span>
                   {% endfor %}
                 </a>
               </span>
-            
+
               {% if link.children %}
                 <ul class="nav-dropdown">
                   {% for child in link.children %}

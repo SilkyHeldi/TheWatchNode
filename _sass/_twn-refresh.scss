@@ -1,0 +1,464 @@
+/* ==========================================================================
+   TWN REFRESH — navbar, hero, featured cards, file cards
+   Loaded LAST in assets/css/main.scss:  @import "twn-refresh";
+   Remove that line to roll everything back.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. ACCENT COLOR
+   One accent for the navbar, the hero dash and every hover.
+   Try: #00d4ff (cyan) · #ff6a4a (coral) · #b57cff (violet) · #4f7bff (blue)
+   -------------------------------------------------------------------------- */
+$twn-accent: #00d4ff;
+
+$twn-cut: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+$twn-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+
+/* --------------------------------------------------------------------------
+   1. NAVBAR — translucent bar, logo block, path-style menu, underline
+   -------------------------------------------------------------------------- */
+.masthead {
+  border-bottom: 0;
+}
+
+// The bar itself: dark but slightly see-through, so the banner shows a little
+.greedy-nav {
+  background: rgba(10, 10, 14, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+// Logo block: THE[WATCH]NODE on a darker plate with a cut corner
+.greedy-nav a.site-title.twn-logo {
+  display: flex !important;
+  align-items: center;
+  align-self: stretch;
+  gap: 12px;
+  margin: 0 6px 0 0;
+  padding: 0 30px 0 22px;
+  background: rgba(6, 6, 10, 0.9);
+  -webkit-clip-path: $twn-cut;
+  clip-path: $twn-cut;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.twn-logo__mark {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  background: $twn-accent;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 60%, 60% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 60% 100%, 0 100%);
+}
+
+// Keeps the glitch clones aligned on the text, not on the whole block
+.twn-logo__text {
+  position: relative;
+  display: inline-block;
+}
+
+.twn-logo__accent {
+  color: $twn-accent;
+}
+
+// Menu items: small spaced capitals
+.greedy-nav .visible-links {
+  align-items: center;
+
+  // Spacing lives on the <li> (an older rule forces margin: 0 on the links)
+  > li {
+    gap: 18px;
+    margin-right: 18px !important;
+
+    &:last-child {
+      margin-right: 6px !important;
+    }
+  }
+
+  a.glitch {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+
+    &:hover {
+      color: $twn-accent;
+    }
+
+    // Underline: current page + hover
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -7px;
+      height: 2px;
+      background: $twn-accent;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  // "/" between items (desktop bar only)
+  > li + li::before {
+    content: "/";
+    font-family: $twn-mono;
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  > li.is-active > .glitch-wrapper > a.glitch {
+    color: #fff;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+// Search button: accent icon + thin divider
+#site-nav.greedy-nav .search__toggle {
+  color: $twn-accent;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding-left: 14px;
+  margin-left: 8px;
+}
+
+// Dropdown under "Topics": same accent on hover
+.nav-dropdown .nav-dropdown-item a {
+  color: #fff !important;
+
+  &:hover {
+    color: $twn-accent !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. HERO — homepage only, open over the background
+   -------------------------------------------------------------------------- */
+.twn-hero {
+  position: relative;
+  padding: 3.2rem 0 2.8rem;
+
+  // Dark fade behind the text, full screen width
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, rgba(5, 4, 10, 0.85) 0%, rgba(5, 4, 10, 0.55) 45%, rgba(5, 4, 10, 0) 75%);
+    pointer-events: none;
+  }
+}
+
+.twn-hero__inner {
+  position: relative;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.twn-hero__tagline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 1rem;
+  font-family: $twn-mono;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: #00b4d8;
+}
+
+.twn-hero__dash {
+  width: 28px;
+  height: 2px;
+  background: $twn-accent;
+}
+
+.twn-hero__title {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
+  }
+}
+
+.twn-hero__text {
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+  color: #ddd8e4;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+/* --------------------------------------------------------------------------
+   2b. MAIN PANEL — dark smoked glass instead of solid black
+   -------------------------------------------------------------------------- */
+html body #main .archive {
+  background: rgba(13, 11, 22, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. FEATURED ARTICLES — sharp cut images, calm hover
+   -------------------------------------------------------------------------- */
+html body .feature__item {
+  .archive__item-teaser {
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-clip-path: $twn-cut;
+    clip-path: $twn-cut;
+
+    &:hover {
+      transform: none;           // the whole card moves, not the image alone
+    }
+
+    img {
+      border-radius: 0;
+      transition: filter 0.25s ease;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+
+    .archive__item-teaser img {
+      filter: brightness(1.08);
+    }
+  }
+}
+
+html body .archive .feature__item:hover .archive__item-title {
+  color: $twn-accent !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. FILE CARDS (cyber-folder)
+   -------------------------------------------------------------------------- */
+// Grid: 3 wide columns on desktop, 2 on mid-size screens (mobile keeps its 1 column)
+@media (min-width: 925px) {
+  html body .archive .grid__wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 2rem 1.5rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  html body .archive .grid__wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+html body .grid__item .archive__item.cyber-folder {
+  padding: 0 !important;          // the body now starts right under its tab
+  margin-top: 14px;
+}
+
+html body .archive__item.cyber-folder {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+
+  // Folder tab: blue → violet
+  &::before {
+    top: -13px;
+    height: 13px;
+    width: 104px;
+    background: linear-gradient(90deg, #2f5bff, #7a4dff);
+    border: 0;
+    border-radius: 0;
+    opacity: 0.6;
+  }
+
+  // The old bottom line becomes the diagonal edge of the cut corner
+  &::after {
+    top: 6px;
+    right: -3px;
+    left: auto;
+    bottom: auto;
+    width: 20px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    transform: rotate(45deg);
+  }
+
+  // Card body: dark, thin outline, top-right corner cut
+  .folder-content {
+    padding-top: 12px;
+    background: #141218;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    -webkit-clip-path: $twn-cut;
+    clip-path: $twn-cut;
+    transition: box-shadow 0.25s ease;
+  }
+
+  .folder-id {
+    color: #fff;
+  }
+
+  // More breathing room inside the card
+  .folder-columns {
+    padding: 14px 22px 10px !important;
+  }
+
+  .folder-footer {
+    padding: 12px 22px !important;
+  }
+
+  // Title: white techno sans instead of magenta monospace
+  .archive__item-title.glitch {
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.3;
+
+    a,
+    a .line {
+      color: #fff;
+      transition: color 0.2s ease;
+    }
+  }
+
+  .archive__item-excerpt {
+    color: #d6d2dc;
+  }
+
+  // Sharp images
+  .archive__item-teaser,
+  .archive__item-teaser img,
+  .folder-right img {
+    border-radius: 0 !important;
+  }
+
+  .folder-footer {
+    border-top: 1px dashed rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .folder-metadata {
+    color: #8f8a99;
+  }
+
+  // The little bars: pink → blue
+  .holographic-icon span {
+    background: linear-gradient(180deg, #ff4fa8, #2f5bff);
+    opacity: 1;
+  }
+
+  // Hover: small lift, everything turns to the accent, no glow
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: none;
+    border-color: transparent;
+
+    &::before {
+      opacity: 1;
+      background: $twn-accent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &::after {
+      background: $twn-accent;
+    }
+
+    .folder-content {
+      box-shadow: inset 0 0 0 1px $twn-accent;
+    }
+
+    .archive__item-title a,
+    .archive__item-title a .line {
+      color: $twn-accent;
+    }
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   5. CATEGORIES vs TAGS
+   -------------------------------------------------------------------------- */
+.twn-taxo {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+
+  > i {
+    flex: 0 0 auto;
+    color: #8f8a99;
+  }
+
+  .sep {
+    display: none !important;
+  }
+}
+
+// Categories: small filled blue blocks
+a.page__taxonomy-item-modif.twn-cat {
+  padding: 3px 8px;
+  margin-right: 5px;
+  background: rgba(47, 91, 255, 0.22);
+  border: 0;
+  border-radius: 0;
+  font-family: $twn-mono;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #dfe5ff;
+
+  &:hover {
+    background: rgba(47, 91, 255, 0.4);
+    color: #fff;
+  }
+}
+
+// Tags: outlined, with a violet "#"
+a.page__taxonomy-item-modif.twn-tag {
+  padding: 2px 7px;
+  margin-right: 5px;
+  border: 1px solid rgba(181, 124, 255, 0.4);
+  border-radius: 0;
+  font-size: 0.7rem;
+  color: #e6e0f5;
+
+  &::before {
+    content: "#";
+    color: #b57cff;
+    margin-right: 1px;
+  }
+
+  &:hover {
+    border-color: $twn-accent;
+    color: #fff;
+  }
+}

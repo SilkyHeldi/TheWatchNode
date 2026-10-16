@@ -62,12 +62,12 @@
           {% if site.category_archive.path and post.categories %}
             {% assign categories_sorted = post.categories | sort_natural %}
 
-            <p class="archive__item-categories small-style">
-              <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].categories_label | default: "Categories:" }} </strong>
+            <p class="archive__item-categories small-style twn-taxo">
+              <i class="fas fa-fw fa-folder" aria-hidden="true"></i><span class="visually-hidden">{{ site.data.ui-text[site.locale].categories_label | default: "Categories:" }}</span>
               <span itemprop="keywords">
               {% for category_word in categories_sorted %}
                 <a href="{{ category_word | slugify | prepend: path_type | prepend: site.category_archive.path | relative_url }}"
-                  class="page__taxonomy-item-modif p-category" rel="tag">{{ category_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+                  class="page__taxonomy-item-modif twn-cat p-category" rel="tag">{{ category_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
               {% endfor %}
               </span>
             </p>
@@ -77,12 +77,12 @@
           {% if site.tag_archive.path and post.tags %}
             {% assign tags_sorted = post.tags | sort_natural %}
           
-            <p class="archive__item-tags small-style">
-              <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags:</strong>
+            <p class="archive__item-tags small-style twn-taxo">
+              <i class="fas fa-fw fa-tag" aria-hidden="true"></i><span class="visually-hidden">Tags:</span>
               <span itemprop="keywords">
                 {% for tag_word in tags_sorted %}
                   <a href="{{ tag_word | slugify | prepend: path_type | prepend: site.tag_archive.path | relative_url }}"
-                     class="page__taxonomy-item-modif p-category" rel="tag">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+                     class="page__taxonomy-item-modif twn-tag p-category" rel="tag">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
                 {% endfor %}
               </span>
             </p>
