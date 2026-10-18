@@ -4,14 +4,16 @@ main:
   - title: "Topics"
     url: /topics/
     children:
-      - title: "DFIR"
-        url: /categories/dfir
+      - title: "Blue Ops"
+        url: /categories/bto
+      - title: "Threat Hunting"
+        url: /categories/th
       - title: "CTI"
         url: /categories/cti
-      - title: "CTF"
-        url: /categories/ctf
       - title: "AI"
         url: /categories/ai
+      - title: "Writeups"
+        url: /categories/wu
       - title: "See all"
         url: /topics/
   - title: "Explore"
