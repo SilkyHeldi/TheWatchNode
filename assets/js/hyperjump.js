@@ -93,11 +93,15 @@
     (function frame(now) {
       const t = Math.min(1, (now - t0) / DUR);
       const speed = 0.6 + Math.pow(t, 2.2) * 34;      // slow start, smooth acceleration
-      ctx.fillStyle = 'rgba(2, 4, 10, 0.45)';         // soft trails
+      // fade = 1 during the jump, then down to 0 as it settles
+      const fade = t < 0.72 ? 1 : Math.max(0, 1 - (t - 0.72) / 0.18);
+      // clear the previous frame (fully opaque so old streaks really disappear;
+      // clears harder while settling so nothing stays frozen on screen)
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = `rgba(2, 4, 10, ${0.45 + (1 - fade) * 0.55})`;
       ctx.fillRect(0, 0, W, H);
       ctx.lineCap = 'round';
-      // the last 15% of the jump: streaks fade into the dark
-      ctx.globalAlpha = t < 0.85 ? 1 : Math.max(0, 1 - (t - 0.85) / 0.15);
+      ctx.globalAlpha = fade;                          // streaks dim as the jump settles
       stars.forEach(s => {
         const step = speed * s.s * (0.25 + s.d / R);
         s.d += step;
@@ -114,8 +118,10 @@
         ctx.stroke();
       });
       if (t > 0.62) ov.classList.add('is-glow');     // soft cyan bloom from the center
-      if (t > 0.86) ov.classList.add('is-settle');   // streaks and text fade into the dark
-      if (t >= 0.8 && !finished) { finished = true; navigate(); }
+      if (t > 0.72) ov.classList.add('is-settle');   // streaks and text fade into the dark
+      // Change page only once fully settled: the last frame then looks
+      // exactly like the arrival cover, so the switch is invisible.
+      if (t >= 0.96 && !finished) { finished = true; navigate(); }
       if (document.body.contains(ov)) requestAnimationFrame(frame);
     })(t0);
   }

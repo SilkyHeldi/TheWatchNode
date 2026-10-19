@@ -1200,10 +1200,11 @@ body.explore-page {
   &.is-glow::after { opacity: 1; }
 
   // last moment: text and glow dim (the streaks fade out in the script)
+  // Settled state = identical to the arrival cover (same dark, same glow)
   &.is-settle {
     background: #02040a;
-    .xwarp__txt { opacity: 0; }
-    &::after { opacity: 0.4; }
+    .xwarp__txt { opacity: 0; transition: opacity 0.25s ease; }
+    &::after { opacity: 0.4; transition: opacity 0.3s ease; }
   }
 }
 
@@ -1212,7 +1213,7 @@ body.explore-page {
 // glow the warp ended on. hyperjump.js adds .xjump-reveal once the page has
 // fully loaded, and the cover fades away.
 html.xjump-arriving body::after {
-  content: 'STABILIZING COORDINATES\2026';
+  content: 'STABILIZING COORDINATES\2026';   // only shown if loading is slow, see below
   position: fixed;
   inset: 0;
   z-index: 10001;
@@ -1222,15 +1223,16 @@ html.xjump-arriving body::after {
   pointer-events: none;
   font: 0.62rem/1 'Courier New', monospace;
   letter-spacing: 0.35em;
-  color: rgba(0, 229, 255, 0.55);
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  color: transparent;
+  // same glow as the end of the warp (0.4 × its gradient)
   background:
-    radial-gradient(circle at center, rgba(0, 229, 255, 0.11) 0%, rgba(0, 229, 255, 0.03) 30%, transparent 60%),
+    radial-gradient(circle at center, rgba(0, 229, 255, 0.112) 0%, rgba(0, 229, 255, 0.032) 30%, transparent 65%),
     #02040a;
   opacity: 1;
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-  // safety net: if the script never runs, uncover the page after 3 s anyway
-  animation: x-arrive-failsafe 0.6s ease-out 3s forwards;
+  animation:
+    x-cover-text 0.5s ease 0.6s forwards,          // text appears only after 0.6 s of waiting
+    x-arrive-failsafe 0.6s ease-out 3s forwards;   // safety net: uncover after 3 s anyway
 }
 html.xjump-arriving.xjump-reveal body::after { opacity: 0; }
 
@@ -1363,6 +1365,7 @@ html.xjump-arriving.xjump-reveal body::after { opacity: 0; }
   92% { opacity: 0; }
 }
 @keyframes x-arrive-failsafe { to { opacity: 0; } }
+@keyframes x-cover-text { to { color: rgba(0, 229, 255, 0.55); text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); } }
 @keyframes x-banner-in {
   0% { opacity: 0; transform: translateX(-6px); clip-path: inset(0 100% 0 0); }
   100% { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }

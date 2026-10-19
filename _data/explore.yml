@@ -25,20 +25,21 @@ paths:
     name: Cyber Deception
     color: "#00e5ff"
     status: ongoing
-    description: Honeypots, honeytokens and the art of lying to attackers.
+    description: The art of ruining the attackers's plans.
     at: [0, 0]
     heading: -8
     wander: 35
     planned:
-      - step: 4
-        title: Honeytokens in Active Directory
-      - step: 5
+      - step: 2
+        title: Annoyance
+      - step: 3
+        title: Attribution
 
-  - id: ctf-field-notes
-    name: CTF Field Notes
+  - id: dgs3-ctf-2025
+    name: DGS3 CTF 2025
     color: "#d62bff"
-    status: complete
-    description: Write-ups from CTFs and challenge platforms, step by step.
+    status: ongoing
+    description: Write-ups from the DGS3 CTF 2025 exploring different disciplines.
     at: [-60, 300]
     heading: 6
     wander: 45
