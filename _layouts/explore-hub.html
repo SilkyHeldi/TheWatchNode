@@ -5,91 +5,198 @@ layout: single
 <div class="explore-hub">
 
   <header class="hub-header">
-    <h1 class="hub-header__title" style="font-family: 'Orbitron', sans-serif; font-size: 2rem;">{{ page.title | default: "Explore the Node" }}</h1>
-    <p style="font-family: sans-serif; color: #e8edf5;">{{ page.subtitle | default: "Lost in the database? Follow the tactical matrix trajectory or filter core entries by keywords." }}</p>
+    <h1 class="hub-header__title">{{ page.title | default: "Explore the Node" }}</h1>
+    <p class="hub-header__sub">{{ page.subtitle | default: "Lost in the database? Follow a trajectory across the map or filter entries by keywords." }}</p>
   </header>
 
-  <div class="traj-label">ACTIVE_SYSTEM_TRAJECTORY</div>
+  {%- comment -%} ── PATH SELECTOR (filled by JS) ── {%- endcomment -%}
+  <section class="xpaths" id="xPaths" aria-labelledby="xPathsLabel" hidden>
+    <div class="hub-label" id="xPathsLabel">SELECT_TRAJECTORY</div>
+    <div class="xpaths__chips" id="xChips" role="group" aria-label="Paths"></div>
+    <p class="xpaths__desc" id="xDesc" aria-live="polite"></p>
+  </section>
 
-  <div class="net-wrap" id="netWrap">
-    <section class="net-scene">
-      <canvas id="netCanvas"></canvas>
-    </section>
-    <div class="node-card" id="nodeCard">
-      <img class="node-card__img" id="cardImg" src="" alt="">
-      <div class="node-card__body">
-        <div class="node-card__idx" id="cardIdx"></div>
-        <div class="node-card__title" id="cardTitle"></div>
-        <div class="node-card__divider"></div>
-        <div class="node-card__cta">CLICK TO ACCESS ENTRY →</div>
+  {%- comment -%} ── STAR MAP ── {%- endcomment -%}
+  <section class="xmap" id="xMap" aria-label="Star map of all entries" hidden>
+    <div class="hub-label xmap__label">ACTIVE_SYSTEM_TRAJECTORY</div>
+    <p class="x-sr-only" id="xMapHelp">Each entry is a link. Use Tab to move between entries, arrow keys to pan, plus and minus to zoom, 0 to recenter. A text version of the map is available below.</p>
+    <div class="xmap__viewport" id="xViewport" tabindex="0" role="region" aria-roledescription="map" aria-label="Star map" aria-describedby="xMapHelp">
+      <svg class="xmap__svg" id="xSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <div class="xmap__controls">
+      <button type="button" class="xmap__btn" data-action="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" class="xmap__btn" data-action="zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" class="xmap__btn" data-action="recenter" aria-label="Recenter map">⌖</button>
+    </div>
+    <svg class="xmap__minimap" id="xMini" aria-hidden="true"></svg>
+    <div class="xmap__hint" id="xHint" aria-hidden="true">CTRL + SCROLL TO ZOOM · DRAG TO PAN</div>
+
+    <div class="xcard" id="xCard">
+      <div class="xcard__media" id="xCardMedia">
+        <img class="xcard__img" id="xCardImg" alt="">
+        <div class="xcard__ph" aria-hidden="true"><span id="xCardPh">NO VISUAL FEED</span></div>
+      </div>
+      <div class="xcard__body">
+        <div class="xcard__idx" id="xCardIdx"></div>
+        <div class="xcard__title" id="xCardTitle"></div>
+        <span class="xcard__badge" id="xCardBadge">START HERE</span>
+        <div class="xcard__meta" id="xCardMeta"></div>
+        <div class="xcard__divider"></div>
+        <a class="xcard__cta" id="xCardCta"><span>ACCESS ENTRY</span><span aria-hidden="true">→</span></a>
+        <a class="xcard__next" id="xCardNext"></a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <section class="tag-section">
-    <div class="tag-label">FILTER_BY_KEYWORD</div>
-    <div class="tag-cloud" id="tagCloud">
-      {% assign all_tags = site.tags | sort %}
-      {% for tag in all_tags %}
-        {% assign tag_name = tag[0] %}
-        {% assign tag_count = tag[1] | size %}
-        <a href="{{ site.baseurl }}/tags/#{{ tag_name | slugify }}"
-           class="tag-pill"
-           data-count="{{ tag_count }}">
-          {{ tag_name }}
-          <span class="tag-pill__count">{{ tag_count }}</span>
-        </a>
-      {% endfor %}
+  {%- comment -%}
+    ── TEXT INDEX ──
+    Plain HTML links: crawlable by Google, readable by screen readers,
+    and used as the main view on mobile.
+  {%- endcomment -%}
+  <section class="xindex" aria-labelledby="xIndexLabel">
+    <p class="xindex__mobile-note">// full star map available on larger screens</p>
+    <details class="xindex__details" id="xIndex">
+      <summary class="hub-label xindex__summary" id="xIndexLabel">TEXT_INDEX — every trajectory as a list</summary>
+      <div class="xindex__grid">
+      {%- for path in site.data.explore.paths -%}
+        {%- assign entries = "" | split: "" -%}
+        {%- for p in site.posts -%}
+          {%- for m in p.explore.paths -%}
+            {%- if m.id == path.id -%}
+              {%- assign o = m.step | default: 999 | plus: 1000 -%}
+              {%- capture e -%}{{ o }}§§{{ p.url | relative_url }}§§{{ p.title | escape }}{%- endcapture -%}
+              {%- assign entries = entries | push: e -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {%- for s in path.planned -%}
+          {%- assign o = s.step | default: 999 | plus: 1000 -%}
+          {%- capture e -%}{{ o }}§§§§{{ s.title | escape }}{%- endcapture -%}
+          {%- assign entries = entries | push: e -%}
+        {%- endfor -%}
+        {%- assign entries = entries | sort -%}
+        {%- assign started = false -%}
+        <div class="xindex__path" style="--c: {{ path.color }}">
+          <h2 class="xindex__name">{{ path.name }}{% if path.status == "ongoing" %} <span class="xindex__ongoing">◉ ONGOING</span>{% endif %}</h2>
+          {%- if path.description %}<p class="xindex__desc">{{ path.description }}</p>{% endif %}
+          <ol class="xindex__list">
+          {%- for e in entries -%}
+            {%- assign parts = e | split: "§§" -%}
+            {%- if parts[1] == blank -%}
+              <li class="xindex__signal">SIGNAL DETECTED{% if parts[2] != blank %} — {{ parts[2] }}{% endif %} <span>(transmission pending)</span></li>
+            {%- else -%}
+              <li><a href="{{ parts[1] }}">{{ parts[2] }}</a>{% unless started %} <span class="xindex__start">START HERE</span>{% assign started = true %}{% endunless %}</li>
+            {%- endif -%}
+          {%- endfor -%}
+          </ol>
+        </div>
+      {%- endfor -%}
+
+      {%- assign free_posts = site.posts | where_exp: "p", "p.explore.paths == nil" -%}
+      {%- if free_posts.size > 0 -%}
+        <div class="xindex__path xindex__path--free">
+          <h2 class="xindex__name">Free systems</h2>
+          <p class="xindex__desc">Entries that don't belong to a trajectory (yet).</p>
+          <ul class="xindex__list">
+          {%- for p in free_posts -%}
+            <li><a href="{{ p.url | relative_url }}">{{ p.title | escape }}</a></li>
+          {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      </div>
+    </details>
+  </section>
+
+  {%- comment -%}
+    ── KEYWORDS ──
+    Grouped by the families in _data/explore.yml. Each keyword is a real link
+    to the tags page (works without JS, crawlable); with JS, clicking it
+    filters the map and the list below instead.
+  {%- endcomment -%}
+  {%- assign families = site.data.explore.tag_families -%}
+  {%- assign listed = "" | split: "" -%}
+  {%- for f in families -%}{%- for t in f.tags -%}{%- assign listed = listed | push: t -%}{%- endfor -%}{%- endfor -%}
+  <section class="xtags" id="xTags" aria-labelledby="xTagsLabel">
+    <div class="hub-label" id="xTagsLabel">FILTER_BY_KEYWORD</div>
+    <p class="xtags__hint" id="xTagsHint">Pick one or more keywords. Entries must match all of them.</p>
+
+    <div class="xtags__grid">
+    {%- for f in families -%}
+      {%- capture pills -%}
+        {%- for t in f.tags -%}
+          {%- assign tagged = site.tags[t] -%}
+          {%- if tagged -%}
+            <a href="{{ site.baseurl }}/tags/#{{ t | slugify }}" class="xtag" data-tag="{{ t | escape }}">{{ t }}<span class="xtag__count">{{ tagged.size }}</span></a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- if pills != "" -%}
+      <div class="xfam">
+        <h3 class="xfam__name">{{ f.name }}</h3>
+        {%- if f.subtitle %}<p class="xfam__sub">{{ f.subtitle }}</p>{% endif %}
+        <div class="xfam__tags">{{ pills }}</div>
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign all_tags = site.tags | sort -%}
+    {%- capture pills -%}
+      {%- for tag in all_tags -%}
+        {%- unless listed contains tag[0] -%}
+          <a href="{{ site.baseurl }}/tags/#{{ tag[0] | slugify }}" class="xtag" data-tag="{{ tag[0] | escape }}">{{ tag[0] }}<span class="xtag__count">{{ tag[1].size }}</span></a>
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if pills != "" -%}
+      <div class="xfam xfam--uncharted">
+        <h3 class="xfam__name">Uncharted</h3>
+        <p class="xfam__sub">not sorted into a family yet</p>
+        <div class="xfam__tags">{{ pills }}</div>
+      </div>
+    {%- endif -%}
+    </div>
+
+    <div class="xresults" id="xResults" hidden>
+      <div class="xresults__bar">
+        <p class="xresults__count" id="xResCount" aria-live="polite"></p>
+        <div class="xresults__actions">
+          <button type="button" class="xresults__btn" id="xResMap">SHOW ON MAP ↑</button>
+          <button type="button" class="xresults__btn" id="xResClear">CLEAR ✕</button>
+        </div>
+      </div>
+      <ul class="xresults__list" id="xResList"></ul>
     </div>
   </section>
 
 </div>
 
-<script>
-// Add body class fallback for browsers without :has() support
-document.body.classList.add('explore-page');
-
-// ─── ARTICLES À AFFICHER DANS LA CONSTELLATION ────────────────────────────────
-// Modifie cette liste à la main pour choisir les articles, leur ordre,
-// leur image et leur tag.
-// Tu peux mettre entre 4 et 8 entrées.
-window.EXPLORE_POSTS = [
-  {
-    title: "DGSE CTF 2025 - Mission 4",
-    tag:   "DGSE-CTF-2025",
-    url:   "/posts/dgse-ctf-2025-mission-4/",
-    img:   "/assets/images/frontend/AI-3.jpg"
-  },
-  {
-    title: "Threat Actor TTPs — field guide",
-    tag:   "THREAT INTEL",
-    url:   "/posts/threat-actor-ttps/",
-    img:   "/assets/images/frontend/AI-4.jpg"
-  },
-  {
-    title: "Digital Forensics: first response",
-    tag:   "FORENSICS",
-    url:   "/posts/digital-forensics/",
-    img:   "/assets/images/frontend/AI-3.jpg"
-  },
-  {
-    title: "OSINT recon methodology",
-    tag:   "OSINT",
-    url:   "/posts/osint-recon/",
-    img:   "/assets/images/frontend/AI-4.jpg"
-  },
-  {
-    title: "AI in blue team operations",
-    tag:   "AI",
-    url:   "/posts/ai-blue-team/",
-    img:   "/assets/images/frontend/AI-3.jpg"
-  },
-  {
-    title: "Malware analysis basics",
-    tag:   "REVERSE",
-    url:   "/posts/malware-analysis/",
-    img:   "/assets/images/frontend/AI-4.jpg"
-  }
-];
+{%- comment -%}
+  ── MAP DATA ──
+  Generated from _data/explore.yml + every post's front matter.
+  Nothing to edit here by hand anymore.
+{%- endcomment -%}
+<script type="application/json" id="exploreData">
+{
+  "paths": {{ site.data.explore.paths | jsonify }},
+  "posts": [
+  {%- for p in site.posts -%}
+    {%- assign img = p.explore.image | default: p.header.teaser | default: p.header.image | default: p.header.overlay_image -%}
+    {
+      "title": {{ p.title | jsonify }},
+      "url": {{ p.url | relative_url | jsonify }},
+      "img": {% if img %}{{ img | relative_url | jsonify }}{% else %}null{% endif %},
+      "tags": {{ p.tags | jsonify }},
+      "paths": {{ p.explore.paths | jsonify }},
+      "level": {{ p.explore.level | jsonify }},
+      "type": {{ p.explore.type | jsonify }},
+      "nudge": {{ p.explore.nudge | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+  ]
+}
 </script>
+
+<script>document.body.classList.add('explore-page');</script>
 <script src="{{ '/assets/js/explore-hub.js' | relative_url }}"></script>

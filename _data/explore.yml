@@ -1,0 +1,105 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# EXPLORE HUB — paths (series) shown on the star map
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Each path is a route through the map. Posts join a path from their own
+# front matter (see the bottom of this file). This file only describes the
+# path itself.
+#
+#   id          → used in post front matter, lowercase-with-dashes
+#   name        → shown on the selector chip and the map card
+#   color       → route + node color (hex)
+#   status      → ongoing | complete   (ongoing = pulsing signal on the chip)
+#   description → one line shown when the path is selected
+#   at          → [x, y] where the path starts on the map (map units, ~170 per node)
+#   heading     → general direction the path travels, in degrees (0 = right, 90 = down)
+#   wander      → how much the route twists, 0 = straight line … 60 = very winding
+#                 (optional, default 30)
+#   seed        → any number; change it to reshuffle this path's shape (optional)
+#   image       → fallback card image for posts of this path that have none (optional)
+#   planned     → upcoming entries, shown as "SIGNAL DETECTED" nodes.
+#                 title is optional: leave it out to keep the topic secret.
+
+paths:
+  - id: cyber-deception
+    name: Cyber Deception
+    color: "#00e5ff"
+    status: ongoing
+    description: The art of sabotaging all the attacker's loop steps.
+    at: [0, 0]
+    heading: -8
+    planned:
+      - step: 2
+
+  - id: dgse-ctf-2025
+    name: DGS3 CTF 2025
+    color: "#d62bff"
+    status: ongoing
+    description: Write-ups from the DGS3 CTF from 2025, step by step.
+    at: [-60, 300]
+    heading: 6
+    wander: 45
+    planned:
+      - step: 4
+
+  - id: blue-team-basics
+    name: Blue Team Basics
+    color: "#f9c80e"
+    status: ongoing
+    description: Where to start if you want to defend systems.
+    at: [-220, -300]
+    heading: 14
+    wander: 25
+    planned:
+      - step: 4
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TAG FAMILIES — how the keywords are grouped under the map
+# ═══════════════════════════════════════════════════════════════════════════
+#
+#   name     → family title
+#   subtitle → one plain-language line under the title (optional)
+#   tags     → tag names, written exactly as in your posts (case matters)
+#
+# Any tag not listed here lands in an automatic "UNCHARTED" family, so a new
+# tag never disappears. Tags listed here but used by no post are skipped.
+
+tag_families:
+  - name: Defense Grid
+    subtitle: blue team operations
+    tags: [SOC, Log analysis, Traffic analysis, Forensics, CyberDeception, Metrics]
+
+  - name: Threat Radar
+    subtitle: adversaries & intelligence
+    tags: [CTI, MITRE ATT&CK, Malware analysis]
+
+  - name: Breach Vectors
+    subtitle: offensive techniques
+    tags: [Web pentesting, Privilege escalation]
+
+  - name: Mind Models
+    subtitle: frameworks, thinking & AI
+    tags: [OODA Loop, AI, Bias]
+
+  - name: Training Grounds
+    subtitle: CTFs, platforms & write-ups
+    tags: [DGSE-CTF-2025, Holmes-CTF-2025, HTB, RootMe, Write-up]
+
+# ───────────────────────────────────────────────────────────────────────────
+# IN A POST'S FRONT MATTER
+# ───────────────────────────────────────────────────────────────────────────
+#
+# explore:
+#   paths:
+#     - { id: cyber-deception, step: 2 }
+#     - { id: blue-team-basics, step: 3 }   # optional: a post can sit on 2 paths
+#   level: 2         # 1 beginner · 2 intermediate · 3 advanced (optional)
+#   type: lab        # theory | lab | write-up | opinion (optional)
+#   image: /assets/images/posts/honeypot.jpg   # card image (optional, see below)
+#   nudge: [20, -40] # move this node by hand on the map, [x, y] (optional)
+#
+# Card image: explore.image is used first, then header.teaser, header.image,
+# header.overlay_image, then the path's image. Without any, a placeholder shows.
+#
+# The first node of each path automatically gets the "START HERE" badge.
+# Posts without explore.paths still appear on the map as free-floating nodes.

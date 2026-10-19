@@ -1,7 +1,7 @@
 ---
 title : "Intro to cyber deception : trapping the attacker"
 header:
-  overlay_image: /assets/images/lol.png
+  overlay_image: /assets/images/CyberDeception/Teaser_CyberDeception.jpg
   side_image: /assets/images/CyberDeception/Teaser_CyberDeception.jpg
 date : 2026-06-23
 toc: true
@@ -14,6 +14,13 @@ tags :
     - CTI
 excerpt : "An introduction to the art of luring attackers into traps to strengthen defenses and gather intelligence on their tactics."
 image_preview : /assets/images/CyberDeception/Teaser_CyberDeception.jpg
+
+explore:
+  paths:
+    - { id: cyber-deception, step: 1 }
+  level: 1
+  type: Blue-Ops
+  nudge: [100, 30] # move this node by hand on the map, [x, y] (optional)
 ---
 
 Traditional perimeter-based defences like firewalls and EDRs are no longer sufficient. Attackers have become experts at evading detection and bypassing these tools, which are now just a formality in their playbooks. What if, instead, we **intentionally forced attackers to make mistakes and leave digital footprints** ?

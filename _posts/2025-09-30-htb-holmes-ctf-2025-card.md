@@ -1,7 +1,7 @@
 ---
 title : "HTB Holmes CTF 2025 - The Card (easy)"
 header:
-  overlay_image: /assets/images/lol.png
+  overlay_image: /assets/images/HTB-Holmes-CTF-2025/holmes-banner.png
   side_image: /assets/images/HTB-Holmes-CTF-2025/holmes-banner.png
 date : 2025-09-30
 toc: true
@@ -12,7 +12,7 @@ tags :
     - Holmes-CTF-2025
     - Write-up
     - HTB
-    - Threat-intelligence
+    - CTI
 excerpt : "An easy challenge from the Holmes CTF that makes us use simplified Threat-intelligence-like platforms to learn more about the threat actor that performed multiple attacks against the Cogwork-1 organization."
 image_preview : /assets/images/HTB-Holmes-CTF-2025/holmes-banner.png
 ---

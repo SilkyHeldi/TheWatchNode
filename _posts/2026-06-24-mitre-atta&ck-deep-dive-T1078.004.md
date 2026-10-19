@@ -1,7 +1,7 @@
 ---
 title : "[ATT&CK Deep Dives] : T1078.004 Cloud Accounts"
 header:
-  overlay_image: /assets/images/lol.png
+  overlay_image: /assets/images/DeepDives/CloudAccounts/CloudAccounts.png
   side_image: /assets/images/DeepDives/CloudAccounts/CloudAccounts.png
 date : 2026-06-23
 toc: true
