@@ -25,22 +25,23 @@ paths:
     name: Cyber Deception
     color: "#00e5ff"
     status: ongoing
-    description: The art of sabotaging all the attacker's loop steps.
+    description: Honeypots, honeytokens and the art of lying to attackers.
     at: [0, 0]
     heading: -8
+    wander: 35
     planned:
-      - step: 2
+      - step: 4
+        title: Honeytokens in Active Directory
+      - step: 5
 
-  - id: dgse-ctf-2025
-    name: DGS3 CTF 2025
+  - id: ctf-field-notes
+    name: CTF Field Notes
     color: "#d62bff"
-    status: ongoing
-    description: Write-ups from the DGS3 CTF from 2025, step by step.
+    status: complete
+    description: Write-ups from CTFs and challenge platforms, step by step.
     at: [-60, 300]
     heading: 6
     wander: 45
-    planned:
-      - step: 4
 
   - id: blue-team-basics
     name: Blue Team Basics
@@ -52,6 +53,19 @@ paths:
     wander: 25
     planned:
       - step: 4
+
+# ═══════════════════════════════════════════════════════════════════════════
+# HYPERJUMP — the mystery node that sends readers to a random entry
+# ═══════════════════════════════════════════════════════════════════════════
+#
+#   explore_url → address of this explore page, for the "Back to map" button
+#
+# To keep a post out of the hyperjump, add to its front matter:
+#   explore:
+#     hyperjump: false
+
+hyperjump:
+  explore_url: /explore/
 
 # ═══════════════════════════════════════════════════════════════════════════
 # TAG FAMILIES — how the keywords are grouped under the map
@@ -97,6 +111,7 @@ tag_families:
 #   type: lab        # theory | lab | write-up | opinion (optional)
 #   image: /assets/images/posts/honeypot.jpg   # card image (optional, see below)
 #   nudge: [20, -40] # move this node by hand on the map, [x, y] (optional)
+#   hyperjump: false # never land on this post with the hyperjump (optional)
 #
 # Card image: explore.image is used first, then header.teaser, header.image,
 # header.overlay_image, then the path's image. Without any, a placeholder shows.

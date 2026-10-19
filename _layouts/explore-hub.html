@@ -55,9 +55,13 @@ layout: single
     and used as the main view on mobile.
   {%- endcomment -%}
   <section class="xindex" aria-labelledby="xIndexLabel">
+    <button type="button" class="xjump-btn" id="xJumpBtn" hidden>
+      <span class="xjump-btn__hex" aria-hidden="true">??</span>
+      <span class="xjump-btn__text"><b>UNKNOWN SIGNAL DETECTED</b><span>Initiate hyperjump → a random entry</span></span>
+    </button>
     <p class="xindex__mobile-note">// full star map available on larger screens</p>
     <details class="xindex__details" id="xIndex">
-      <summary class="hub-label xindex__summary" id="xIndexLabel">TEXT_INDEX — every trajectory as a list</summary>
+      <summary class="hub-label xindex__summary" id="xIndexLabel">TEXT_INDEX — every trajectory as a list<span class="xindex__toggle" aria-hidden="true"></span></summary>
       <div class="xindex__grid">
       {%- for path in site.data.explore.paths -%}
         {%- assign entries = "" | split: "" -%}

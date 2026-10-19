@@ -1,0 +1,11 @@
+{%- comment -%}
+  HYPERJUMP — arrival cover.
+  Add this line to _includes/head/custom.html (create the file if it
+  doesn't exist; Minimal Mistakes loads it inside <head> on every page):
+
+      {% include hyperjump-head.html %}
+
+  When a reader arrives through a hyperjump (?jump=1), it hides the page
+  under the warp's dark glow from the very first paint, until it's ready.
+{%- endcomment -%}
+<script>(function(){try{if(/[?&]jump=1(&|$)/.test(location.search)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('xjump-arriving')}catch(e){}})();</script>

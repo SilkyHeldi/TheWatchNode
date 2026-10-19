@@ -167,9 +167,25 @@
 
   if (!NODES.length) { console.warn('[explore] No posts to show'); return; }
 
+  // ── HYPERJUMP node ── a mystery node just past the eastern edge of the paths
+  const JUMP = { kind: 'jump', key: 'hyperjump', paths: [], tags: [] };
+  (function placeJump() {
+    const core = NODES.filter(n => !n.free);
+    const ref = core.length ? core : NODES;
+    let mx = -Infinity, y0 = Infinity, y1 = -Infinity;
+    ref.forEach(n => { mx = Math.max(mx, n.x); y0 = Math.min(y0, n.y); y1 = Math.max(y1, n.y); });
+    JUMP.x = mx + 210;
+    JUMP.y = (y0 + y1) / 2 - 30;
+    // keep free nodes out of its way
+    FREE.forEach(f => {
+      const dx = f.x - JUMP.x, dy = f.y - JUMP.y, d = Math.hypot(dx, dy) || 1;
+      if (d < 130) { f.x = JUMP.x + dx / d * 130; f.y = JUMP.y + dy / d * 130; }
+    });
+  })();
+
   // Map bounds
   const B = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
-  NODES.forEach(n => {
+  NODES.concat(JUMP).forEach(n => {
     B.minX = Math.min(B.minX, n.x); B.maxX = Math.max(B.maxX, n.x);
     B.minY = Math.min(B.minY, n.y); B.maxY = Math.max(B.maxY, n.y);
   });
@@ -275,6 +291,24 @@
     n.el = g;
     g._node = n;
   });
+
+  // ── Hyperjump node (last in Tab order) ──
+  (function drawJump() {
+    const r = 19;
+    const g = svgEl('a', {
+      href: '#hyperjump', class: 'xnode xnode--jump', role: 'button',
+      'aria-label': 'Unknown signal. Initiate hyperjump: travel to a random entry.',
+    }, gNodes);
+    g.setAttribute('transform', `translate(${JUMP.x.toFixed(1)} ${JUMP.y.toFixed(1)})`);
+    svgEl('polygon', { class: 'xnode__halo', points: hexPoints(r * 1.6) }, g);
+    svgEl('polygon', { class: 'xjump__ghost xjump__ghost--a', points: hexPoints(r) }, g);
+    svgEl('polygon', { class: 'xjump__ghost xjump__ghost--b', points: hexPoints(r) }, g);
+    svgEl('polygon', { class: 'xnode__hex', points: hexPoints(r) }, g);
+    svgEl('text', { class: 'xnode__num', y: 0.5 }, g).textContent = '??';
+    svgEl('text', { class: 'xnode__badge', y: -r - 14 }, g).textContent = 'UNKNOWN SIGNAL';
+    svgEl('text', { class: 'xnode__label', y: r + 18 }, g).textContent = 'NODE_??';
+    JUMP.el = g;
+  })();
 
   // ═════════════════════════════════════════════════════════════════════════
   // CAMERA
@@ -414,7 +448,7 @@
   }
   function homeNodes() {
     const inPaths = NODES.filter(n => !n.free);
-    return inPaths.length ? inPaths : NODES;
+    return (inPaths.length ? inPaths : NODES).concat(JUMP);   // keep the mystery node in view
   }
 
   // ═════════════════════════════════════════════════════════════════════════
@@ -441,6 +475,9 @@
     if (cardNode && cardNode !== n) cardNode.el.classList.remove('is-current');
     cardNode = n;
     n.el.classList.add('is-current');
+    card.classList.toggle('xcard--jump', n.kind === 'jump');
+    if (n.kind === 'jump') { fillJumpCard(); return; }
+    cardCta.firstElementChild.textContent = 'ACCESS ENTRY';
     const p = contextPath(n);
     card.style.setProperty('--c', p ? p.color : CFG.freeColor);
     card.classList.toggle('xcard--signal', n.kind === 'signal');
@@ -508,6 +545,26 @@
     positionCard();
   }
 
+  // Card for the hyperjump node: no title, no image, just a temptation
+  function fillJumpCard() {
+    card.style.setProperty('--c', JUMP_COLOR);
+    card.classList.remove('xcard--signal');
+    cardIdx.textContent = 'NODE_?? // [REDACTED]';
+    cardMed.classList.add('is-empty');
+    cardImg.removeAttribute('src');
+    cardPh.textContent = 'SIGNAL SCRAMBLED';
+    cardTit.textContent = 'Unknown coordinates';
+    cardBdg.hidden = true;
+    cardMeta.innerHTML = '<span>DESTINATION: CLASSIFIED</span><span>RISK: UNKNOWN</span>';
+    cardMeta.hidden = false;
+    cardNext.hidden = true;
+    cardCta.href = '#hyperjump';
+    cardCta.firstElementChild.textContent = 'INITIATE HYPERJUMP';
+    cardCta.hidden = false;
+    card.classList.add('is-visible');
+    positionCard();
+  }
+
   function positionCard() {
     if (!cardNode || !card.classList.contains('is-visible')) return;
     const n = cardNode;
@@ -546,6 +603,31 @@
 
   let lastPointer = 'mouse';
   let dragging = false;
+
+  // ── Hyperjump trigger ──
+  const JUMP_COLOR = '#ff2a6d';
+  function launchJump() {
+    if (window.Hyperjump) { window.Hyperjump.go(); return; }
+    // Fallback if _includes/hyperjump.html isn't installed: plain random jump
+    const pool = NODES.filter(n => n.kind === 'post');
+    const n = pool[Math.floor(Math.random() * pool.length)];
+    if (n) location.href = n.url;
+  }
+  JUMP.el.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch' && !dragging) showCard(JUMP); });
+  JUMP.el.addEventListener('pointerleave', e => { if (e.pointerType !== 'touch') hideCard(); });
+  JUMP.el.addEventListener('focus', () => { ensureVisible(JUMP); showCard(JUMP); });
+  JUMP.el.addEventListener('blur', e => { if (!card.contains(e.relatedTarget)) hideCard(); });
+  JUMP.el.addEventListener('click', e => {
+    e.preventDefault();
+    if (lastPointer === 'touch' && cardNode !== JUMP) { showCard(JUMP); return; }
+    launchJump();
+  });
+  cardCta.addEventListener('click', e => {
+    if (cardNode === JUMP) { e.preventDefault(); launchJump(); }
+  });
+  const jumpBtn = document.getElementById('xJumpBtn');
+  if (jumpBtn) { jumpBtn.hidden = false; jumpBtn.addEventListener('click', launchJump); }
+
   NODES.forEach(n => {
     n.el.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch' && !dragging) showCard(n); });
     n.el.addEventListener('pointerleave', e => { if (e.pointerType !== 'touch') hideCard(); });
@@ -699,6 +781,8 @@
       const c = svgEl('circle', { class: 'xmini__dot', cx: n.x.toFixed(0), cy: n.y.toFixed(0), r: dotR.toFixed(1) }, mini);
       c.style.setProperty('--c', n.paths[0] ? n.paths[0].color : CFG.freeColor);
     });
+    const jd = svgEl('circle', { class: 'xmini__dot xmini__dot--jump', cx: JUMP.x.toFixed(0), cy: JUMP.y.toFixed(0), r: (dotR * 1.3).toFixed(1) }, mini);
+    jd.style.setProperty('--c', '#ff2a6d');
     miniView = svgEl('rect', { class: 'xmini__view' }, mini);
     mini.addEventListener('click', e => {
       const pt = mini.createSVGPoint();

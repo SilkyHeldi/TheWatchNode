@@ -66,8 +66,12 @@ body.explore-page {
   border: 0;
 }
 
+// Frosted glass panel: the city background shows through, blurred.
+// The map itself stays solid (see .xmap) so stars and routes stay crisp.
 .explore-hub {
-  background: $x-ink;
+  background: rgba(8, 10, 16, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   color: #e0e0e0;
   font-family: $x-mono;
   min-height: 100vh;
@@ -194,10 +198,18 @@ body.explore-page {
   }
 
   // ─── MAP ─────────────────────────────────────────────────────────────────
+  // The map is a solid "screen" set into the glass panel
   .xmap {
     position: relative;
+    margin: 0.4rem 1.2rem 0;
+    background: $x-ink;
+    border: 1px solid rgba($x-cyan, 0.15);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 12px 40px rgba(0, 0, 0, 0.55);
 
-    &__label { padding: 0.4rem 2rem 0.3rem; }
+    &__label {
+      padding: 0.55rem 0.9rem 0.5rem;
+      background: rgba($x-cyan, 0.03);
+    }
 
     &::after {               // vignette
       content: '';
@@ -638,13 +650,61 @@ body.explore-page {
       color: rgba($x-cyan, 0.6);
     }
 
+    // Open / close toggle, styled like the other section labels:
+    // // TEXT_INDEX — … - - - - - - - - - - - - - [ + ]
     &__summary {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0;
+      opacity: 0.75;
       cursor: pointer;
       list-style: none;
+      user-select: none;
+      transition: opacity 0.15s;
+
       &::-webkit-details-marker { display: none; }
-      &::after { content: '  ▸'; }
+      &::before { white-space: pre; }   // keep the space after "//"
+
+      &:hover { opacity: 1; }
+      &:focus-visible { outline: 1px solid $x-cyan; outline-offset: 4px; opacity: 1; }
     }
-    &__details[open] .xindex__summary::after { content: '  ▾'; }
+
+    &__toggle {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-left: 0.9rem;
+      min-width: 3rem;
+
+      // the dashed line
+      &::before {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: repeating-linear-gradient(90deg, rgba($x-cyan, 0.35) 0 4px, transparent 4px 9px);
+        background-size: 18px 1px;
+      }
+
+      // the [ + ] marker
+      &::after {
+        content: '[ EXPAND + ]';
+        white-space: pre;
+        letter-spacing: 0.18em;
+        color: $x-cyan;
+        transition: text-shadow 0.15s;
+      }
+    }
+
+    &__summary:hover .xindex__toggle {
+      &::before {
+        background-image: repeating-linear-gradient(90deg, rgba($x-cyan, 0.8) 0 4px, transparent 4px 9px);
+        animation: x-dash-run 0.9s linear infinite;
+      }
+      &::after { text-shadow: 0 0 8px $x-cyan; }
+    }
+
+    &__details[open] .xindex__toggle::after { content: '[ COLLAPSE − ]'; }
 
     &__grid {
       display: grid;
@@ -960,10 +1020,106 @@ body.explore-page {
     .xnode__halo { opacity: 0.5; animation-duration: 1.6s; }
   }
 
+  // ─── HYPERJUMP NODE ──────────────────────────────────────────────────────
+  .xnode--jump {
+    --c: #ff2a6d;
+
+    .xnode__hex {
+      fill: rgba(30, 4, 18, 0.9);
+      stroke-dasharray: 22 4 6 4;
+      animation: x-flicker 2.6s linear infinite;
+    }
+    .xnode__num { fill: #fff; letter-spacing: 0.05em; }
+    .xnode__badge { animation: x-pulse 1.6s ease-in-out infinite; }
+    .xnode__label { opacity: 0.85; fill: var(--c); letter-spacing: 0.25em; }
+
+    // two offset copies that jitter: the "glitch"
+    .xjump__ghost {
+      fill: none;
+      stroke-width: 1.4;
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .xjump__ghost--a { stroke: #00e5ff; animation: x-ghost-a 3.1s steps(1) infinite; }
+    .xjump__ghost--b { stroke: #ff2a6d; animation: x-ghost-b 3.1s steps(1) infinite; }
+
+    &:hover,
+    &:focus-visible,
+    &.is-current {
+      .xnode__hex { fill: rgba(70, 6, 36, 0.95); }
+      .xjump__ghost--a { animation-duration: 0.9s; }
+      .xjump__ghost--b { animation-duration: 0.9s; }
+    }
+  }
+
+  .xmini__dot--jump { animation: x-pulse 1.6s ease-in-out infinite; }
+
+  .xcard--jump {
+    .xcard__title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      text-shadow: -1px 0 rgba(0, 229, 255, 0.7), 1px 0 rgba(255, 42, 109, 0.7);
+    }
+    .xcard__ph span { animation: x-flicker 2s linear infinite; }
+  }
+
+  // Mobile-only hyperjump button (the map, and its node, are hidden there)
+  .xjump-btn {
+    display: none;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    margin: 0 0 1.2rem;
+    padding: 0.8rem 1rem;
+    appearance: none;
+    background: rgba(255, 42, 109, 0.06);
+    border: 1px dashed rgba(255, 42, 109, 0.55);
+    border-radius: 2px;
+    color: #ff2a6d;
+    font-family: $x-mono;
+    text-align: left;
+    cursor: pointer;
+
+    &__hex {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 42px;
+      clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+      background: #ff2a6d;
+      color: $x-ink;
+      font-weight: bold;
+      font-size: 0.8rem;
+      animation: x-flicker 2.6s linear infinite;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: rgba($x-text, 0.7);
+
+      b { color: #ff2a6d; font-weight: normal; letter-spacing: 0.2em; font-size: 1.05em; }
+    }
+
+    &:focus-visible { outline: 1px solid #ff2a6d; outline-offset: 3px; }
+    &[hidden] { display: none !important; }
+  }
+
   // ─── MOBILE: text index instead of the map ───────────────────────────────
   @media (max-width: $x-map-bp) {
     .xpaths, .xmap { display: none !important; }
+    .explore-hub { background: rgba(8, 10, 16, 0.86); }
     .xindex__mobile-note { display: block; }
+    .xjump-btn { display: flex; }
+    .xindex__summary { flex-wrap: wrap; row-gap: 0.5rem; }
+    .xindex__toggle { flex-basis: 100%; margin-left: 0; }
     .hub-header, .xindex, .xtags { padding-left: 1rem; padding-right: 1rem; }
     .xresults__btn#xResMap { display: none; }
   }
@@ -977,12 +1133,245 @@ body.explore-page {
     .xchip__signal,
     .xindex__ongoing { animation: none !important; }
 
-    .xchip, .xnode, .xroute, .xcard, .xmap__hint, .xcard__cta, .xcard__img, .xtag, .xres__link { transition: none !important; }
+    .xchip, .xnode, .xroute, .xcard, .xmap__hint, .xcard__cta, .xcard__img, .xtag, .xres__link, .xindex__summary { transition: none !important; }
+    .xjump__ghost, .xnode--jump .xnode__hex, .xnode--jump .xnode__badge,
+    .xmini__dot--jump, .xjump-btn__hex, .xcard--jump .xcard__ph span { animation: none !important; }
+    .xindex__summary:hover .xindex__toggle::before { animation: none !important; }
   }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HYPERJUMP — global (warp overlay + arrival banner on article pages)
+// ═══════════════════════════════════════════════════════════════════════════
+.xwarp {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 4, 10, 0);
+  transition: background 0.35s ease;
+
+  &.is-on { background: rgba(2, 4, 10, 0.94); }
+  &.is-settle { transition: background 0.3s ease; }
+
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__txt {
+    position: relative;
+    margin: 0;
+    font: 0.8rem/1.6 'Courier New', monospace;
+    letter-spacing: 0.35em;
+    color: #00e5ff;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
+    padding: 1.4em 2.4em;
+    background: radial-gradient(ellipse at center, rgba(2, 4, 10, 0.85) 30%, transparent 75%);
+    opacity: 0;
+    transition: opacity 0.3s 0.1s;
+
+    span {
+      display: block;
+      font-size: 0.75em;
+      letter-spacing: 0.2em;
+      color: #ff2a6d;
+      text-shadow: 0 0 10px rgba(255, 42, 109, 0.7);
+    }
+  }
+  &.is-on .xwarp__txt { opacity: 1; }
+
+  &::after {               // soft glow near the end (no white flash)
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+      rgba(0, 229, 255, 0.28) 0%,
+      rgba(0, 229, 255, 0.08) 30%,
+      transparent 65%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
+  }
+  &.is-glow::after { opacity: 1; }
+
+  // last moment: text and glow dim (the streaks fade out in the script)
+  &.is-settle {
+    background: #02040a;
+    .xwarp__txt { opacity: 0; }
+    &::after { opacity: 0.4; }
+  }
+}
+
+// Arriving: _includes/hyperjump-head.html puts .xjump-arriving on <html>
+// before anything is drawn, so the page starts hidden under the same dark
+// glow the warp ended on. hyperjump.js adds .xjump-reveal once the page has
+// fully loaded, and the cover fades away.
+html.xjump-arriving body::after {
+  content: 'STABILIZING COORDINATES\2026';
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font: 0.62rem/1 'Courier New', monospace;
+  letter-spacing: 0.35em;
+  color: rgba(0, 229, 255, 0.55);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  background:
+    radial-gradient(circle at center, rgba(0, 229, 255, 0.11) 0%, rgba(0, 229, 255, 0.03) 30%, transparent 60%),
+    #02040a;
+  opacity: 1;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  // safety net: if the script never runs, uncover the page after 3 s anyway
+  animation: x-arrive-failsafe 0.6s ease-out 3s forwards;
+}
+html.xjump-arriving.xjump-reveal body::after { opacity: 0; }
+
+.xjump-banner {
+  position: relative;
+  margin: 0 0 2em;
+  padding: 0.9em 1.1em 1em;
+  background: rgba(8, 10, 16, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  border-left: 3px solid #ff2a6d;
+  box-shadow: 0 0 24px -8px rgba(255, 42, 109, 0.6);
+  font-family: 'Courier New', monospace;
+  animation: x-banner-in 0.6s steps(6) both;
+  transition: opacity 0.25s;
+
+  &.is-gone { opacity: 0; }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  &__tag {
+    position: relative;
+    font-size: 0.72em;
+    letter-spacing: 0.3em;
+    color: #ff2a6d;
+
+    // RGB split glitch on the label
+    &::before,
+    &::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    &::before { color: #00e5ff; transform: translateX(-1px); clip-path: inset(0 0 55% 0); animation: x-tag-glitch 3s steps(1) infinite; }
+    &::after  { color: #fff;    transform: translateX(1px);  clip-path: inset(55% 0 0 0); animation: x-tag-glitch 3s steps(1) infinite reverse; }
+  }
+
+  &__close {
+    appearance: none;
+    padding: 0.2em 0.4em;
+    background: none;
+    border: none;
+    color: rgba(232, 237, 245, 0.5);
+    font: inherit;
+    font-size: 0.8em;
+    cursor: pointer;
+    &:hover { color: #fff; }
+  }
+
+  &__msg {
+    margin: 0.45em 0 0.8em !important;
+    font-size: 0.8em !important;
+    line-height: 1.5;
+    color: rgba(232, 237, 245, 0.85);
+
+    b { color: #00e5ff; font-weight: normal; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  // Also beats Minimal Mistakes' link styles inside .page__content
+  &__btn,
+  .page__content &__btn {
+    appearance: none;
+    display: inline-block;
+    padding: 0.5em 0.9em;
+    background: transparent;
+    border: 1px solid rgba(0, 229, 255, 0.45);
+    border-radius: 2px;
+    color: #00e5ff;
+    font: 0.68em/1.2 'Courier New', monospace;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover { background: rgba(0, 229, 255, 0.1); color: #fff; text-decoration: none; }
+  }
+
+  &__btn--main,
+  .page__content &__btn--main {
+    background: #ff2a6d;
+    border-color: #ff2a6d;
+    color: #04080f;
+    font-weight: bold;
+
+    &:hover { background: #ff2a6d; color: #04080f; filter: brightness(1.15); }
+  }
+
+  button:focus-visible,
+  a:focus-visible { outline: 1px solid #00e5ff; outline-offset: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xwarp, .xwarp__txt, .xwarp::after, .xjump-banner { transition: none !important; }
+  html.xjump-arriving body::after { display: none; }
+  .xjump-banner, .xjump-banner__tag::before, .xjump-banner__tag::after { animation: none !important; }
+}
+
+// Browsers without blur support: nearly solid so text stays readable
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .explore-hub { background: rgba(8, 10, 16, 0.94); }
 }
 
 // ─── KEYFRAMES ─────────────────────────────────────────────────────────────
 @keyframes x-flow    { to { stroke-dashoffset: -28; } }
+@keyframes x-dash-run { to { background-position: 18px 0; } }
+@keyframes x-ghost-a {
+  0%, 62%, 70%, 100% { opacity: 0; transform: translate(0, 0); }
+  64% { opacity: 0.9; transform: translate(-3px, 1px); }
+  67% { opacity: 0.7; transform: translate(2px, -1px); }
+  90% { opacity: 0.6; transform: translate(-2px, 0); }
+  92% { opacity: 0; }
+}
+@keyframes x-ghost-b {
+  0%, 62%, 70%, 100% { opacity: 0; transform: translate(0, 0); }
+  64% { opacity: 0.9; transform: translate(3px, -1px); }
+  67% { opacity: 0.7; transform: translate(-2px, 1px); }
+  90% { opacity: 0.6; transform: translate(2px, 0); }
+  92% { opacity: 0; }
+}
+@keyframes x-arrive-failsafe { to { opacity: 0; } }
+@keyframes x-banner-in {
+  0% { opacity: 0; transform: translateX(-6px); clip-path: inset(0 100% 0 0); }
+  100% { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+@keyframes x-tag-glitch {
+  0%, 86%, 100% { transform: translateX(0); opacity: 0; }
+  88% { transform: translateX(-2px); opacity: 0.8; }
+  92% { transform: translateX(2px); opacity: 0.6; }
+}
 @keyframes x-halo    { 0%, 100% { transform: scale(1); opacity: 0.18; } 50% { transform: scale(1.12); opacity: 0.05; } }
 @keyframes x-twinkle { 0%, 100% { opacity: var(--o, 0.6); } 50% { opacity: 0.12; } }
 @keyframes x-pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }

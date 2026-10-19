@@ -1,0 +1,25 @@
+{%- comment -%}
+  HYPERJUMP — random travel between entries.
+  Add this line to _includes/footer/custom.html (create the file if it
+  doesn't exist; Minimal Mistakes loads it on every page):
+
+      {% include hyperjump.html %}
+
+  A post can opt out of the hyperjump with   explore: { hyperjump: false }
+{%- endcomment -%}
+{%- assign xj_explore = site.data.explore.hyperjump.explore_url | default: "/explore/" -%}
+<script type="application/json" id="hyperjumpData">
+{
+  "explore": {{ xj_explore | relative_url | jsonify }},
+  "posts": [
+  {%- assign xj_first = true -%}
+  {%- for p in site.posts -%}
+    {%- unless p.explore.hyperjump == false -%}
+      {%- unless xj_first %},{% endunless %}{{ p.url | relative_url | jsonify }}
+      {%- assign xj_first = false -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  ]
+}
+</script>
+<script src="{{ '/assets/js/hyperjump.js' | relative_url }}" defer></script>
