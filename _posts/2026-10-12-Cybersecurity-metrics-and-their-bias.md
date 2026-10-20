@@ -12,7 +12,7 @@ tags :
     - SOC
     - Metrics
     - Bias
-excerpt : "..."
+excerpt : "An article that questions how most teams misuse their metrics or even build them. Find out how this key element is overlooked, which can lead to a waste of money and skills."
 image_preview : /assets/images/SOCMetrics/Teaser_BlueTeamMetrics.png
 ---
 
