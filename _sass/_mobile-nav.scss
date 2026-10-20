@@ -1,0 +1,213 @@
+/* ==========================================================================
+   MOBILE NAV — loaded last in assets/css/main.scss
+   1. The bar always fits: logo shrinks, search + menu buttons never leave
+      the screen.
+   2. Spacing between menu items is padding, not margin, so the theme's
+      greedy-nav script measures it and moves items to the menu in time.
+   3. The menu (.hidden-links) is a vertical panel under the button, with
+      the Topics sub-links listed under Topics (no hover on phones).
+   ========================================================================== */
+
+$twn-mnav-accent: #00d4ff;
+$twn-mnav-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+
+/* --------------------------------------------------------------------------
+   1. BAR — logo, search and menu button share the width
+   -------------------------------------------------------------------------- */
+#site-nav.greedy-nav {
+  padding-right: 6px !important;
+
+  // The logo is the only part allowed to shrink
+  a.site-title.twn-logo {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .visible-links {
+    min-width: 0;
+  }
+
+  .search__toggle,
+  .greedy-nav__toggle {
+    flex: 0 0 auto !important;
+    transform: none !important;       // the old translateX(-10px) pushed them out
+  }
+
+  .greedy-nav__toggle {
+    margin-left: 4px;
+  }
+
+  // The theme darkens the page behind an open menu with a fixed layer, but the
+  // bar's backdrop-filter traps it inside the bar: it only greyed out the logo
+  .greedy-nav__toggle::before {
+    display: none;
+  }
+}
+
+// Phones: smaller logo plate so search + menu always fit next to it
+@media (max-width: 600px) {
+  .masthead__inner-wrap {
+    padding: 0.75em 0.6em !important;
+  }
+
+  #site-nav.greedy-nav {
+    a.site-title.twn-logo {
+      gap: 8px;
+      padding: 0 20px 0 12px;
+      font-size: clamp(0.8rem, 4vw, 1.15rem);
+      letter-spacing: 0.06em;
+    }
+
+    .search__toggle {
+      padding-left: 10px;
+      margin-left: 2px;
+    }
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. MENU ITEMS — spacing the greedy-nav script can measure
+   (jQuery outerWidth() counts padding but not margin)
+   -------------------------------------------------------------------------- */
+.greedy-nav .visible-links > li.masthead__menu-item-custom {
+  margin-right: 0 !important;
+  padding-right: 18px;
+
+  &:last-child {
+    margin-right: 0 !important;
+    padding-right: 6px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3. MENU PANEL — vertical list under the button
+   -------------------------------------------------------------------------- */
+.greedy-nav .hidden-links {
+  // Same panel on every screen size, overrides the old centered/wrapped version
+  display: block !important;
+  position: absolute;
+  top: 100%;
+  right: 0 !important;
+  left: auto !important;
+  width: min(17rem, calc(100vw - 1.2rem)) !important;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  margin: 8px 0 0 !important;
+  padding: 6px 0 !important;
+  text-align: left !important;
+  background: #08090e;
+  border: 0;
+  border-top: 2px solid $twn-mnav-accent;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 14px 30px rgba(0, 0, 0, 0.55);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  z-index: 1000;
+
+  &.hidden {
+    display: none !important;
+  }
+
+  // The theme's little arrow doesn't match the panel
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  // One row per item
+  > li.masthead__menu-item-custom {
+    display: block !important;
+    height: auto;
+    margin: 0 !important;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &::after {
+      display: none;                  // hover bridge, only useful on desktop
+    }
+  }
+
+  .glitch-wrapper {
+    display: block;
+    min-width: 0;
+  }
+
+  // Main links: same small spaced capitals as the desktop bar
+  a.glitch {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0.85rem 1.2rem !important;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    transition: color 0.15s ease, background 0.15s ease;
+
+    // The glitch clones sit on the text, not on the padding
+    .line:not(:first-child) {
+      top: 0.85rem;
+      left: 1.2rem;
+      width: auto;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $twn-mnav-accent;
+      background: rgba(0, 212, 255, 0.07);
+    }
+  }
+
+  // Current page: accent bar on the left
+  > li.is-active > .glitch-wrapper > a.glitch {
+    color: $twn-mnav-accent;
+    box-shadow: inset 2px 0 0 $twn-mnav-accent;
+  }
+
+  // Topics sub-links: always listed, indented, no hover needed
+  .nav-dropdown {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    margin: -0.3rem 0 0.4rem !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    .nav-dropdown-item {
+      border: 0;
+    }
+
+    .nav-dropdown-item a {
+      position: relative;
+      padding: 0.5rem 1.2rem 0.5rem 2.4rem !important;
+      font-family: $twn-mnav-mono !important;
+      font-size: 0.72rem !important;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: #b9b4c2 !important;
+
+      &::before {
+        content: "›";
+        position: absolute;
+        left: 1.45rem;
+        color: rgba(0, 212, 255, 0.55);
+      }
+
+      &:hover {
+        color: $twn-mnav-accent !important;
+        background: rgba(0, 212, 255, 0.07) !important;
+        transform: none;
+      }
+    }
+  }
+}

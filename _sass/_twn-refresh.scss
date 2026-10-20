@@ -619,3 +619,97 @@ html body .sidebar .h-card .author__urls {
     color: $twn-accent;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   6b. AUTHOR LINKS ON PHONES & TABLETS — no "Follow" button
+   Below 64em the theme hid the links behind a button. They are now a row of
+   square icon links under the bio, always visible.
+   -------------------------------------------------------------------------- */
+@media (max-width: 63.99em) {
+  // Undo the old button styling that custom.scss put on the wrapper
+  html body .sidebar .author__urls-wrapper {
+    display: block !important;
+    order: 4 !important;
+    width: 100%;
+    margin: 18px 0 0 !important;
+    padding: 0 !important;
+    font-family: $twn-mono !important;
+    font-size: 0.8rem !important;
+    text-transform: none !important;
+    cursor: default;
+  }
+
+  html body .sidebar .h-card .author__urls {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: static;
+    margin: 0;
+    padding: 14px 0 0;
+    border: 0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.14);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+
+    // The theme's little arrow pointed at the old button
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    flex-direction: row !important;
+
+    // Every item only as wide as its content…
+    > li {
+      flex: 0 0 auto;
+      width: auto;
+    }
+
+    // …except the location: a plain line of its own above the icons
+    > li.author__location {
+      flex-basis: 100%;
+      justify-content: center;
+      min-height: 0;
+      margin-bottom: 2px;
+      font-size: 0.8rem;
+    }
+
+    // Links: square icon buttons with the cut corner
+    a {
+      justify-content: center;
+      width: 44px;                 // comfortable tap size
+      height: 44px;
+      margin: 0;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      -webkit-clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      transition: box-shadow 0.2s ease, background 0.2s ease;
+
+      &:hover,
+      &:focus-visible {
+        background: rgba(0, 212, 255, 0.08);
+        box-shadow: inset 0 0 0 1px $twn-accent;
+      }
+
+      i {
+        font-size: 1.05rem;
+        margin: 0;
+      }
+    }
+
+    // Label kept for screen readers only
+    a .label {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+  }
+}

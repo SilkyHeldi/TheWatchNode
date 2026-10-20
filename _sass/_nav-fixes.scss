@@ -126,33 +126,4 @@
   pointer-events: none !important;
 }
 
-@media screen and (max-width: 600px) {
-  .greedy-nav .hidden-links {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
-
-  .greedy-nav .hidden-links .masthead__menu-item-custom {
-    margin-right: 0 !important; // annule le décalage de 25px
-  }
-}
-
-#site-nav.greedy-nav {
-  padding-right: 15px !important;
-
-  .search__toggle {
-    flex-shrink: 0 !important;
-    transform: translateX(-10px) !important;
-  }
-
-  .greedy-nav__toggle {
-    transform: translateX(-10px) !important;
-  }
-}
+// Mobile menu (greedy-nav dropdown) and toggle placement: see _mobile-nav.scss
