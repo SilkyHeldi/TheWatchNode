@@ -177,4 +177,4 @@ This article is my interpretation of the different sources I found, I could make
 [MTTD]: https://www.splunk.com/en_us/blog/learn/mean-time-to-detect-mttd.html
 [BAB]: https://www.blackhillsinfosec.com/tools/backdoorsandbreaches/
 [Engage]: https://engage.mitre.org/matrix/
-[blue-metrics]: https://thewatchnode/blueteamops/Cybersecurity-metrics-and-their-bias
+[blue-metrics]: https://thewatchnode.com/blueteamops/Cybersecurity-metrics-and-their-bias
