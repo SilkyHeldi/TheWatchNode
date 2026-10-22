@@ -275,6 +275,7 @@ We answered all the biases evoked in chapter 3 :
 
 A  metric isn’t true or false on its own, and it is not "found" on the dashboard. It is consciously built from an ordered process starting from a goal, the questions it asks, to the type of measure that can answer it, and finally the chosen measure(s) tied to their counter-metric. This way, **meaningful** and **objective** decisions can be made by technical people as much as executives.
 
+This article is my interpretation of the different sources I found, I could make mistakes, this is just a node among others in the vast world of Internet. As I am still learning, feel free to reach me by email if you want to discuss further or if you want to suggest any correction supported by a reliable source.
 
 *Sources :*
 - *NIST SP 800-55, describing how to "improve the quality and utility of information to support their technical and high-level decision making" : https://www.nist.gov/cybersecurity-measurement*
